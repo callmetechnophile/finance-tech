@@ -1,0 +1,3 @@
+__MOCK_PDF_INVOICE__
+This is a simulated PDF invoice containing raw text markers.
+The converters will intercept this and convert it to Structured Invoice Markdown.

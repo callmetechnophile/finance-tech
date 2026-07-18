@@ -1,0 +1,3 @@
+__MOCK_DOCX_CONTRACT__
+This is a simulated DOCX contract agreement with purchase order parameters.
+The converters will intercept this and convert it to Structured PO Markdown.

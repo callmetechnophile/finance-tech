@@ -1,0 +1,3 @@
+__MOCK_EXCEL_SHEET__
+Simulated spreadsheet mapping tabular bank statements.
+Will be parsed directly into flat CSV streams by the Excel converter.

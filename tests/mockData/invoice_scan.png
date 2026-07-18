@@ -1,0 +1,3 @@
+__MOCK_PNG_INVOICE__
+Simulated image buffer representing a camera scan of a vendor invoice.
+Puter.js + Gemma Vision OCR will read this layout and translate to parser text.
