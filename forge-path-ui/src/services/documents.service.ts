@@ -1,5 +1,13 @@
 import api from "@/lib/api-client";
-import type { Document } from "@/types";
+
+export interface Document {
+  id: string;
+  name: string;
+  size: string;
+  type: string;
+  status: "Processing" | "Completed" | "Failed";
+  progress: number;
+}
 
 export const documentsService = {
   async upload(file: File, onProgress?: (pct: number) => void): Promise<Document> {

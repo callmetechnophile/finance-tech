@@ -1,9 +1,19 @@
 import api from "@/lib/api-client";
-import type { Payment } from "@/types";
+
+export interface PayoutItem {
+  id: string;
+  vendor: string;
+  amount: number;
+  due_date: string;
+  priority: "High" | "Medium" | "Low";
+  discountOpportunity: string | null;
+  penaltyRisk: string | null;
+  status: string;
+}
 
 export const paymentsService = {
-  async getQueue(): Promise<Payment[]> {
-    const { data } = await api.get<Payment[]>("/api/v1/payments/queue");
+  async getQueue(): Promise<PayoutItem[]> {
+    const { data } = await api.get<PayoutItem[]>("/api/v1/payments/queue");
     return data;
   },
   async payNow(id: string): Promise<void> {
@@ -11,8 +21,5 @@ export const paymentsService = {
   },
   async delay(id: string, days: number): Promise<void> {
     await api.post(`/api/v1/payments/${id}/delay`, { days });
-  },
-  async approve(id: string): Promise<void> {
-    await api.post(`/api/v1/payments/${id}/approve`);
   },
 };

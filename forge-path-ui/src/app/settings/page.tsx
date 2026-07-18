@@ -1,81 +1,74 @@
 "use client";
 
 import { AppShell } from "@/components/layout/AppShell";
-import { Building, Users, Key, Shield, Check, EyeOff } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
 export default function SettingsPage() {
-  const [activeTab, setActiveTab] = useState<"company" | "users" | "keys" | "logs">("company");
-  const [nvidiaKey, setNvidiaKey] = useState("nvapi-••••••••••••••••");
+  const [dbStatus, setDbStatus] = useState("Connected");
 
   const saveSettings = () => {
-    toast.success("Configuration keys updated successfully.");
+    toast.success("Settings updated successfully.");
   };
 
   return (
     <AppShell>
-      <div className="p-6 space-y-6 max-w-7xl mx-auto">
+      <div className="p-8 space-y-8 max-w-4xl mx-auto">
         <div>
-          <h2 className="text-xl font-bold text-white">System Settings</h2>
-          <p className="text-xs text-[#9CA3AF] mt-1">Configure company profiles, integration API keys, and access logs.</p>
+          <h2 className="text-xl font-bold text-white">System Settings Console</h2>
+          <p className="text-xs text-[#888888] mt-1">
+            Configure Neon database connections, Twilio notification profiles, and Brevo mail endpoints.
+          </p>
         </div>
 
-        {/* Setting Tabs */}
-        <div className="flex gap-2 border-b border-[#1E253E] pb-px">
-          <button onClick={() => setActiveTab("company")} className={`px-4 py-2 text-xs font-semibold border-b-2 transition-all ${
-            activeTab === "company" ? "border-blue-600 text-blue-400" : "border-transparent text-[#9CA3AF] hover:text-white"
-          }`}>Company Profile</button>
-          <button onClick={() => setActiveTab("users")} className={`px-4 py-2 text-xs font-semibold border-b-2 transition-all ${
-            activeTab === "users" ? "border-blue-600 text-blue-400" : "border-transparent text-[#9CA3AF] hover:text-white"
-          }`}>User Management</button>
-          <button onClick={() => setActiveTab("keys")} className={`px-4 py-2 text-xs font-semibold border-b-2 transition-all ${
-            activeTab === "keys" ? "border-blue-600 text-blue-400" : "border-transparent text-[#9CA3AF] hover:text-white"
-          }`}>API Integrations</button>
-        </div>
-
-        {activeTab === "company" && (
-          <div className="p-6 rounded-2xl bg-[#111827] border border-[#1E253E] max-w-2xl space-y-4">
-            <h3 className="text-sm font-semibold text-white flex items-center gap-1.5"><Building className="w-4 h-4 text-blue-400" /> Organization Parameters</h3>
-            <div className="grid grid-cols-2 gap-4">
+        <div className="p-6 rounded-lg bg-[#1a1a1a] border border-[#2a2a2a] space-y-6">
+          <div className="space-y-4">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-white border-b border-[#2a2a2a] pb-2">Neon Configuration</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-[10px] uppercase font-bold text-[#6B7280] mb-2">Company Name</label>
-                <input type="text" defaultValue="Apex Manufacturing Inc." className="w-full px-3 py-2 bg-[#070A13] border border-[#1E253E] rounded-lg text-xs text-white" />
+                <label className="block text-[10px] font-bold text-[#888888] uppercase tracking-wider mb-2">Primary Database URI</label>
+                <input
+                  type="password"
+                  disabled
+                  value="postgresql://neondb_owner:••••••••••••••••@ep-delicate-moon-awljaoz4-pooler.c-12.us-east-1.aws.neon.tech/neondb"
+                  className="w-full px-3 py-2 bg-[#0a0a0a] border border-[#2a2a2a] rounded-md text-xs text-white"
+                />
               </div>
               <div>
-                <label className="block text-[10px] uppercase font-bold text-[#6B7280] mb-2">Industry Verticals</label>
-                <input type="text" defaultValue="CNC & Steel Fabrication" className="w-full px-3 py-2 bg-[#070A13] border border-[#1E253E] rounded-lg text-xs text-white" />
-              </div>
-            </div>
-            <button onClick={saveSettings} className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-xs font-semibold text-white rounded-xl transition-all">Save Changes</button>
-          </div>
-        )}
-
-        {activeTab === "keys" && (
-          <div className="p-6 rounded-2xl bg-[#111827] border border-[#1E253E] max-w-2xl space-y-4">
-            <h3 className="text-sm font-semibold text-white flex items-center gap-1.5"><Key className="w-4 h-4 text-blue-400" /> Integration API Keys</h3>
-            <div className="space-y-4">
-              <div>
-                <label className="block text-[10px] uppercase font-bold text-[#6B7280] mb-2">NVIDIA NIM API Key</label>
-                <div className="relative">
-                  <input type="password" value={nvidiaKey} onChange={(e) => setNvidiaKey(e.target.value)} className="w-full pl-3 pr-10 py-2 bg-[#070A13] border border-[#1E253E] rounded-lg text-xs text-white" />
-                  <EyeOff className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6B7280] cursor-pointer" />
+                <label className="block text-[10px] font-bold text-[#888888] uppercase tracking-wider mb-2">Connection Status</label>
+                <div className="h-[38px] flex items-center px-3 bg-[#0a0a0a] border border-[#2a2a2a] rounded-md text-xs text-[#22c55e] font-semibold">
+                  <span className="w-1.5 h-1.5 bg-[#22c55e] rounded-full mr-2" /> {dbStatus}
                 </div>
               </div>
+            </div>
+          </div>
 
+          <div className="space-y-4 pt-4">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-white border-b border-[#2a2a2a] pb-2">Notification Gateways</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-[10px] uppercase font-bold text-[#6B7280] mb-2">Twilio Auth Token</label>
-                <input type="password" defaultValue="••••••••••••••••" className="w-full px-3 py-2 bg-[#070A13] border border-[#1E253E] rounded-lg text-xs text-white" />
+                <label className="block text-[10px] font-bold text-[#888888] uppercase tracking-wider mb-2">Twilio virtual phone</label>
+                <input
+                  type="text"
+                  defaultValue="+1 201 555 0199"
+                  className="w-full px-3 py-2 bg-[#0a0a0a] border border-[#2a2a2a] rounded-md text-xs text-white focus:outline-none focus:border-[#faff69]"
+                />
               </div>
-
               <div>
-                <label className="block text-[10px] uppercase font-bold text-[#6B7280] mb-2">Brevo Delivery API Key</label>
-                <input type="password" defaultValue="••••••••••••••••" className="w-full px-3 py-2 bg-[#070A13] border border-[#1E253E] rounded-lg text-xs text-white" />
+                <label className="block text-[10px] font-bold text-[#888888] uppercase tracking-wider mb-2">Brevo Mailer Account</label>
+                <input
+                  type="email"
+                  defaultValue="billing@apex-manufacturing.com"
+                  className="w-full px-3 py-2 bg-[#0a0a0a] border border-[#2a2a2a] rounded-md text-xs text-white focus:outline-none focus:border-[#faff69]"
+                />
               </div>
             </div>
-            <button onClick={saveSettings} className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-xs font-semibold text-white rounded-xl transition-all">Save Config</button>
           </div>
-        )}
+
+          <button onClick={saveSettings} className="btn-primary">
+            Save System Changes
+          </button>
+        </div>
       </div>
     </AppShell>
   );

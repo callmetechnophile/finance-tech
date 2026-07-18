@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   LayoutDashboard, FileText, TrendingUp, Droplets, CreditCard,
@@ -50,19 +51,17 @@ export function Sidebar({ collapsed, onToggle, mobile, onMobileClose }: SidebarP
   return (
     <motion.aside
       animate={{ width: collapsed ? 76 : 280 }}
-      transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
+      transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
       className={cn(
-        "flex flex-col h-full relative",
-        "border-r border-[#1E253E]",
-        "bg-[#070A13] shadow-lg",
+        "flex flex-col h-full relative border-r border-[#2a2a2a] bg-[#1a1a1a] shadow-lg",
         mobile && "w-[280px]"
       )}
       style={{ width: mobile ? 280 : undefined }}
     >
-      {/* Logo Header */}
-      <div className="flex items-center gap-3 px-5 h-20 border-b border-[#1E253E] flex-shrink-0">
-        <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center flex-shrink-0 shadow-lg shadow-blue-500/10">
-          <Zap className="w-5 h-5 text-white" />
+      {/* Brand Logo Header */}
+      <div className="flex items-center gap-3 px-5 h-20 border-b border-[#2a2a2a] flex-shrink-0">
+        <div className="w-9 h-9 rounded-md bg-[#faff69] flex items-center justify-center flex-shrink-0 shadow-md">
+          <Zap className="w-5 h-5 text-[#0a0a0a]" />
         </div>
         <AnimatePresence>
           {(!collapsed || mobile) && (
@@ -70,17 +69,17 @@ export function Sidebar({ collapsed, onToggle, mobile, onMobileClose }: SidebarP
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -10 }}
-              transition={{ duration: 0.2 }}
+              transition={{ duration: 0.15 }}
               className="overflow-hidden"
             >
-              <div className="font-bold text-[#F8FAFC] text-sm tracking-wide leading-none">FORGE-PATH</div>
-              <div className="text-[10px] text-[#94A3B8] mt-1 font-semibold leading-none">AI CFO Command Center</div>
+              <div className="font-bold text-white text-sm tracking-wide leading-none">FORGE-PATH</div>
+              <div className="text-[10px] text-[#cccccc] mt-1 font-semibold leading-none">AI CFO Command Center</div>
             </motion.div>
           )}
         </AnimatePresence>
         {mobile && (
-          <button onClick={onMobileClose} className="ml-auto text-[#64748B] hover:text-[#F8FAFC] transition-colors">
-            <X className="w-4.5 h-4.5" />
+          <button onClick={onMobileClose} className="ml-auto text-[#888888] hover:text-white transition-colors">
+            <X className="w-5 h-5" />
           </button>
         )}
       </div>
@@ -97,7 +96,7 @@ export function Sidebar({ collapsed, onToggle, mobile, onMobileClose }: SidebarP
                   exit={{ opacity: 0 }}
                   className="px-3 pb-3 pt-1"
                 >
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-[#475569]">
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-[#888888]">
                     {group.group}
                   </span>
                 </motion.div>
@@ -113,20 +112,20 @@ export function Sidebar({ collapsed, onToggle, mobile, onMobileClose }: SidebarP
                       href={item.href}
                       onClick={onMobileClose}
                       className={cn(
-                        "flex items-center gap-3.5 rounded-xl px-4 py-3.5 text-[13px] font-semibold transition-all duration-200 group relative",
+                        "flex items-center gap-3.5 rounded-md px-4 py-3 text-[13px] font-semibold transition-all duration-150 group relative",
                         isActive
-                          ? "text-[#3B82F6]"
-                          : "text-[#94A3B8] hover:bg-[#111625] hover:text-[#F8FAFC]"
+                          ? "text-[#faff69]"
+                          : "text-[#cccccc] hover:bg-[#242424] hover:text-white"
                       )}
                     >
                       {isActive && (
                         <motion.div
                           layoutId="activeNav"
-                          className="absolute inset-0 rounded-xl bg-blue-500/5 border border-blue-500/10"
-                          transition={{ type: "spring", bounce: 0.15, duration: 0.4 }}
+                          className="absolute inset-0 rounded-md bg-[#faff69]/5 border border-[#faff69]/10"
+                          transition={{ type: "spring", bounce: 0.15, duration: 0.3 }}
                         />
                       )}
-                      <Icon className={cn("w-[18px] h-[18px] flex-shrink-0 relative z-10", isActive ? "text-[#3B82F6]" : "text-[#475569] group-hover:text-[#F8FAFC]")} />
+                      <Icon className={cn("w-[18px] h-[18px] flex-shrink-0 relative z-10", isActive ? "text-[#faff69]" : "text-[#888888] group-hover:text-white")} />
                       <AnimatePresence>
                         {(!collapsed || mobile) && (
                           <motion.span
@@ -148,12 +147,12 @@ export function Sidebar({ collapsed, onToggle, mobile, onMobileClose }: SidebarP
         ))}
       </nav>
 
-      {/* Collapse Trigger */}
+      {/* Collapse Toggle */}
       {!mobile && (
-        <div className="p-3 border-t border-[#1E253E]">
+        <div className="p-3 border-t border-[#2a2a2a]">
           <button
             onClick={onToggle}
-            className="w-full flex items-center justify-center h-10 rounded-xl text-[#475569] hover:text-[#F8FAFC] hover:bg-[#111625] transition-all"
+            className="w-full flex items-center justify-center h-10 rounded-md text-[#888888] hover:text-white hover:bg-[#242424] transition-all"
           >
             {collapsed ? <ChevronRight className="w-5 h-5" /> : <ChevronLeft className="w-5 h-5" />}
           </button>
@@ -167,15 +166,15 @@ export function Sidebar({ collapsed, onToggle, mobile, onMobileClose }: SidebarP
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="p-4 border-t border-[#1E253E]"
+            className="p-4 border-t border-[#2a2a2a]"
           >
-            <div className="flex items-center gap-3 px-3 py-3 rounded-xl bg-[#0F1322] border border-[#1E253E]">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center text-xs font-bold text-white flex-shrink-0 shadow-md">
-                A
+            <div className="flex items-center gap-3 px-3 py-3 rounded-md bg-[#0a0a0a] border border-[#2a2a2a]">
+              <div className="w-8 h-8 rounded-md bg-[#faff69] flex items-center justify-center text-xs font-bold text-[#0a0a0a] flex-shrink-0 shadow-md">
+                AM
               </div>
               <div className="overflow-hidden">
-                <div className="text-xs font-bold text-[#F8FAFC] truncate">Apex Manufacturing</div>
-                <div className="text-[9px] font-semibold text-[#94A3B8] mt-0.5 uppercase tracking-wider">CNC & Fabrication</div>
+                <div className="text-xs font-bold text-white truncate">Apex Manufacturing</div>
+                <div className="text-[9px] font-semibold text-[#888888] mt-0.5 uppercase tracking-wider">CNC & Fabrication</div>
               </div>
             </div>
           </motion.div>

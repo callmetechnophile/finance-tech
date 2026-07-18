@@ -1,5 +1,20 @@
 import api from "@/lib/api-client";
-import type { LiquidityMetrics, StressScenario } from "@/types";
+
+export interface LiquidityMetrics {
+  currentRatio: number;
+  quickRatio: number;
+  cashBurnRate: number;
+  daysRunway: number;
+}
+
+export interface StressScenario {
+  id: string;
+  name: string;
+  description: string;
+  impact_cash: number;
+  impact_runway: number;
+  status: "Passed" | "Failed" | "Warning";
+}
 
 export const liquidityService = {
   async getMetrics(): Promise<LiquidityMetrics> {

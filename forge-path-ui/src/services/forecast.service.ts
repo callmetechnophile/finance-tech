@@ -1,5 +1,18 @@
 import api from "@/lib/api-client";
-import type { ForecastData, ForecastPoint, Anomaly } from "@/types";
+
+export interface ForecastPoint {
+  name: string;
+  cash: number;
+  projected: number;
+  minConfidence: number;
+  maxConfidence: number;
+}
+
+export interface ForecastData {
+  points: ForecastPoint[];
+  cashRunway: number;
+  liquidityScore: number;
+}
 
 export const forecastService = {
   async getForecast(period: "7d" | "30d" | "90d"): Promise<ForecastData> {
@@ -8,10 +21,6 @@ export const forecastService = {
   },
   async getTimeSeries(period: "7d" | "30d" | "90d"): Promise<ForecastPoint[]> {
     const { data } = await api.get<ForecastPoint[]>(`/api/v1/cashflow/timeseries?period=${period}`);
-    return data;
-  },
-  async getAnomalies(): Promise<Anomaly[]> {
-    const { data } = await api.get<Anomaly[]>("/api/v1/cashflow/anomalies");
     return data;
   },
   async exportForecast(period: string, format: "pdf" | "csv" | "excel"): Promise<Blob> {

@@ -1,5 +1,11 @@
 import api from "@/lib/api-client";
-import type { AnalyticsMetric } from "@/types";
+
+export interface AnalyticsMetric {
+  name: string;
+  value: number;
+  change: number;
+  status: "up" | "down" | "stable";
+}
 
 export const analyticsService = {
   async getMetrics(period: "1m" | "3m" | "6m" | "1y" = "3m"): Promise<AnalyticsMetric[]> {
