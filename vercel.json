@@ -1,0 +1,6 @@
+{
+  "buildCommand": "cd forge-path-ui && npm install && npm run build",
+  "outputDirectory": "forge-path-ui/.next",
+  "installCommand": "cd forge-path-ui && npm install",
+  "framework": "nextjs"
+}
