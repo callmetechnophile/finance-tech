@@ -8,19 +8,19 @@ interface CommandPaletteProviderProps {
 }
 
 export default function CommandPaletteProvider({ children }: CommandPaletteProviderProps) {
-  const { setPaletteOpen } = useCommandStore();
+  const { isPaletteOpen, setPaletteOpen } = useCommandStore();
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.ctrlKey && e.key.toLowerCase() === "k") {
         e.preventDefault();
-        setPaletteOpen(true);
+        setPaletteOpen(!isPaletteOpen);
       }
     };
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [setPaletteOpen]);
+  }, [isPaletteOpen, setPaletteOpen]);
 
   return <>{children}</>;
 }

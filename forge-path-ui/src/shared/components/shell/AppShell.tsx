@@ -9,6 +9,7 @@ import StatusBarContainer from "./StatusBarContainer";
 import DrawerContainer from "./DrawerContainer";
 import ModalContainer from "./ModalContainer";
 import ToastContainer from "./ToastContainer";
+import CommandPaletteOverlay from "@/features/command-palette/CommandPaletteOverlay";
 
 interface AppShellProps {
   children?: ReactNode;
@@ -47,6 +48,9 @@ export default function AppShell({ children }: AppShellProps) {
       </ModalContainer>
       
       <ToastContainer />
+
+      {/* Universal Command Palette & Search Overlay */}
+      <CommandPaletteOverlay />
     </div>
   );
 }
