@@ -28,7 +28,7 @@ export default function LiquidityPage() {
 
   return (
     <AppShell>
-      <div className="p-8 space-y-8 max-w-7xl mx-auto">
+      <div className="p-12 space-y-14 max-w-7xl mx-auto">
         <div>
           <h2 className="text-xl font-bold text-white">Liquidity Intelligence & Scenario Testing</h2>
           <p className="text-xs text-[#888888] mt-1">
@@ -44,17 +44,17 @@ export default function LiquidityPage() {
 
           <div className="divide-y divide-[#2a2a2a]">
             {scenarios.map((s) => (
-              <div key={s.id} className="p-5 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+              <div key={s.id} className="p-7 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
                 <div className="space-y-1">
                   <h4 className="text-xs font-bold text-white">{s.name}</h4>
                   <p className="text-[10px] text-[#888888]">{s.description}</p>
-                  <div className="text-[10px] text-[#cccccc] flex gap-3 pt-1">
+                  <div className="text-[10px] text-[#cccccc] flex gap-7 pt-1">
                     <span>Cash Impact: <strong className="text-red-400 font-tabular">{formatCurrency(s.impact_cash)}</strong></span>
                     <span>Runway Impact: <strong className="text-red-400">{s.impact_runway} days</strong></span>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-7">
                   <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
                     s.status === "Passed" ? "bg-[#22c55e]/10 text-[#22c55e] border border-[#22c55e]/25" :
                     s.status === "Warning" ? "bg-[#f59e0b]/10 text-[#f59e0b] border border-[#f59e0b]/25" :

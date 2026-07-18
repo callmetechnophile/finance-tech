@@ -136,7 +136,7 @@ export function TopNav({ onMobileMenuOpen }: TopNavProps) {
 
       {/* SECTION 3: Live AI Status Indicator */}
       <div 
-        className="flex items-center gap-3 px-4 py-2 rounded-md bg-[#1a1a1a] border border-[#2a2a2a] cursor-help relative"
+        className="flex items-center gap-7 px-4 py-2 rounded-md bg-[#1a1a1a] border border-[#2a2a2a] cursor-help relative"
         onMouseEnter={() => setShowAITooltip(true)}
         onMouseLeave={() => setShowAITooltip(false)}
       >
@@ -217,7 +217,7 @@ export function TopNav({ onMobileMenuOpen }: TopNavProps) {
                 </div>
                 <div className="max-h-80 overflow-y-auto divide-y divide-[#2a2a2a]">
                   {alerts.map((alert) => (
-                    <div key={alert.id} className="flex gap-3 px-4 py-3.5 hover:bg-[#242424]/30 transition-colors group">
+                    <div key={alert.id} className="flex gap-7 px-4 py-3.5 hover:bg-[#242424]/30 transition-colors group">
                       <div className="w-1.5 h-1.5 rounded-full bg-[#ef4444] mt-2 flex-shrink-0" />
                       <div className="flex-1 min-w-0">
                         <div className="text-xs font-semibold text-white leading-snug">{alert.title}</div>
@@ -249,7 +249,7 @@ export function TopNav({ onMobileMenuOpen }: TopNavProps) {
         <div className="relative" ref={profileRef}>
           <button
             onClick={() => setShowProfileMenu(!showProfileMenu)}
-            className="flex items-center gap-3 px-2 py-1.5 rounded-md hover:bg-[#242424] transition-all text-left"
+            className="flex items-center gap-7 px-2 py-1.5 rounded-md hover:bg-[#242424] transition-all text-left"
           >
             <div className="w-[30px] h-[30px] rounded-md bg-[#faff69] flex items-center justify-center text-xs font-bold text-[#0a0a0a] shadow-md">
               AM

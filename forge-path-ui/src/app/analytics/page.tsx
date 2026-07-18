@@ -6,7 +6,7 @@ import { Activity, ShieldCheck, Zap } from "lucide-react";
 export default function AnalyticsPage() {
   return (
     <AppShell>
-      <div className="p-8 space-y-8 max-w-7xl mx-auto">
+      <div className="p-12 space-y-14 max-w-7xl mx-auto">
         <div>
           <h2 className="text-xl font-bold text-white">Interactive Analytics & BI Grids</h2>
           <p className="text-xs text-[#888888] mt-1">

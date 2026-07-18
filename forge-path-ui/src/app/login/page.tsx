@@ -114,7 +114,7 @@ export default function LoginPage() {
       {/* Footer Creds */}
       <div className="w-full max-w-md mx-auto text-center relative z-10 mt-8">
         <p className="text-[10px] text-[#5a5a5a] uppercase tracking-widest font-semibold mb-3">Enterprise Infrastructure Stack</p>
-        <div className="flex items-center justify-center gap-5 text-xs text-[#888888] font-medium opacity-70">
+        <div className="flex items-center justify-center gap-7 text-xs text-[#888888] font-medium opacity-70">
           <span>Gemma 4</span>
           <span>NVIDIA NIM</span>
           <span>NeonDB</span>

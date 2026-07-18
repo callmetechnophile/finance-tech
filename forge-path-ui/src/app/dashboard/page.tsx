@@ -23,7 +23,7 @@ export default function DashboardPage() {
 
   return (
     <AppShell>
-      <div className="flex flex-col gap-8 p-8 max-w-[1600px] mx-auto w-full">
+      <div className="flex flex-col gap-12 p-8 max-w-[1600px] mx-auto w-full">
         
         {/* EXECUTIVE SUMMARY */}
         <div className="p-8 rounded-lg bg-[#1a1a1a] border border-[#2a2a2a] relative overflow-hidden">
@@ -31,7 +31,7 @@ export default function DashboardPage() {
           
           <div className="relative z-10 flex flex-col xl:flex-row xl:items-center justify-between gap-6">
             <div className="space-y-3">
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-7">
                 <span className="px-2.5 py-0.5 rounded bg-[#22c55e]/10 border border-[#22c55e]/25 text-[10px] font-bold text-[#22c55e] uppercase">
                   Healthy
                 </span>
@@ -44,7 +44,7 @@ export default function DashboardPage() {
               </p>
             </div>
             
-            <div className="flex flex-wrap items-center gap-4 xl:gap-8 bg-[#0a0a0a] p-5 rounded-md border border-[#2a2a2a] flex-shrink-0">
+            <div className="flex flex-wrap items-center gap-6 xl:gap-12 bg-[#0a0a0a] p-7 rounded-md border border-[#2a2a2a] flex-shrink-0">
               <div className="text-center xl:text-left">
                 <div className="text-[10px] font-bold text-[#888888] uppercase tracking-wider">Cash Runway</div>
                 <div className="text-lg font-bold text-white mt-1">68 Days</div>
@@ -64,9 +64,9 @@ export default function DashboardPage() {
         </div>
 
         {/* 8-COLUMN REDESIGNED KPI GRID */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-8 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-8 gap-6">
           
-          <div className="p-5 rounded-lg bg-[#1a1a1a] border border-[#2a2a2a] flex flex-col items-center justify-between min-h-[140px] text-center hover:border-[#faff69]/30 transition-all duration-200">
+          <div className="p-7 rounded-lg bg-[#1a1a1a] border border-[#2a2a2a] flex flex-col items-center justify-between min-h-[140px] text-center hover:border-[#faff69]/30 transition-all duration-200">
             <span className="text-[9px] font-bold text-[#888888] uppercase tracking-wider w-full text-center">Current Cash</span>
             <div className="mt-1.5">
               <div className="text-xl font-bold text-white tracking-tight font-tabular">$342.0K</div>
@@ -79,7 +79,7 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          <div className="p-5 rounded-lg bg-[#1a1a1a] border border-[#2a2a2a] flex flex-col items-center justify-between min-h-[140px] text-center hover:border-[#faff69]/30 transition-all duration-200">
+          <div className="p-7 rounded-lg bg-[#1a1a1a] border border-[#2a2a2a] flex flex-col items-center justify-between min-h-[140px] text-center hover:border-[#faff69]/30 transition-all duration-200">
             <span className="text-[9px] font-bold text-[#888888] uppercase tracking-wider w-full text-center">Receivables</span>
             <div className="mt-1.5">
               <div className="text-xl font-bold text-white tracking-tight font-tabular">$284.5K</div>
@@ -92,7 +92,7 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          <div className="p-5 rounded-lg bg-[#1a1a1a] border border-[#2a2a2a] flex flex-col items-center justify-between min-h-[140px] text-center hover:border-[#faff69]/30 transition-all duration-200">
+          <div className="p-7 rounded-lg bg-[#1a1a1a] border border-[#2a2a2a] flex flex-col items-center justify-between min-h-[140px] text-center hover:border-[#faff69]/30 transition-all duration-200">
             <span className="text-[9px] font-bold text-[#888888] uppercase tracking-wider w-full text-center">Payables</span>
             <div className="mt-1.5">
               <div className="text-xl font-bold text-white tracking-tight font-tabular">$118.4K</div>
@@ -105,7 +105,7 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          <div className="p-5 rounded-lg bg-[#1a1a1a] border border-[#2a2a2a] flex flex-col items-center justify-between min-h-[140px] text-center hover:border-[#faff69]/30 transition-all duration-200">
+          <div className="p-7 rounded-lg bg-[#1a1a1a] border border-[#2a2a2a] flex flex-col items-center justify-between min-h-[140px] text-center hover:border-[#faff69]/30 transition-all duration-200">
             <span className="text-[9px] font-bold text-[#888888] uppercase tracking-wider w-full text-center">Liquidity Index</span>
             <div className="mt-1.5">
               <div className="text-xl font-bold text-[#22c55e] tracking-tight font-tabular">84/100</div>
@@ -118,7 +118,7 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          <div className="p-5 rounded-lg bg-[#1a1a1a] border border-[#2a2a2a] flex flex-col items-center justify-between min-h-[140px] text-center hover:border-[#faff69]/30 transition-all duration-200">
+          <div className="p-7 rounded-lg bg-[#1a1a1a] border border-[#2a2a2a] flex flex-col items-center justify-between min-h-[140px] text-center hover:border-[#faff69]/30 transition-all duration-200">
             <span className="text-[9px] font-bold text-[#888888] uppercase tracking-wider w-full text-center">Runway</span>
             <div className="mt-1.5">
               <div className="text-xl font-bold text-white tracking-tight font-tabular">68 Days</div>
@@ -131,7 +131,7 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          <div className="p-5 rounded-lg bg-[#1a1a1a] border border-[#2a2a2a] flex flex-col items-center justify-between min-h-[140px] text-center hover:border-[#faff69]/30 transition-all duration-200">
+          <div className="p-7 rounded-lg bg-[#1a1a1a] border border-[#2a2a2a] flex flex-col items-center justify-between min-h-[140px] text-center hover:border-[#faff69]/30 transition-all duration-200">
             <span className="text-[9px] font-bold text-[#888888] uppercase tracking-wider w-full text-center">Work Capital</span>
             <div className="mt-1.5">
               <div className="text-xl font-bold text-white tracking-tight font-tabular">$508K</div>
@@ -144,7 +144,7 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          <div className="p-5 rounded-lg bg-[#1a1a1a] border border-[#2a2a2a] flex flex-col items-center justify-between min-h-[140px] text-center hover:border-[#faff69]/30 transition-all duration-200">
+          <div className="p-7 rounded-lg bg-[#1a1a1a] border border-[#2a2a2a] flex flex-col items-center justify-between min-h-[140px] text-center hover:border-[#faff69]/30 transition-all duration-200">
             <span className="text-[9px] font-bold text-[#888888] uppercase tracking-wider w-full text-center">Daily Burn</span>
             <div className="mt-1.5">
               <div className="text-xl font-bold text-white tracking-tight font-tabular">$5.0K</div>
@@ -157,7 +157,7 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          <div className="p-5 rounded-lg bg-[#1a1a1a] border border-[#2a2a2a] flex flex-col items-center justify-between min-h-[140px] text-center hover:border-[#faff69]/30 transition-all duration-200">
+          <div className="p-7 rounded-lg bg-[#1a1a1a] border border-[#2a2a2a] flex flex-col items-center justify-between min-h-[140px] text-center hover:border-[#faff69]/30 transition-all duration-200">
             <span className="text-[9px] font-bold text-[#888888] uppercase tracking-wider w-full text-center">Confidence</span>
             <div className="mt-1.5">
               <div className="text-xl font-bold text-[#faff69] tracking-tight font-tabular">94.8%</div>
@@ -173,14 +173,14 @@ export default function DashboardPage() {
         </div>
 
         {/* 12-COLUMN MAIN COMMAND GRID */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           
           {/* Left Panel (8 Columns): Financial Forecasts & Graphs */}
-          <div className="lg:col-span-8 space-y-8">
+          <div className="lg:col-span-8 space-y-12">
             
             {/* Forecast Chart Panel */}
             <div className="p-8 rounded-lg bg-[#1a1a1a] border border-[#2a2a2a]">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-6">
                 <div>
                   <h3 className="text-sm font-bold text-white tracking-wide">Cash Flow Forecast Pipeline</h3>
                   <p className="text-[11px] font-medium text-[#888888] mt-0.5">Deterministic ledger forecasts with AI confidence intervals</p>
@@ -286,7 +286,7 @@ export default function DashboardPage() {
           </div>
 
           {/* Right Panel (4 Columns): AI command logs, actions, alerts */}
-          <div className="lg:col-span-4 space-y-8">
+          <div className="lg:col-span-4 space-y-12">
             
             {/* AI INSIGHTS PANEL */}
             <div className="p-6 rounded-lg bg-[#1a1a1a] border border-[#faff69]/20 shadow-glow-yellow space-y-4">
@@ -317,7 +317,7 @@ export default function DashboardPage() {
             <div className="p-6 rounded-lg bg-[#1a1a1a] border border-[#2a2a2a] space-y-4">
               <h3 className="text-xs font-bold text-white uppercase tracking-wider">Critical Alerts</h3>
               <div className="space-y-3">
-                <div className="p-4 rounded-md bg-[#0a0a0a] border border-[#ef4444]/20 flex gap-3">
+                <div className="p-4 rounded-md bg-[#0a0a0a] border border-[#ef4444]/20 flex gap-7">
                   <AlertCircle className="w-5 h-5 text-[#ef4444] flex-shrink-0 mt-0.5" />
                   <div>
                     <div className="text-xs font-bold text-white">Overdue Collections: INV-2024-089</div>
@@ -330,7 +330,7 @@ export default function DashboardPage() {
             {/* QUICK ACTIONS CARD */}
             <div className="p-6 rounded-lg bg-[#1a1a1a] border border-[#2a2a2a] space-y-4">
               <h3 className="text-xs font-bold text-white uppercase tracking-wider">Action Center</h3>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-7">
                 <Link href="/documents" className="p-4 rounded-md bg-[#0a0a0a] hover:bg-[#242424] border border-[#2a2a2a] flex flex-col items-center justify-center text-center transition-all group">
                   <UploadCloud className="w-5 h-5 text-[#faff69] mb-2 group-hover:scale-105 transition-transform" />
                   <span className="text-[9px] font-bold text-white">Upload Docs</span>

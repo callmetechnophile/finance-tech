@@ -60,7 +60,7 @@ export default function CollectionsPage() {
 
   return (
     <AppShell>
-      <div className="p-8 space-y-8 max-w-7xl mx-auto">
+      <div className="p-12 space-y-14 max-w-7xl mx-auto">
         <div>
           <h2 className="text-xl font-bold text-white">Collection Intelligence & Follow-up</h2>
           <p className="text-xs text-[#888888] mt-1">
@@ -69,7 +69,7 @@ export default function CollectionsPage() {
         </div>
 
         <div className="bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg overflow-hidden">
-          <div className="p-4 border-b border-[#2a2a2a] flex gap-3">
+          <div className="p-4 border-b border-[#2a2a2a] flex gap-7">
             <div className="flex-1 relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#888888]" />
               <input
@@ -140,7 +140,7 @@ export default function CollectionsPage() {
                 animate={{ x: 0 }}
                 exit={{ x: "100%" }}
                 transition={{ type: "spring", damping: 30, stiffness: 300 }}
-                className="fixed right-0 top-0 h-full w-full max-w-lg bg-[#1a1a1a] border-l border-[#2a2a2a] shadow-2xl z-50 overflow-y-auto p-6 space-y-6"
+                className="fixed right-0 top-0 h-full w-full max-w-lg bg-[#1a1a1a] border-l border-[#2a2a2a] shadow-2xl z-50 overflow-y-auto p-10 space-y-12"
               >
                 <div className="flex justify-between items-center pb-4 border-b border-[#2a2a2a]">
                   <div>

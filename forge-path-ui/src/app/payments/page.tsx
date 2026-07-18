@@ -30,7 +30,7 @@ export default function PaymentsPage() {
 
   return (
     <AppShell>
-      <div className="p-8 space-y-8 max-w-7xl mx-auto">
+      <div className="p-12 space-y-14 max-w-7xl mx-auto">
         <div>
           <h2 className="text-xl font-bold text-white">Payment Optimization Engine</h2>
           <p className="text-xs text-[#888888] mt-1">
@@ -38,8 +38,8 @@ export default function PaymentsPage() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="p-5 rounded-lg bg-[#1a1a1a] border border-[#2a2a2a]">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="p-7 rounded-lg bg-[#1a1a1a] border border-[#2a2a2a]">
             <span className="text-[10px] font-bold uppercase tracking-wider text-[#888888]">Queued Payables</span>
             <div className="flex items-center gap-2 mt-2">
               <span className="text-xl font-bold text-white font-tabular">{formatCurrency(57000)}</span>
@@ -47,7 +47,7 @@ export default function PaymentsPage() {
             <p className="text-[10px] text-[#888888] mt-1">2 upcoming vendor obligations</p>
           </div>
 
-          <div className="p-5 rounded-lg bg-[#1a1a1a] border border-[#2a2a2a]">
+          <div className="p-7 rounded-lg bg-[#1a1a1a] border border-[#2a2a2a]">
             <span className="text-[10px] font-bold uppercase tracking-wider text-[#888888]">Discount Capture</span>
             <div className="flex items-center gap-2 mt-2">
               <span className="text-xl font-bold text-[#22c55e] font-tabular">{formatCurrency(900)}</span>
@@ -55,7 +55,7 @@ export default function PaymentsPage() {
             <p className="text-[10px] text-[#22c55e] mt-1 font-semibold">Active discounts available</p>
           </div>
 
-          <div className="p-5 rounded-lg bg-[#1a1a1a] border border-[#2a2a2a]">
+          <div className="p-7 rounded-lg bg-[#1a1a1a] border border-[#2a2a2a]">
             <span className="text-[10px] font-bold uppercase tracking-wider text-[#888888]">Penalty Exposure</span>
             <div className="flex items-center gap-2 mt-2">
               <span className="text-xl font-bold text-[#ef4444] font-tabular">{formatCurrency(180)}</span>
@@ -71,7 +71,7 @@ export default function PaymentsPage() {
 
           <div className="divide-y divide-[#2a2a2a]">
             {payments.map((p) => (
-              <div key={p.id} className="p-5 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+              <div key={p.id} className="p-7 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
                     <h4 className="text-xs font-bold text-white">{p.vendor}</h4>
@@ -81,7 +81,7 @@ export default function PaymentsPage() {
                       {p.priority}
                     </span>
                   </div>
-                  <div className="text-[10px] text-[#888888] flex items-center gap-3">
+                  <div className="text-[10px] text-[#888888] flex items-center gap-7">
                     <span className="flex items-center gap-1"><DollarSign className="w-3 h-3" /> {formatCurrency(p.amount)}</span>
                     <span className="flex items-center gap-1"><Calendar className="w-3 h-3" /> Due {p.due_date}</span>
                   </div>

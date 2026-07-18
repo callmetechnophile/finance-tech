@@ -36,9 +36,9 @@ export default function CopilotPage() {
       <div className="flex flex-col h-[calc(100vh-72px)] bg-[#0a0a0a]">
         
         {/* Messages viewport */}
-        <div className="flex-1 overflow-y-auto p-8 space-y-6 max-w-4xl mx-auto w-full">
+        <div className="flex-1 overflow-y-auto p-8 space-y-10 max-w-4xl mx-auto w-full">
           {messages.map((m) => (
-            <div key={m.id} className={`flex gap-4 ${m.role === "user" ? "justify-end" : ""}`}>
+            <div key={m.id} className={`flex gap-6 ${m.role === "user" ? "justify-end" : ""}`}>
               {m.role === "assistant" && (
                 <div className="w-8 h-8 rounded-md bg-[#faff69] flex items-center justify-center flex-shrink-0">
                   <Bot className="w-4.5 h-4.5 text-[#0a0a0a]" />
@@ -60,7 +60,7 @@ export default function CopilotPage() {
           ))}
 
           {isThinking && (
-            <div className="flex gap-4">
+            <div className="flex gap-6">
               <div className="w-8 h-8 rounded-md bg-[#faff69] flex items-center justify-center">
                 <Bot className="w-4.5 h-4.5 text-[#0a0a0a]" />
               </div>
@@ -76,7 +76,7 @@ export default function CopilotPage() {
 
         {/* Input box */}
         <div className="p-6 border-t border-[#2a2a2a] bg-[#1a1a1a]/50">
-          <form onSubmit={handleSend} className="max-w-4xl mx-auto flex gap-3">
+          <form onSubmit={handleSend} className="max-w-4xl mx-auto flex gap-7">
             <input
               type="text"
               value={input}

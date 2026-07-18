@@ -21,8 +21,8 @@ export default function CashFlowPage() {
 
   return (
     <AppShell>
-      <div className="p-8 space-y-8 max-w-7xl mx-auto">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="p-12 space-y-14 max-w-7xl mx-auto">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
           <div>
             <h2 className="text-xl font-bold text-white">Cash Flow Forecasting</h2>
             <p className="text-xs text-[#888888] mt-1">
@@ -51,8 +51,8 @@ export default function CashFlowPage() {
         </div>
 
         {/* Forecast Metrics grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="p-5 rounded-lg bg-[#1a1a1a] border border-[#2a2a2a]">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="p-7 rounded-lg bg-[#1a1a1a] border border-[#2a2a2a]">
             <span className="text-[10px] font-bold uppercase tracking-wider text-[#888888]">Projected Net Flow</span>
             <div className="flex items-center gap-2 mt-2">
               <span className="text-xl font-bold text-[#22c55e] font-tabular">+{formatCurrency(52000)}</span>
@@ -63,7 +63,7 @@ export default function CashFlowPage() {
             <p className="text-[10px] text-[#888888] mt-1">Based on projected receipts from 14 invoices</p>
           </div>
 
-          <div className="p-5 rounded-lg bg-[#1a1a1a] border border-[#2a2a2a]">
+          <div className="p-7 rounded-lg bg-[#1a1a1a] border border-[#2a2a2a]">
             <span className="text-[10px] font-bold uppercase tracking-wider text-[#888888]">Total Expected Inflow</span>
             <div className="flex items-center mt-2">
               <span className="text-xl font-bold text-white font-tabular">{formatCurrency(208000)}</span>
@@ -71,7 +71,7 @@ export default function CashFlowPage() {
             <p className="text-[10px] text-[#888888] mt-1">Weighted by customer historical payment speed</p>
           </div>
 
-          <div className="p-5 rounded-lg bg-[#1a1a1a] border border-[#2a2a2a]">
+          <div className="p-7 rounded-lg bg-[#1a1a1a] border border-[#2a2a2a]">
             <span className="text-[10px] font-bold uppercase tracking-wider text-[#888888]">Total Expected Outflow</span>
             <div className="flex items-center mt-2">
               <span className="text-xl font-bold text-white font-tabular">{formatCurrency(156000)}</span>
@@ -82,7 +82,7 @@ export default function CashFlowPage() {
 
         {/* Charts & Key Drivers */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2 space-y-6">
+          <div className="lg:col-span-2 space-y-10">
             <div className="p-6 rounded-lg bg-[#1a1a1a] border border-[#2a2a2a]">
               <h3 className="text-sm font-semibold text-white mb-4">Cash Flow Projection Trend</h3>
               <div className="h-72">
@@ -105,7 +105,7 @@ export default function CashFlowPage() {
             </div>
           </div>
 
-          <div className="space-y-6">
+          <div className="space-y-10">
             <div className="p-6 rounded-lg bg-[#1a1a1a] border border-[#2a2a2a] space-y-4">
               <h3 className="text-sm font-semibold text-white">Top Cash Flow Drivers</h3>
               

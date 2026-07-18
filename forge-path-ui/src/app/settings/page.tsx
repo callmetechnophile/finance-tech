@@ -13,7 +13,7 @@ export default function SettingsPage() {
 
   return (
     <AppShell>
-      <div className="p-8 space-y-8 max-w-4xl mx-auto">
+      <div className="p-12 space-y-14 max-w-4xl mx-auto">
         <div>
           <h2 className="text-xl font-bold text-white">System Settings Console</h2>
           <p className="text-xs text-[#888888] mt-1">
@@ -21,10 +21,10 @@ export default function SettingsPage() {
           </p>
         </div>
 
-        <div className="p-6 rounded-lg bg-[#1a1a1a] border border-[#2a2a2a] space-y-6">
+        <div className="p-6 rounded-lg bg-[#1a1a1a] border border-[#2a2a2a] space-y-10">
           <div className="space-y-4">
             <h3 className="text-xs font-bold uppercase tracking-wider text-white border-b border-[#2a2a2a] pb-2">Neon Configuration</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-[10px] font-bold text-[#888888] uppercase tracking-wider mb-2">Primary Database URI</label>
                 <input
@@ -45,7 +45,7 @@ export default function SettingsPage() {
 
           <div className="space-y-4 pt-4">
             <h3 className="text-xs font-bold uppercase tracking-wider text-white border-b border-[#2a2a2a] pb-2">Notification Gateways</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-[10px] font-bold text-[#888888] uppercase tracking-wider mb-2">Twilio virtual phone</label>
                 <input

@@ -59,7 +59,7 @@ export function Sidebar({ collapsed, onToggle, mobile, onMobileClose }: SidebarP
       style={{ width: mobile ? 280 : undefined }}
     >
       {/* Brand Logo Header */}
-      <div className="flex items-center gap-3 px-5 h-20 border-b border-[#2a2a2a] flex-shrink-0">
+      <div className="flex items-center gap-7 px-5 h-20 border-b border-[#2a2a2a] flex-shrink-0">
         <div className="w-9 h-9 rounded-md bg-[#faff69] flex items-center justify-center flex-shrink-0 shadow-md">
           <Zap className="w-5 h-5 text-[#0a0a0a]" />
         </div>
@@ -85,7 +85,7 @@ export function Sidebar({ collapsed, onToggle, mobile, onMobileClose }: SidebarP
       </div>
 
       {/* Nav List */}
-      <nav className="flex-1 overflow-y-auto py-6 px-3 space-y-8">
+      <nav className="flex-1 overflow-y-auto py-6 px-3 space-y-12">
         {NAV_ITEMS.map((group) => (
           <div key={group.group}>
             <AnimatePresence>
@@ -112,7 +112,7 @@ export function Sidebar({ collapsed, onToggle, mobile, onMobileClose }: SidebarP
                       href={item.href}
                       onClick={onMobileClose}
                       className={cn(
-                        "flex items-center gap-3.5 rounded-md px-4 py-3 text-[13px] font-semibold transition-all duration-150 group relative",
+                        "flex items-center gap-7.5 rounded-md px-4 py-3 text-[13px] font-semibold transition-all duration-150 group relative",
                         isActive
                           ? "text-[#faff69]"
                           : "text-[#cccccc] hover:bg-[#242424] hover:text-white"
@@ -168,7 +168,7 @@ export function Sidebar({ collapsed, onToggle, mobile, onMobileClose }: SidebarP
             exit={{ opacity: 0 }}
             className="p-4 border-t border-[#2a2a2a]"
           >
-            <div className="flex items-center gap-3 px-3 py-3 rounded-md bg-[#0a0a0a] border border-[#2a2a2a]">
+            <div className="flex items-center gap-7 px-3 py-3 rounded-md bg-[#0a0a0a] border border-[#2a2a2a]">
               <div className="w-8 h-8 rounded-md bg-[#faff69] flex items-center justify-center text-xs font-bold text-[#0a0a0a] flex-shrink-0 shadow-md">
                 AM
               </div>

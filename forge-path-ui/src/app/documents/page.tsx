@@ -64,7 +64,7 @@ export default function DocumentsPage() {
 
   return (
     <AppShell>
-      <div className="p-8 space-y-8 max-w-7xl mx-auto">
+      <div className="p-12 space-y-14 max-w-7xl mx-auto">
         <div>
           <h2 className="text-xl font-bold text-white">Financial Document Center</h2>
           <p className="text-xs text-[#888888] mt-1">
@@ -91,7 +91,7 @@ export default function DocumentsPage() {
         </div>
 
         {/* Search / Filters */}
-        <div className="flex gap-3">
+        <div className="flex gap-7">
           <div className="flex-1 relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#888888]" />
             <input
@@ -116,8 +116,8 @@ export default function DocumentsPage() {
 
           <div className="divide-y divide-[#2a2a2a]">
             {uploads.map((item, idx) => (
-              <div key={idx} className="p-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
-                <div className="flex items-center gap-3">
+              <div key={idx} className="p-4 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div className="flex items-center gap-7">
                   <div className="w-8 h-8 rounded-md bg-[#0a0a0a] border border-[#2a2a2a] flex items-center justify-center">
                     <FileText className="w-4 h-4 text-[#faff69]" />
                   </div>
