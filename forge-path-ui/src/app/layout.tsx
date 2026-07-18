@@ -1,5 +1,6 @@
 import "@/app/globals.css";
 import RootProvider from "@/shared/providers/RootProvider";
+import AppShell from "@/shared/components/shell/AppShell";
 import { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import { ReactNode } from "react";
@@ -30,7 +31,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <html lang="en" className={`${inter.variable} dark`}>
       <body className="antialiased min-h-screen bg-[#0a0a0a] text-white">
         <RootProvider>
-          {children}
+          <AppShell>
+            {children}
+          </AppShell>
         </RootProvider>
       </body>
     </html>
