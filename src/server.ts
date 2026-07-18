@@ -6,8 +6,16 @@ import { parseWithGemma } from './parser/gemma';
 import { validateRecord } from './validation/validator';
 import { writeRecordToNeon } from './storage/neonWriter';
 import * as db from './config/database';
+import cors from '@fastify/cors';
 
 const server = fastify({ logger: true });
+
+// Register CORS middleware to accept cross-origin requests
+server.register(cors, {
+  origin: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'x-company-id', 'x-confidence-score']
+});
 
 // Register multipart support for handling file uploads
 server.register(multipart, {
