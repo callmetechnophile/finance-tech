@@ -3,10 +3,12 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useDrawerStore } from "@/shared/stores/drawer.store";
+import { useNotificationStore } from "@/shared/stores/notification.store";
 
 export default function useKeyboardNavigation() {
   const router = useRouter();
   const { stack, popDrawer, pushDrawer, closeAll } = useDrawerStore();
+  const { isCenterOpen, setCenterOpen } = useNotificationStore();
 
   useEffect(() => {
     let lastKey = "";
@@ -60,6 +62,13 @@ export default function useKeyboardNavigation() {
         } else {
           pushDrawer({ id: "demo-drawer", title: "CFO Intelligence Inspector", subtitle: "Hotkey verification trigger." });
         }
+        return;
+      }
+
+      // 5. Ctrl + Shift + N toggles notification center drawer
+      if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "n") {
+        e.preventDefault();
+        setCenterOpen(!isCenterOpen);
         return;
       }
       
@@ -121,5 +130,5 @@ export default function useKeyboardNavigation() {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [router, stack, popDrawer, pushDrawer, closeAll]);
+  }, [router, stack, popDrawer, pushDrawer, closeAll, isCenterOpen, setCenterOpen]);
 }

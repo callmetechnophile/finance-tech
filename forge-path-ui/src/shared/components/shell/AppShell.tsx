@@ -10,6 +10,7 @@ import DrawerManager from "@/features/drawer/components/DrawerManager";
 import ModalContainer from "./ModalContainer";
 import ToastContainer from "./ToastContainer";
 import CommandPaletteOverlay from "@/features/command-palette/CommandPaletteOverlay";
+import NotificationCenterDrawer from "@/features/notifications/components/NotificationCenterDrawer";
 
 interface AppShellProps {
   children?: ReactNode;
@@ -49,6 +50,9 @@ export default function AppShell({ children }: AppShellProps) {
 
       {/* Universal Command Palette & Search Overlay */}
       <CommandPaletteOverlay />
+
+      {/* Enterprise Notification Center & Activity Feed Drawer */}
+      <NotificationCenterDrawer />
     </div>
   );
 }

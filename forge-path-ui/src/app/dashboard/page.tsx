@@ -2,13 +2,16 @@
 
 import { useLayoutStore } from "@/shared/stores/layout.store";
 import { useDrawerStore } from "@/shared/stores/drawer.store";
+import { useBackgroundStore } from "@/shared/stores/background.store";
+import { useNotificationStore } from "@/shared/stores/notification.store";
 
 export default function DashboardPage() {
   const { addToast } = useLayoutStore();
   const { pushDrawer } = useDrawerStore();
+  const { addJob, updateProgress, completeJob, failJob } = useBackgroundStore();
+  const { addNotification, setCenterOpen } = useNotificationStore();
 
   const handleOpenDemoDrawer = () => {
-    // Push the first drawer onto the stack
     pushDrawer({
       id: "inv-1",
       title: "Invoice Inspector (INV-2024-089)",
@@ -21,6 +24,56 @@ export default function DashboardPage() {
       title: "Drawer Pushed",
       message: "Opening details stack: Level 1",
     });
+  };
+
+  // Simulates a background job run
+  const handleTriggerMockJob = () => {
+    const id = Math.random().toString();
+    addJob({
+      id,
+      name: "OCR Document Extraction",
+      progress: 0,
+      status: "running",
+      eta: "45s",
+    });
+    
+    addToast({
+      type: "task",
+      title: "Task Queued",
+      message: "OCR parsing background process started.",
+    });
+
+    let current = 0;
+    const interval = setInterval(() => {
+      current += 20;
+      if (current >= 100) {
+        clearInterval(interval);
+        completeJob(id);
+        addToast({
+          type: "success",
+          title: "OCR Task Finished",
+          message: "NeonDB ingestion completed successfully.",
+        });
+      } else {
+        updateProgress(id, current);
+      }
+    }, 1000);
+  };
+
+  const handlePostApprovalAlert = () => {
+    addNotification({
+      title: "Action Required: Forecast Release",
+      message: "Q3 liquidity cash forecast is generated and awaits CEO approval release.",
+      category: "Approvals",
+      severity: "High",
+      approvalData: { type: "report", status: "pending", amount: 0 },
+    });
+    addToast({
+      type: "info",
+      title: "Approval Released",
+      message: "Forecast release action sent to CEO/CFO panel.",
+    });
+    setCenterOpen(true);
   };
 
   return (
@@ -47,16 +100,6 @@ export default function DashboardPage() {
             >
               Open Invoice Drawer
             </button>
-          </div>
-        </div>
-
-        {/* Nested Trigger sample */}
-        <div className="p-6 rounded-lg bg-[#1a1a1a] border border-[#2a2a2a] space-y-4">
-          <h3 className="text-xs font-bold text-[#faff69] uppercase tracking-wider">Nested Stack Control</h3>
-          <p className="text-[10px] text-[#888888] leading-relaxed">
-            If a drawer is already open, push the next child data node directly onto the history stack.
-          </p>
-          <div className="flex gap-2">
             <button 
               onClick={() => {
                 pushDrawer({
@@ -68,7 +111,29 @@ export default function DashboardPage() {
               }}
               className="px-3 py-1.5 bg-[#2a2a2a] hover:bg-[#343434] text-white text-xs font-bold rounded-md border border-[#3a3a3a] transition-colors cursor-pointer"
             >
-              Push Nested Customer Drawer
+              Push Customer Drawer
+            </button>
+          </div>
+        </div>
+
+        {/* Notification system trigger test */}
+        <div className="p-6 rounded-lg bg-[#1a1a1a] border border-[#2a2a2a] space-y-4">
+          <h3 className="text-xs font-bold text-[#faff69] uppercase tracking-wider">Telemetry & Alerts Center</h3>
+          <p className="text-[10px] text-[#888888] leading-relaxed">
+            Trigger simulated operational events to verify progress loaders, unread indicators, and toast triggers.
+          </p>
+          <div className="flex gap-2">
+            <button 
+              onClick={handleTriggerMockJob}
+              className="px-3 py-1.5 bg-[#faff69] hover:bg-[#e6eb52] text-[#0a0a0a] text-xs font-bold rounded-md transition-colors cursor-pointer"
+            >
+              Simulate Background OCR
+            </button>
+            <button 
+              onClick={handlePostApprovalAlert}
+              className="px-3 py-1.5 bg-[#2a2a2a] hover:bg-[#343434] text-white text-xs font-bold rounded-md border border-[#3a3a3a] transition-colors cursor-pointer"
+            >
+              Post Approval Request
             </button>
           </div>
         </div>

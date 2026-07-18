@@ -2,6 +2,7 @@
 
 import { ReactNode } from "react";
 import Breadcrumbs from "@/shared/components/breadcrumbs/Breadcrumbs";
+import NotificationBell from "@/features/notifications/components/NotificationBell";
 
 interface AppHeaderContainerProps {
   children?: ReactNode;
@@ -21,6 +22,10 @@ export default function AppHeaderContainer({ children }: AppHeaderContainerProps
           <span>Search command...</span>
           <kbd className="px-1.5 py-0.5 rounded bg-[#2a2a2a] text-white">Ctrl+K</kbd>
         </div>
+        
+        {/* Unified notifications bell */}
+        <NotificationBell />
+
         {children}
       </div>
     </header>
