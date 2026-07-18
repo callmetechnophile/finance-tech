@@ -1,21 +1,15 @@
 services:
   - type: web
-    name: forge-path-backend
-    env: python
-    buildCommand: pip install -r python_pipeline/requirements.txt
-    startCommand: cd python_pipeline/backend && PYTHONPATH=. gunicorn app.main:app
+    name: forge-path-data-engine
+    env: node
+    buildCommand: npm install && npm run build
+    startCommand: npm start
     envVars:
-      - key: PYTHON_VERSION
-        value: 3.12.0
+      - key: NODE_VERSION
+        value: 20.0.0
       - key: DATABASE_URL
         sync: false # User will set this in the Render dashboard
       - key: NVIDIA_API_KEY
         sync: false
-      - key: BREVO_API_KEY
-        sync: false
-      - key: TWILIO_ACCOUNT_SID
-        sync: false
-      - key: TWILIO_AUTH_TOKEN
-        sync: false
-      - key: TWILIO_PHONE_NUMBER
+      - key: PUTER_API_KEY
         sync: false
