@@ -81,7 +81,7 @@ export function TopNav({ onMobileMenuOpen }: TopNavProps) {
       {/* SECTION 2: Centered Global Search (40% - 50% width) */}
       <div ref={searchRef} className="flex-1 max-w-[45%] mx-auto relative z-50">
         <div className="relative">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-[#9CA3AF]" />
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#9CA3AF] pointer-events-none" />
           <input
             id="global-search-input"
             type="text"
@@ -90,9 +90,9 @@ export function TopNav({ onMobileMenuOpen }: TopNavProps) {
             onFocus={() => setShowRecentSearches(true)}
             onChange={(e) => setSearchValue(e.target.value)}
             className={cn(
-              "w-full pl-11 pr-16 h-[46px] rounded-2xl bg-[#111827] border border-[#1E253E]",
-              "text-xs text-[#F9FAFB] placeholder-[#9CA3AF] transition-all",
-              "focus:outline-none focus:border-[#2563EB] focus:ring-4 focus:ring-[#2563EB]/15 focus:bg-[#070A13]"
+              "w-full pl-10 pr-20 h-[46px] rounded-2xl bg-[#111827] border border-[#1E253E]",
+              "text-[13px] text-[#F9FAFB] placeholder-[#6B7280] transition-all",
+              "focus:outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/20 focus:bg-[#070A13]"
             )}
           />
           
@@ -183,12 +183,12 @@ export function TopNav({ onMobileMenuOpen }: TopNavProps) {
         
         {/* Help button */}
         <button className="flex items-center justify-center w-10 h-10 rounded-xl text-[#9CA3AF] hover:text-[#F9FAFB] hover:bg-[#1E253E] transition-all">
-          <HelpCircle className="w-4.5 h-4.5" />
+          <HelpCircle className="w-4 h-4" />
         </button>
 
         {/* Theme Toggle (Optional UI) */}
         <button className="flex items-center justify-center w-10 h-10 rounded-xl text-[#9CA3AF] hover:text-[#F9FAFB] hover:bg-[#1E253E] transition-all">
-          <Moon className="w-4.5 h-4.5" />
+          <Moon className="w-4 h-4" />
         </button>
 
         {/* Settings Button */}
@@ -196,7 +196,7 @@ export function TopNav({ onMobileMenuOpen }: TopNavProps) {
           href="/settings"
           className="flex items-center justify-center w-10 h-10 rounded-xl text-[#9CA3AF] hover:text-[#F9FAFB] hover:bg-[#1E253E] transition-all"
         >
-          <Settings className="w-4.5 h-4.5" />
+          <Settings className="w-4 h-4" />
         </Link>
 
         {/* Notifications Icon with small badge */}
@@ -208,7 +208,7 @@ export function TopNav({ onMobileMenuOpen }: TopNavProps) {
             }}
             className="relative flex items-center justify-center w-10 h-10 rounded-xl text-[#9CA3AF] hover:text-[#F9FAFB] hover:bg-[#1E253E] transition-all"
           >
-            <Bell className="w-4.5 h-4.5" />
+            <Bell className="w-4 h-4" />
             {unreadCount > 0 && (
               <span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-[#EF4444] shadow-md shadow-red-500/50" />
             )}
