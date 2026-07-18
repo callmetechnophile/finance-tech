@@ -71,6 +71,19 @@ export default function useKeyboardNavigation() {
         setCenterOpen(!isCenterOpen);
         return;
       }
+
+      // 6. Ctrl + Shift + S opens the DB / Status Health drawer
+      if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "s") {
+        e.preventDefault();
+        pushDrawer({
+          id: "status-panel",
+          title: "System Telemetry & Health",
+          subtitle: "NeonDB connection • OCR engine • AI panel • API Gateway",
+          mode: "normal",
+          activeTab: "overview",
+        });
+        return;
+      }
       
       // Ctrl + K triggers search focus (handled by CommandPaletteProvider)
       if (e.ctrlKey && e.key.toLowerCase() === "k") {
