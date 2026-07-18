@@ -71,11 +71,11 @@ export default function DashboardPage() {
         {/* 8-COLUMN REDESIGNED KPI GRID WITH Sparklines */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-8 gap-4">
           {/* Card 1: Current Cash */}
-          <div className="p-5 rounded-[20px] bg-[#0F1322] border border-[#1E253E] hover:border-blue-500/30 transition-all duration-200 flex flex-col justify-between min-h-[140px] shadow-sm">
-            <span className="text-[9px] font-bold text-[#64748B] uppercase tracking-wider">Current Cash</span>
+          <div className="p-5 rounded-[20px] bg-[#0F1322] border border-[#1E253E] hover:border-blue-500/30 transition-all duration-200 flex flex-col items-center justify-between min-h-[140px] shadow-sm text-center">
+            <span className="text-[9px] font-bold text-[#64748B] uppercase tracking-wider w-full text-center">Current Cash</span>
             <div className="mt-1.5">
               <div className="text-xl font-black text-white tracking-tight">$342.0K</div>
-              <div className="text-[10px] text-emerald-400 font-bold flex items-center gap-0.5 mt-0.5"><ArrowUpRight className="w-3 h-3" /> +4.2%</div>
+              <div className="text-[10px] text-emerald-400 font-bold flex items-center justify-center gap-0.5 mt-0.5"><ArrowUpRight className="w-3 h-3" /> +4.2%</div>
             </div>
             <div className="w-full h-5 mt-2">
               <svg className="w-full h-full stroke-emerald-500 fill-none" viewBox="0 0 100 20">
@@ -85,11 +85,11 @@ export default function DashboardPage() {
           </div>
 
           {/* Card 2: Outstanding Receivables */}
-          <div className="p-5 rounded-[20px] bg-[#0F1322] border border-[#1E253E] hover:border-blue-500/30 transition-all duration-200 flex flex-col justify-between min-h-[140px] shadow-sm">
-            <span className="text-[9px] font-bold text-[#64748B] uppercase tracking-wider">Receivables</span>
+          <div className="p-5 rounded-[20px] bg-[#0F1322] border border-[#1E253E] hover:border-blue-500/30 transition-all duration-200 flex flex-col items-center justify-between min-h-[140px] shadow-sm text-center">
+            <span className="text-[9px] font-bold text-[#64748B] uppercase tracking-wider w-full text-center">Receivables</span>
             <div className="mt-1.5">
               <div className="text-xl font-black text-white tracking-tight">$284.5K</div>
-              <div className="text-[10px] text-red-400 font-bold flex items-center gap-0.5 mt-0.5"><ArrowUpRight className="w-3 h-3" /> +12%</div>
+              <div className="text-[10px] text-red-400 font-bold flex items-center justify-center gap-0.5 mt-0.5"><ArrowUpRight className="w-3 h-3" /> +12%</div>
             </div>
             <div className="w-full h-5 mt-2">
               <svg className="w-full h-full stroke-red-500 fill-none" viewBox="0 0 100 20">
@@ -99,8 +99,8 @@ export default function DashboardPage() {
           </div>
 
           {/* Card 3: Outstanding Payables */}
-          <div className="p-5 rounded-[20px] bg-[#0F1322] border border-[#1E253E] hover:border-blue-500/30 transition-all duration-200 flex flex-col justify-between min-h-[140px] shadow-sm">
-            <span className="text-[9px] font-bold text-[#64748B] uppercase tracking-wider">Payables</span>
+          <div className="p-5 rounded-[20px] bg-[#0F1322] border border-[#1E253E] hover:border-blue-500/30 transition-all duration-200 flex flex-col items-center justify-between min-h-[140px] shadow-sm text-center">
+            <span className="text-[9px] font-bold text-[#64748B] uppercase tracking-wider w-full text-center">Payables</span>
             <div className="mt-1.5">
               <div className="text-xl font-black text-white tracking-tight">$118.4K</div>
               <div className="text-[10px] text-[#94A3B8] font-bold mt-0.5">Stable</div>
@@ -113,8 +113,8 @@ export default function DashboardPage() {
           </div>
 
           {/* Card 4: Liquidity Score */}
-          <div className="p-5 rounded-[20px] bg-[#0F1322] border border-[#1E253E] hover:border-blue-500/30 transition-all duration-200 flex flex-col justify-between min-h-[140px] shadow-sm">
-            <span className="text-[9px] font-bold text-[#64748B] uppercase tracking-wider">Liquidity Index</span>
+          <div className="p-5 rounded-[20px] bg-[#0F1322] border border-[#1E253E] hover:border-blue-500/30 transition-all duration-200 flex flex-col items-center justify-between min-h-[140px] shadow-sm text-center">
+            <span className="text-[9px] font-bold text-[#64748B] uppercase tracking-wider w-full text-center">Liquidity Index</span>
             <div className="mt-1.5">
               <div className="text-xl font-black text-emerald-400 tracking-tight">84/100</div>
               <div className="text-[10px] text-emerald-400 font-bold mt-0.5">Optimal</div>
@@ -127,8 +127,8 @@ export default function DashboardPage() {
           </div>
 
           {/* Card 5: Cash Runway */}
-          <div className="p-5 rounded-[20px] bg-[#0F1322] border border-[#1E253E] hover:border-blue-500/30 transition-all duration-200 flex flex-col justify-between min-h-[140px] shadow-sm">
-            <span className="text-[9px] font-bold text-[#64748B] uppercase tracking-wider">Runway</span>
+          <div className="p-5 rounded-[20px] bg-[#0F1322] border border-[#1E253E] hover:border-blue-500/30 transition-all duration-200 flex flex-col items-center justify-between min-h-[140px] shadow-sm text-center">
+            <span className="text-[9px] font-bold text-[#64748B] uppercase tracking-wider w-full text-center">Runway</span>
             <div className="mt-1.5">
               <div className="text-xl font-black text-white tracking-tight">68 Days</div>
               <div className="text-[10px] text-emerald-400 font-bold mt-0.5">Optimal buffer</div>
@@ -141,8 +141,8 @@ export default function DashboardPage() {
           </div>
 
           {/* Card 6: Working Capital */}
-          <div className="p-5 rounded-[20px] bg-[#0F1322] border border-[#1E253E] hover:border-blue-500/30 transition-all duration-200 flex flex-col justify-between min-h-[140px] shadow-sm">
-            <span className="text-[9px] font-bold text-[#64748B] uppercase tracking-wider">Work Capital</span>
+          <div className="p-5 rounded-[20px] bg-[#0F1322] border border-[#1E253E] hover:border-blue-500/30 transition-all duration-200 flex flex-col items-center justify-between min-h-[140px] shadow-sm text-center">
+            <span className="text-[9px] font-bold text-[#64748B] uppercase tracking-wider w-full text-center">Work Capital</span>
             <div className="mt-1.5">
               <div className="text-xl font-black text-white tracking-tight">$508K</div>
               <div className="text-[10px] text-emerald-400 font-bold mt-0.5">2.4 Current Ratio</div>
@@ -155,8 +155,8 @@ export default function DashboardPage() {
           </div>
 
           {/* Card 7: Burn Rate */}
-          <div className="p-5 rounded-[20px] bg-[#0F1322] border border-[#1E253E] hover:border-blue-500/30 transition-all duration-200 flex flex-col justify-between min-h-[140px] shadow-sm">
-            <span className="text-[9px] font-bold text-[#64748B] uppercase tracking-wider">Daily Burn</span>
+          <div className="p-5 rounded-[20px] bg-[#0F1322] border border-[#1E253E] hover:border-blue-500/30 transition-all duration-200 flex flex-col items-center justify-between min-h-[140px] shadow-sm text-center">
+            <span className="text-[9px] font-bold text-[#64748B] uppercase tracking-wider w-full text-center">Daily Burn</span>
             <div className="mt-1.5">
               <div className="text-xl font-black text-white tracking-tight">$5.0K</div>
               <div className="text-[10px] text-[#94A3B8] font-bold mt-0.5">Avg standard</div>
@@ -169,8 +169,8 @@ export default function DashboardPage() {
           </div>
 
           {/* Card 8: Forecast Confidence */}
-          <div className="p-5 rounded-[20px] bg-[#0F1322] border border-[#1E253E] hover:border-blue-500/30 transition-all duration-200 flex flex-col justify-between min-h-[140px] shadow-sm">
-            <span className="text-[9px] font-bold text-[#64748B] uppercase tracking-wider">Confidence</span>
+          <div className="p-5 rounded-[20px] bg-[#0F1322] border border-[#1E253E] hover:border-blue-500/30 transition-all duration-200 flex flex-col items-center justify-between min-h-[140px] shadow-sm text-center">
+            <span className="text-[9px] font-bold text-[#64748B] uppercase tracking-wider w-full text-center">Confidence</span>
             <div className="mt-1.5">
               <div className="text-xl font-black text-blue-400 tracking-tight">94.8%</div>
               <div className="text-[10px] text-blue-400 font-bold mt-0.5">High Reliability</div>
