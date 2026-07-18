@@ -86,7 +86,7 @@ export function Sidebar({ collapsed, onToggle, mobile, onMobileClose }: SidebarP
       </div>
 
       {/* Nav List */}
-      <nav className="flex-1 overflow-y-auto py-6 px-3 space-y-6">
+      <nav className="flex-1 overflow-y-auto py-6 px-3 space-y-8">
         {NAV_ITEMS.map((group) => (
           <div key={group.group}>
             <AnimatePresence>
@@ -95,15 +95,15 @@ export function Sidebar({ collapsed, onToggle, mobile, onMobileClose }: SidebarP
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  className="px-3 pb-2.5"
+                  className="px-3 pb-3 pt-1"
                 >
-                  <span className="text-[9px] font-bold uppercase tracking-widest text-[#475569]">
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-[#475569]">
                     {group.group}
                   </span>
                 </motion.div>
               )}
             </AnimatePresence>
-            <ul className="space-y-1">
+            <ul className="space-y-1.5">
               {group.items.map((item) => {
                 const isActive = pathname === item.href || pathname.startsWith(item.href + "/");
                 const Icon = item.icon;
@@ -113,7 +113,7 @@ export function Sidebar({ collapsed, onToggle, mobile, onMobileClose }: SidebarP
                       href={item.href}
                       onClick={onMobileClose}
                       className={cn(
-                        "flex items-center gap-3 rounded-xl px-4 py-3 text-xs font-semibold transition-all duration-200 group relative",
+                        "flex items-center gap-3.5 rounded-xl px-4 py-3.5 text-[13px] font-semibold transition-all duration-200 group relative",
                         isActive
                           ? "text-[#3B82F6]"
                           : "text-[#94A3B8] hover:bg-[#111625] hover:text-[#F8FAFC]"
@@ -126,7 +126,7 @@ export function Sidebar({ collapsed, onToggle, mobile, onMobileClose }: SidebarP
                           transition={{ type: "spring", bounce: 0.15, duration: 0.4 }}
                         />
                       )}
-                      <Icon className={cn("w-4.5 h-4.5 flex-shrink-0 relative z-10", isActive ? "text-[#3B82F6]" : "text-[#475569] group-hover:text-[#F8FAFC]")} />
+                      <Icon className={cn("w-[18px] h-[18px] flex-shrink-0 relative z-10", isActive ? "text-[#3B82F6]" : "text-[#475569] group-hover:text-[#F8FAFC]")} />
                       <AnimatePresence>
                         {(!collapsed || mobile) && (
                           <motion.span
