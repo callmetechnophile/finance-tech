@@ -73,7 +73,7 @@ export default function PaymentsPage() {
 
         {/* Top Summary row */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="p-5 rounded-2xl bg-[#111827] border border-[#1f2d44]">
+          <div className="p-5 rounded-2xl bg-[#111827] border border-[#1E253E]">
             <span className="text-[10px] font-bold uppercase tracking-wider text-[#9CA3AF]">Queued Payables</span>
             <div className="flex items-center gap-2 mt-2">
               <span className="text-xl font-bold text-white">{formatCurrency(65500)}</span>
@@ -81,7 +81,7 @@ export default function PaymentsPage() {
             <p className="text-[10px] text-[#6B7280] mt-1">3 upcoming vendor obligations</p>
           </div>
 
-          <div className="p-5 rounded-2xl bg-[#111827] border border-[#1f2d44]">
+          <div className="p-5 rounded-2xl bg-[#111827] border border-[#1E253E]">
             <span className="text-[10px] font-bold uppercase tracking-wider text-[#9CA3AF]">Discount Capture Potential</span>
             <div className="flex items-center gap-2 mt-2">
               <span className="text-xl font-bold text-emerald-400">{formatCurrency(1070)}</span>
@@ -89,7 +89,7 @@ export default function PaymentsPage() {
             <p className="text-[10px] text-emerald-400 mt-1 font-semibold">Active discounts available</p>
           </div>
 
-          <div className="p-5 rounded-2xl bg-[#111827] border border-[#1f2d44]">
+          <div className="p-5 rounded-2xl bg-[#111827] border border-[#1E253E]">
             <span className="text-[10px] font-bold uppercase tracking-wider text-[#9CA3AF]">Penalty Exposure</span>
             <div className="flex items-center gap-2 mt-2">
               <span className="text-xl font-bold text-red-400">{formatCurrency(180)}</span>
@@ -99,8 +99,8 @@ export default function PaymentsPage() {
         </div>
 
         {/* Payables List */}
-        <div className="bg-[#111827] border border-[#1f2d44] rounded-2xl overflow-hidden">
-          <div className="px-5 py-4 border-b border-[#1f2d44]">
+        <div className="bg-[#111827] border border-[#1E253E] rounded-2xl overflow-hidden">
+          <div className="px-5 py-4 border-b border-[#1E253E]">
             <h3 className="text-xs font-bold uppercase tracking-wider text-[#9CA3AF]">Payment Optimizer Queue</h3>
           </div>
 
@@ -143,7 +143,7 @@ export default function PaymentsPage() {
                   </button>
                   <button
                     onClick={() => executeDelay(p.id)}
-                    className="px-3.5 py-1.5 bg-[#0d1625] hover:bg-[#1a2235] border border-[#1f2d44] text-xs font-semibold text-white rounded-xl transition-all"
+                    className="px-3.5 py-1.5 bg-[#0d1625] hover:bg-[#1a2235] border border-[#1E253E] text-xs font-semibold text-white rounded-xl transition-all"
                   >
                     Delay
                   </button>

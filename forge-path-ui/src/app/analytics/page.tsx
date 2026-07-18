@@ -41,10 +41,10 @@ export default function AnalyticsPage() {
           </div>
 
           <div className="flex gap-2">
-            <button onClick={() => triggerExport("csv")} className="px-3 py-1.5 bg-[#111827] border border-[#1f2d44] hover:bg-[#1a2235] text-xs font-semibold text-white rounded-xl flex items-center gap-1.5 transition-colors">
+            <button onClick={() => triggerExport("csv")} className="px-3 py-1.5 bg-[#111827] border border-[#1E253E] hover:bg-[#1a2235] text-xs font-semibold text-white rounded-xl flex items-center gap-1.5 transition-colors">
               <Download className="w-3.5 h-3.5 text-[#6B7280]" /> CSV
             </button>
-            <button onClick={() => triggerExport("pdf")} className="px-3 py-1.5 bg-[#111827] border border-[#1f2d44] hover:bg-[#1a2235] text-xs font-semibold text-white rounded-xl flex items-center gap-1.5 transition-colors">
+            <button onClick={() => triggerExport("pdf")} className="px-3 py-1.5 bg-[#111827] border border-[#1E253E] hover:bg-[#1a2235] text-xs font-semibold text-white rounded-xl flex items-center gap-1.5 transition-colors">
               <Download className="w-3.5 h-3.5 text-[#6B7280]" /> PDF
             </button>
           </div>
@@ -53,7 +53,7 @@ export default function AnalyticsPage() {
         {/* Charts Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Revenue vs Expenses */}
-          <div className="p-6 rounded-2xl bg-[#111827] border border-[#1f2d44]">
+          <div className="p-6 rounded-2xl bg-[#111827] border border-[#1E253E]">
             <h3 className="text-sm font-semibold text-white mb-4">Historical Revenue vs Expenses</h3>
             <div className="h-64">
               <ResponsiveContainer width="100%" height="100%">
@@ -80,7 +80,7 @@ export default function AnalyticsPage() {
           </div>
 
           {/* Forecast Accuracy */}
-          <div className="p-6 rounded-2xl bg-[#111827] border border-[#1f2d44]">
+          <div className="p-6 rounded-2xl bg-[#111827] border border-[#1E253E]">
             <h3 className="text-sm font-semibold text-white mb-4">Forecast Accuracy Performance</h3>
             <div className="h-64">
               <ResponsiveContainer width="100%" height="100%">

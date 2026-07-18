@@ -32,7 +32,7 @@ export default function LiquidityPage() {
 
         {/* Core KPI row */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <div className="p-5 rounded-2xl bg-[#111827] border border-[#1f2d44]">
+          <div className="p-5 rounded-2xl bg-[#111827] border border-[#1E253E]">
             <span className="text-[10px] font-bold uppercase tracking-wider text-[#9CA3AF]">Liquidity Health</span>
             <div className="flex items-baseline gap-2 mt-2">
               <span className="text-2xl font-bold text-emerald-400">84</span>
@@ -43,7 +43,7 @@ export default function LiquidityPage() {
             </p>
           </div>
 
-          <div className="p-5 rounded-2xl bg-[#111827] border border-[#1f2d44]">
+          <div className="p-5 rounded-2xl bg-[#111827] border border-[#1E253E]">
             <span className="text-[10px] font-bold uppercase tracking-wider text-[#9CA3AF]">Working Capital</span>
             <div className="flex items-baseline gap-2 mt-2">
               <span className="text-2xl font-bold text-white">{formatCurrency(508000)}</span>
@@ -51,7 +51,7 @@ export default function LiquidityPage() {
             <p className="text-[10px] text-[#6B7280] mt-1">Current assets - current liabilities</p>
           </div>
 
-          <div className="p-5 rounded-2xl bg-[#111827] border border-[#1f2d44]">
+          <div className="p-5 rounded-2xl bg-[#111827] border border-[#1E253E]">
             <span className="text-[10px] font-bold uppercase tracking-wider text-[#9CA3AF]">Cash Buffer Days</span>
             <div className="flex items-baseline gap-2 mt-2">
               <span className="text-2xl font-bold text-white">68 Days</span>
@@ -59,7 +59,7 @@ export default function LiquidityPage() {
             <p className="text-[10px] text-emerald-400 mt-1 font-semibold">Safe limit: &gt; 45 Days</p>
           </div>
 
-          <div className="p-5 rounded-2xl bg-[#111827] border border-[#1f2d44]">
+          <div className="p-5 rounded-2xl bg-[#111827] border border-[#1E253E]">
             <span className="text-[10px] font-bold uppercase tracking-wider text-[#9CA3AF]">Burn Rate</span>
             <div className="flex items-baseline gap-2 mt-2">
               <span className="text-2xl font-bold text-white">{formatCurrency(5000)}</span>
@@ -71,7 +71,7 @@ export default function LiquidityPage() {
 
         {/* Charts Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="p-6 rounded-2xl bg-[#111827] border border-[#1f2d44]">
+          <div className="p-6 rounded-2xl bg-[#111827] border border-[#1E253E]">
             <h3 className="text-sm font-semibold text-white mb-4">Liquidity Score Trend</h3>
             <div className="h-64">
               <ResponsiveContainer width="100%" height="100%">
@@ -86,7 +86,7 @@ export default function LiquidityPage() {
             </div>
           </div>
 
-          <div className="p-6 rounded-2xl bg-[#111827] border border-[#1f2d44]">
+          <div className="p-6 rounded-2xl bg-[#111827] border border-[#1E253E]">
             <h3 className="text-sm font-semibold text-white mb-4">Projected Cash Runway Timeline</h3>
             <div className="h-64">
               <ResponsiveContainer width="100%" height="100%">
@@ -110,7 +110,7 @@ export default function LiquidityPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="p-5 rounded-2xl bg-[#111827] border border-[#1f2d44] hover:border-blue-500/50 transition-all cursor-pointer">
+            <div className="p-5 rounded-2xl bg-[#111827] border border-[#1E253E] hover:border-blue-500/50 transition-all cursor-pointer">
               <h4 className="text-xs font-bold text-white uppercase tracking-wider">30-day Client Delay</h4>
               <p className="text-[11px] text-[#6B7280] mt-1">Simulates 100% of top client payments delayed by 30 days.</p>
               <div className="mt-4 flex justify-between items-center">
@@ -119,7 +119,7 @@ export default function LiquidityPage() {
               </div>
             </div>
 
-            <div className="p-5 rounded-2xl bg-[#111827] border border-[#1f2d44] hover:border-blue-500/50 transition-all cursor-pointer">
+            <div className="p-5 rounded-2xl bg-[#111827] border border-[#1E253E] hover:border-blue-500/50 transition-all cursor-pointer">
               <h4 className="text-xs font-bold text-white uppercase tracking-wider">Raw Material Cost Spike</h4>
               <p className="text-[11px] text-[#6B7280] mt-1">Simulates a sudden 20% surcharge across metal suppliers.</p>
               <div className="mt-4 flex justify-between items-center">
@@ -128,7 +128,7 @@ export default function LiquidityPage() {
               </div>
             </div>
 
-            <div className="p-5 rounded-2xl bg-[#111827] border border-[#1f2d44] hover:border-blue-500/50 transition-all cursor-pointer">
+            <div className="p-5 rounded-2xl bg-[#111827] border border-[#1E253E] hover:border-blue-500/50 transition-all cursor-pointer">
               <h4 className="text-xs font-bold text-white uppercase tracking-wider">Urgent Maintenance Amortization</h4>
               <p className="text-[11px] text-[#6B7280] mt-1">Simulates compressor breakdown requiring immediate capital.</p>
               <div className="mt-4 flex justify-between items-center">

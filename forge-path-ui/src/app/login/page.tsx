@@ -38,7 +38,7 @@ export default function LoginPage() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="w-full max-w-md p-8 rounded-2xl glass border border-[#1f2d44] shadow-2xl relative z-10"
+          className="w-full max-w-md p-8 rounded-2xl glass border border-[#1E253E] shadow-2xl relative z-10"
         >
           <div className="flex flex-col items-center mb-8">
             <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-violet-600 flex items-center justify-center shadow-lg mb-3">
@@ -61,7 +61,7 @@ export default function LoginPage() {
                   value={companyId}
                   onChange={(e) => setCompanyId(e.target.value)}
                   placeholder="e.g. apex-manufacturing"
-                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-[#0d1625] border border-[#1f2d44] text-sm text-white focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600/30 transition-all placeholder-[#4B5563]"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-[#0d1625] border border-[#1E253E] text-sm text-white focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600/30 transition-all placeholder-[#4B5563]"
                 />
               </div>
             </div>
@@ -76,7 +76,7 @@ export default function LoginPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="you@company.com"
-                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-[#0d1625] border border-[#1f2d44] text-sm text-white focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600/30 transition-all placeholder-[#4B5563]"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-[#0d1625] border border-[#1E253E] text-sm text-white focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600/30 transition-all placeholder-[#4B5563]"
                 />
               </div>
             </div>
@@ -94,7 +94,7 @@ export default function LoginPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-[#0d1625] border border-[#1f2d44] text-sm text-white focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600/30 transition-all placeholder-[#4B5563]"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-[#0d1625] border border-[#1E253E] text-sm text-white focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600/30 transition-all placeholder-[#4B5563]"
                 />
               </div>
             </div>

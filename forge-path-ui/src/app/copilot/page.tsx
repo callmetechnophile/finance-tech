@@ -53,7 +53,7 @@ export default function CopilotPage() {
         {/* Chat Area */}
         <div className="flex-1 flex flex-col min-w-0 bg-[#0B1220]">
           {/* Header */}
-          <div className="px-6 py-4 border-b border-[#1f2d44] flex items-center justify-between flex-shrink-0">
+          <div className="px-6 py-4 border-b border-[#1E253E] flex items-center justify-between flex-shrink-0">
             <div className="flex items-center gap-2">
               <Bot className="w-5 h-5 text-blue-500" />
               <h3 className="text-sm font-semibold text-white">FORGE-PATH AI Advisory</h3>
@@ -81,13 +81,13 @@ export default function CopilotPage() {
                 <div className={`p-4 rounded-2xl max-w-xl text-xs leading-relaxed ${
                   m.role === "user"
                     ? "bg-blue-600 text-white"
-                    : "bg-[#111827] border border-[#1f2d44] text-[#9CA3AF]"
+                    : "bg-[#111827] border border-[#1E253E] text-[#9CA3AF]"
                 }`}>
                   <p className="font-medium whitespace-pre-wrap">{m.content}</p>
                 </div>
 
                 {m.role === "user" && (
-                  <div className="w-8 h-8 rounded-lg bg-[#111827] border border-[#1f2d44] flex items-center justify-center flex-shrink-0">
+                  <div className="w-8 h-8 rounded-lg bg-[#111827] border border-[#1E253E] flex items-center justify-center flex-shrink-0">
                     <User className="w-4 h-4 text-white" />
                   </div>
                 )}
@@ -99,7 +99,7 @@ export default function CopilotPage() {
                 <div className="w-8 h-8 rounded-lg bg-blue-600/10 border border-blue-500/20 flex items-center justify-center flex-shrink-0 animate-pulse">
                   <Bot className="w-4 h-4 text-blue-400" />
                 </div>
-                <div className="p-4 rounded-2xl bg-[#111827] border border-[#1f2d44] flex items-center gap-1">
+                <div className="p-4 rounded-2xl bg-[#111827] border border-[#1E253E] flex items-center gap-1">
                   <span className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
                   <span className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
                   <span className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
@@ -114,7 +114,7 @@ export default function CopilotPage() {
               <button
                 key={idx}
                 onClick={() => handleSend(s)}
-                className="px-3 py-1.5 rounded-full bg-[#111827] border border-[#1f2d44] hover:border-blue-500/50 hover:bg-[#1a2235] text-[10px] text-[#9CA3AF] hover:text-white transition-all cursor-pointer"
+                className="px-3 py-1.5 rounded-full bg-[#111827] border border-[#1E253E] hover:border-blue-500/50 hover:bg-[#1a2235] text-[10px] text-[#9CA3AF] hover:text-white transition-all cursor-pointer"
               >
                 {s}
               </button>
@@ -122,7 +122,7 @@ export default function CopilotPage() {
           </div>
 
           {/* Input Panel */}
-          <div className="p-6 border-t border-[#1f2d44] flex-shrink-0">
+          <div className="p-6 border-t border-[#1E253E] flex-shrink-0">
             <div className="relative">
               <input
                 type="text"
@@ -130,7 +130,7 @@ export default function CopilotPage() {
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => { if (e.key === "Enter") handleSend(input); }}
                 placeholder="Ask FORGE-PATH about your cash flow or run scenario models..."
-                className="w-full pl-4 pr-12 py-3 bg-[#111827] border border-[#1f2d44] rounded-xl text-xs text-white focus:outline-none focus:border-blue-600 transition-colors"
+                className="w-full pl-4 pr-12 py-3 bg-[#111827] border border-[#1E253E] rounded-xl text-xs text-white focus:outline-none focus:border-blue-600 transition-colors"
               />
               <button
                 onClick={() => handleSend(input)}

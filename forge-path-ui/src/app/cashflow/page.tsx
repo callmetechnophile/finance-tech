@@ -31,7 +31,7 @@ export default function CashFlowPage() {
           </div>
 
           <div className="flex gap-2">
-            <div className="bg-[#111827] border border-[#1f2d44] rounded-xl p-1 flex">
+            <div className="bg-[#111827] border border-[#1E253E] rounded-xl p-1 flex">
               {(["7d", "30d", "90d"] as const).map((p) => (
                 <button
                   key={p}
@@ -44,7 +44,7 @@ export default function CashFlowPage() {
                 </button>
               ))}
             </div>
-            <button className="px-3 py-1.5 bg-[#111827] border border-[#1f2d44] hover:bg-[#1a2235] text-xs font-semibold text-white rounded-xl flex items-center gap-1.5 transition-colors">
+            <button className="px-3 py-1.5 bg-[#111827] border border-[#1E253E] hover:bg-[#1a2235] text-xs font-semibold text-white rounded-xl flex items-center gap-1.5 transition-colors">
               <Download className="w-3.5 h-3.5 text-[#6B7280]" /> Export
             </button>
           </div>
@@ -52,7 +52,7 @@ export default function CashFlowPage() {
 
         {/* Forecast Metrics grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="p-5 rounded-2xl bg-[#111827] border border-[#1f2d44]">
+          <div className="p-5 rounded-2xl bg-[#111827] border border-[#1E253E]">
             <span className="text-[10px] font-bold uppercase tracking-wider text-[#9CA3AF]">Projected Net Flow</span>
             <div className="flex items-center gap-2 mt-2">
               <span className="text-xl font-bold text-emerald-400">+{formatCurrency(52000)}</span>
@@ -63,7 +63,7 @@ export default function CashFlowPage() {
             <p className="text-[10px] text-[#6B7280] mt-1">Based on projected receipts from 14 invoices</p>
           </div>
 
-          <div className="p-5 rounded-2xl bg-[#111827] border border-[#1f2d44]">
+          <div className="p-5 rounded-2xl bg-[#111827] border border-[#1E253E]">
             <span className="text-[10px] font-bold uppercase tracking-wider text-[#9CA3AF]">Total Expected Inflow</span>
             <div className="flex items-center mt-2">
               <span className="text-xl font-bold text-white">{formatCurrency(208000)}</span>
@@ -71,7 +71,7 @@ export default function CashFlowPage() {
             <p className="text-[10px] text-[#6B7280] mt-1">Weighted by customer historical payment speed</p>
           </div>
 
-          <div className="p-5 rounded-2xl bg-[#111827] border border-[#1f2d44]">
+          <div className="p-5 rounded-2xl bg-[#111827] border border-[#1E253E]">
             <span className="text-[10px] font-bold uppercase tracking-wider text-[#9CA3AF]">Total Expected Outflow</span>
             <div className="flex items-center mt-2">
               <span className="text-xl font-bold text-white">{formatCurrency(156000)}</span>
@@ -84,7 +84,7 @@ export default function CashFlowPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2 space-y-6">
             {/* Projection Chart */}
-            <div className="p-6 rounded-2xl bg-[#111827] border border-[#1f2d44]">
+            <div className="p-6 rounded-2xl bg-[#111827] border border-[#1E253E]">
               <h3 className="text-sm font-semibold text-white mb-4">Cash Flow Projection Trend</h3>
               <div className="h-72">
                 <ResponsiveContainer width="100%" height="100%">
@@ -108,11 +108,11 @@ export default function CashFlowPage() {
 
           <div className="space-y-6">
             {/* Key Drivers */}
-            <div className="p-6 rounded-2xl bg-[#111827] border border-[#1f2d44] space-y-4">
+            <div className="p-6 rounded-2xl bg-[#111827] border border-[#1E253E] space-y-4">
               <h3 className="text-sm font-semibold text-white">Top Cash Flow Drivers</h3>
               
               <div className="space-y-3">
-                <div className="flex items-center justify-between p-2.5 rounded-xl bg-[#0d1625] border border-[#1f2d44]">
+                <div className="flex items-center justify-between p-2.5 rounded-xl bg-[#0d1625] border border-[#1E253E]">
                   <div>
                     <div className="text-xs font-semibold text-white">Delta Fab Receipts</div>
                     <div className="text-[10px] text-[#6B7280] mt-0.5">Historical prompt pay</div>
@@ -120,7 +120,7 @@ export default function CashFlowPage() {
                   <span className="text-xs font-bold text-emerald-400">+{formatCurrency(38000)}</span>
                 </div>
 
-                <div className="flex items-center justify-between p-2.5 rounded-xl bg-[#0d1625] border border-[#1f2d44]">
+                <div className="flex items-center justify-between p-2.5 rounded-xl bg-[#0d1625] border border-[#1E253E]">
                   <div>
                     <div className="text-xs font-semibold text-white">Iron Ore Supply Inc.</div>
                     <div className="text-[10px] text-[#6B7280] mt-0.5">Raw materials invoice</div>
@@ -128,7 +128,7 @@ export default function CashFlowPage() {
                   <span className="text-xs font-bold text-red-400">-{formatCurrency(45000)}</span>
                 </div>
 
-                <div className="flex items-center justify-between p-2.5 rounded-xl bg-[#0d1625] border border-[#1f2d44]">
+                <div className="flex items-center justify-between p-2.5 rounded-xl bg-[#0d1625] border border-[#1E253E]">
                   <div>
                     <div className="text-xs font-semibold text-white">SME Equipment Lease</div>
                     <div className="text-[10px] text-[#6B7280] mt-0.5">CNC Lease amortization</div>
@@ -139,7 +139,7 @@ export default function CashFlowPage() {
             </div>
 
             {/* Anomaly Alerts */}
-            <div className="p-6 rounded-2xl bg-[#111827] border border-[#1f2d44] space-y-3">
+            <div className="p-6 rounded-2xl bg-[#111827] border border-[#1E253E] space-y-3">
               <h3 className="text-sm font-semibold text-white">Anomalies & Warnings</h3>
               <div className="p-3 rounded-xl bg-yellow-500/10 border border-yellow-500/20 flex gap-2">
                 <AlertTriangle className="w-4 h-4 text-yellow-500 flex-shrink-0 mt-0.5" />

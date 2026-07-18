@@ -80,7 +80,7 @@ export default function DocumentsPage() {
           onDragLeave={handleDrag}
           onDrop={handleDrop}
           className={`border-2 border-dashed rounded-2xl p-10 flex flex-col items-center justify-center cursor-pointer transition-all ${
-            dragActive ? "border-blue-500 bg-blue-500/5 shadow-glow-blue" : "border-[#1f2d44] bg-[#111827]/30"
+            dragActive ? "border-blue-500 bg-blue-500/5 shadow-glow-blue" : "border-[#1E253E] bg-[#111827]/30"
           }`}
         >
           <UploadCloud className="w-10 h-10 text-blue-400 mb-3" />
@@ -98,17 +98,17 @@ export default function DocumentsPage() {
             <input
               type="text"
               placeholder="Search processed documents..."
-              className="w-full pl-9 pr-4 py-2 bg-[#111827] border border-[#1f2d44] rounded-xl text-xs text-white focus:outline-none"
+              className="w-full pl-9 pr-4 py-2 bg-[#111827] border border-[#1E253E] rounded-xl text-xs text-white focus:outline-none"
             />
           </div>
-          <button className="px-3 py-2 bg-[#111827] border border-[#1f2d44] rounded-xl text-xs text-white flex items-center gap-1.5 hover:bg-[#1a2235]">
+          <button className="px-3 py-2 bg-[#111827] border border-[#1E253E] rounded-xl text-xs text-white flex items-center gap-1.5 hover:bg-[#1a2235]">
             <Filter className="w-3.5 h-3.5 text-[#6B7280]" /> Filter
           </button>
         </div>
 
         {/* Uploads / Processing list */}
-        <div className="bg-[#111827] border border-[#1f2d44] rounded-2xl overflow-hidden">
-          <div className="px-5 py-4 border-b border-[#1f2d44] flex justify-between items-center">
+        <div className="bg-[#111827] border border-[#1E253E] rounded-2xl overflow-hidden">
+          <div className="px-5 py-4 border-b border-[#1E253E] flex justify-between items-center">
             <h3 className="text-xs font-bold uppercase tracking-wider text-[#9CA3AF]">Processing Pipeline</h3>
             <span className="px-2 py-0.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-[10px] text-blue-400 font-semibold">
               Parser Active
@@ -119,7 +119,7 @@ export default function DocumentsPage() {
             {uploads.map((item, idx) => (
               <div key={idx} className="p-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-[#0d1625] border border-[#1f2d44] flex items-center justify-center">
+                  <div className="w-8 h-8 rounded-lg bg-[#0d1625] border border-[#1E253E] flex items-center justify-center">
                     <FileText className="w-4 h-4 text-blue-400" />
                   </div>
                   <div>
