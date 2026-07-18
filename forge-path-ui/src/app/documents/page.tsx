@@ -115,11 +115,11 @@ export default function DocumentsPage() {
             </span>
           </div>
 
-          <div className="divide-y divide-[#1f2d44]/50">
+          <div className="divide-y divide-[#1E253E]/50">
             {uploads.map((item, idx) => (
               <div key={idx} className="p-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-[#0d1625] border border-[#1E253E] flex items-center justify-center">
+                  <div className="w-8 h-8 rounded-lg bg-[#070A13] border border-[#1E253E] flex items-center justify-center">
                     <FileText className="w-4 h-4 text-blue-400" />
                   </div>
                   <div>
@@ -135,7 +135,7 @@ export default function DocumentsPage() {
                         <span>Extracting data...</span>
                         <span>{item.progress}%</span>
                       </div>
-                      <div className="w-full h-1 bg-[#0d1625] rounded-full overflow-hidden">
+                      <div className="w-full h-1 bg-[#070A13] rounded-full overflow-hidden">
                         <div className="h-full bg-blue-500 transition-all duration-300" style={{ width: `${item.progress}%` }} />
                       </div>
                     </div>

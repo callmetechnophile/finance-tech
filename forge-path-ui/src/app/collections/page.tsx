@@ -91,10 +91,10 @@ export default function CollectionsPage() {
               <input
                 type="text"
                 placeholder="Search by invoice number or customer..."
-                className="w-full pl-9 pr-4 py-2 bg-[#0d1625] border border-[#1E253E] rounded-xl text-xs text-white focus:outline-none"
+                className="w-full pl-9 pr-4 py-2 bg-[#070A13] border border-[#1E253E] rounded-xl text-xs text-white focus:outline-none"
               />
             </div>
-            <button className="px-3 py-2 bg-[#0d1625] border border-[#1E253E] rounded-xl text-xs text-white flex items-center gap-1">
+            <button className="px-3 py-2 bg-[#070A13] border border-[#1E253E] rounded-xl text-xs text-white flex items-center gap-1">
               <Filter className="w-3.5 h-3.5" /> Filter
             </button>
           </div>
@@ -112,7 +112,7 @@ export default function CollectionsPage() {
                 <th className="p-4"></th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#1f2d44]/30 text-xs">
+            <tbody className="divide-y divide-[#1E253E]/30 text-xs">
               {invoices.map((inv) => (
                 <tr key={inv.id} className="hover:bg-[#1a2235]/40 transition-colors">
                   <td className="p-4 font-semibold text-white">{inv.invoice_number}</td>
@@ -193,7 +193,7 @@ export default function CollectionsPage() {
                   <h4 className="text-xs font-bold uppercase tracking-wider text-[#9CA3AF]">Escalation Communications</h4>
                   
                   {/* Email */}
-                  <div className="p-4 rounded-xl bg-[#0d1625] border border-[#1E253E] space-y-2">
+                  <div className="p-4 rounded-xl bg-[#070A13] border border-[#1E253E] space-y-2">
                     <div className="flex items-center justify-between">
                       <span className="text-xs font-semibold text-white flex items-center gap-1"><Mail className="w-3.5 h-3.5 text-blue-400" /> Brevo Email Draft</span>
                       <button onClick={() => dispatchReminder("email")} className="px-2.5 py-1 bg-blue-600 hover:bg-blue-500 text-[10px] font-bold text-white rounded-lg flex items-center gap-1">
@@ -208,7 +208,7 @@ export default function CollectionsPage() {
                   </div>
 
                   {/* SMS / WhatsApp */}
-                  <div className="p-4 rounded-xl bg-[#0d1625] border border-[#1E253E] space-y-2">
+                  <div className="p-4 rounded-xl bg-[#070A13] border border-[#1E253E] space-y-2">
                     <div className="flex items-center justify-between">
                       <span className="text-xs font-semibold text-white flex items-center gap-1"><MessageSquare className="w-3.5 h-3.5 text-emerald-400" /> Twilio SMS Draft</span>
                       <button onClick={() => dispatchReminder("sms")} className="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-500 text-[10px] font-bold text-white rounded-lg flex items-center gap-1">

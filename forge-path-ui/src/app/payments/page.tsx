@@ -104,7 +104,7 @@ export default function PaymentsPage() {
             <h3 className="text-xs font-bold uppercase tracking-wider text-[#9CA3AF]">Payment Optimizer Queue</h3>
           </div>
 
-          <div className="divide-y divide-[#1f2d44]/30">
+          <div className="divide-y divide-[#1E253E]/30">
             {payments.map((p) => (
               <div key={p.id} className="p-5 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                 <div className="space-y-1">
@@ -143,7 +143,7 @@ export default function PaymentsPage() {
                   </button>
                   <button
                     onClick={() => executeDelay(p.id)}
-                    className="px-3.5 py-1.5 bg-[#0d1625] hover:bg-[#1a2235] border border-[#1E253E] text-xs font-semibold text-white rounded-xl transition-all"
+                    className="px-3.5 py-1.5 bg-[#070A13] hover:bg-[#1a2235] border border-[#1E253E] text-xs font-semibold text-white rounded-xl transition-all"
                   >
                     Delay
                   </button>

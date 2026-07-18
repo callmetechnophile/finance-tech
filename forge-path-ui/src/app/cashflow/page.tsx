@@ -112,7 +112,7 @@ export default function CashFlowPage() {
               <h3 className="text-sm font-semibold text-white">Top Cash Flow Drivers</h3>
               
               <div className="space-y-3">
-                <div className="flex items-center justify-between p-2.5 rounded-xl bg-[#0d1625] border border-[#1E253E]">
+                <div className="flex items-center justify-between p-2.5 rounded-xl bg-[#070A13] border border-[#1E253E]">
                   <div>
                     <div className="text-xs font-semibold text-white">Delta Fab Receipts</div>
                     <div className="text-[10px] text-[#6B7280] mt-0.5">Historical prompt pay</div>
@@ -120,7 +120,7 @@ export default function CashFlowPage() {
                   <span className="text-xs font-bold text-emerald-400">+{formatCurrency(38000)}</span>
                 </div>
 
-                <div className="flex items-center justify-between p-2.5 rounded-xl bg-[#0d1625] border border-[#1E253E]">
+                <div className="flex items-center justify-between p-2.5 rounded-xl bg-[#070A13] border border-[#1E253E]">
                   <div>
                     <div className="text-xs font-semibold text-white">Iron Ore Supply Inc.</div>
                     <div className="text-[10px] text-[#6B7280] mt-0.5">Raw materials invoice</div>
@@ -128,7 +128,7 @@ export default function CashFlowPage() {
                   <span className="text-xs font-bold text-red-400">-{formatCurrency(45000)}</span>
                 </div>
 
-                <div className="flex items-center justify-between p-2.5 rounded-xl bg-[#0d1625] border border-[#1E253E]">
+                <div className="flex items-center justify-between p-2.5 rounded-xl bg-[#070A13] border border-[#1E253E]">
                   <div>
                     <div className="text-xs font-semibold text-white">SME Equipment Lease</div>
                     <div className="text-[10px] text-[#6B7280] mt-0.5">CNC Lease amortization</div>

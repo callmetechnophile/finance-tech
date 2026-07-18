@@ -61,7 +61,7 @@ export default function LoginPage() {
                   value={companyId}
                   onChange={(e) => setCompanyId(e.target.value)}
                   placeholder="e.g. apex-manufacturing"
-                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-[#0d1625] border border-[#1E253E] text-sm text-white focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600/30 transition-all placeholder-[#4B5563]"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-[#070A13] border border-[#1E253E] text-sm text-white focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600/30 transition-all placeholder-[#4B5563]"
                 />
               </div>
             </div>
@@ -76,7 +76,7 @@ export default function LoginPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="you@company.com"
-                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-[#0d1625] border border-[#1E253E] text-sm text-white focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600/30 transition-all placeholder-[#4B5563]"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-[#070A13] border border-[#1E253E] text-sm text-white focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600/30 transition-all placeholder-[#4B5563]"
                 />
               </div>
             </div>
@@ -94,7 +94,7 @@ export default function LoginPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-[#0d1625] border border-[#1E253E] text-sm text-white focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600/30 transition-all placeholder-[#4B5563]"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-[#070A13] border border-[#1E253E] text-sm text-white focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600/30 transition-all placeholder-[#4B5563]"
                 />
               </div>
             </div>
