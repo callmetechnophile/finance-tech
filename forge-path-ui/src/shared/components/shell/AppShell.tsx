@@ -6,7 +6,7 @@ import AppSidebarContainer from "./AppSidebarContainer";
 import WorkspaceContainer from "./WorkspaceContainer";
 import AIPanelContainer from "./AIPanelContainer";
 import StatusBarContainer from "./StatusBarContainer";
-import DrawerContainer from "./DrawerContainer";
+import DrawerManager from "@/features/drawer/components/DrawerManager";
 import ModalContainer from "./ModalContainer";
 import ToastContainer from "./ToastContainer";
 import CommandPaletteOverlay from "@/features/command-palette/CommandPaletteOverlay";
@@ -39,9 +39,7 @@ export default function AppShell({ children }: AppShellProps) {
       <StatusBarContainer />
 
       {/* Global Overlay Layers */}
-      <DrawerContainer>
-        <p className="text-[11px] text-[#cccccc]">Active details drawer. Content will plug-in during later milestones.</p>
-      </DrawerContainer>
+      <DrawerManager />
       
       <ModalContainer>
         <p className="text-[11px] text-[#cccccc]">Confirm action triggers will launch here.</p>

@@ -2,9 +2,11 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useDrawerStore } from "@/shared/stores/drawer.store";
 
 export default function useKeyboardNavigation() {
   const router = useRouter();
+  const { stack, popDrawer, pushDrawer, closeAll } = useDrawerStore();
 
   useEffect(() => {
     let lastKey = "";
@@ -18,15 +20,51 @@ export default function useKeyboardNavigation() {
         target.tagName === "TEXTAREA" ||
         target.isContentEditable
       ) {
+        // Esc key should work even inside inputs to close overlays/drawers
+        if (e.key === "Escape") {
+          e.preventDefault();
+          popDrawer();
+        }
         return;
       }
 
       const now = Date.now();
-      
-      // Ctrl + K triggers search focus (global hook placeholder)
-      if (e.ctrlKey && e.key.toLowerCase() === "k") {
+
+      // Drawer Actions
+      // 1. Esc closes top drawer
+      if (e.key === "Escape") {
         e.preventDefault();
-        console.log("Search command shortcut triggered");
+        popDrawer();
+        return;
+      }
+
+      // 2. Ctrl + W closes top drawer
+      if (e.ctrlKey && e.key.toLowerCase() === "w") {
+        e.preventDefault();
+        popDrawer();
+        return;
+      }
+
+      // 3. Alt + Left pops top drawer (back navigation)
+      if (e.altKey && e.key === "ArrowLeft") {
+        e.preventDefault();
+        popDrawer();
+        return;
+      }
+
+      // 4. Ctrl + Shift + D toggles drawer state (opens a sample context if empty, or closes all)
+      if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "d") {
+        e.preventDefault();
+        if (stack.length > 0) {
+          closeAll();
+        } else {
+          pushDrawer({ id: "demo-drawer", title: "CFO Intelligence Inspector", subtitle: "Hotkey verification trigger." });
+        }
+        return;
+      }
+      
+      // Ctrl + K triggers search focus (handled by CommandPaletteProvider)
+      if (e.ctrlKey && e.key.toLowerCase() === "k") {
         return;
       }
 
@@ -83,5 +121,5 @@ export default function useKeyboardNavigation() {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [router]);
+  }, [router, stack, popDrawer, pushDrawer, closeAll]);
 }

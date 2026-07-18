@@ -6,10 +6,11 @@ export default function useDrawer() {
 
   return {
     isOpen: store.stack.length > 0,
-    activeTab: activeDrawer ? activeDrawer.activeTab : "overview",
-    openDrawer: (title: string) => {
-      store.pushDrawer({ id: Math.random().toString(), title });
-    },
+    activeDrawer,
     closeDrawer: store.popDrawer,
+    closeAllDrawers: store.closeAll,
+    openDrawer: (title: string, id: string = Math.random().toString()) => {
+      store.pushDrawer({ id, title });
+    },
   };
 }

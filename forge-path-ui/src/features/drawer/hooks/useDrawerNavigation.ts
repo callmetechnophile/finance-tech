@@ -1,15 +1,11 @@
 import { useDrawerStore } from "@/shared/stores/drawer.store";
 
-export default function useDrawer() {
+export default function useDrawerNavigation() {
   const store = useDrawerStore();
   const activeDrawer = store.stack[store.stack.length - 1] || null;
 
   return {
-    isOpen: store.stack.length > 0,
     activeTab: activeDrawer ? activeDrawer.activeTab : "overview",
-    openDrawer: (title: string) => {
-      store.pushDrawer({ id: Math.random().toString(), title });
-    },
-    closeDrawer: store.popDrawer,
+    updateTab: store.updateActiveTab,
   };
 }
