@@ -1,0 +1,78 @@
+@import "tailwindcss";
+
+@theme {
+  --color-clickhouse-yellow: #faff69;
+  --color-clickhouse-black: #0a0a0a;
+  --color-clickhouse-card: #1a1a1a;
+  --color-clickhouse-border: #2a2a2a;
+}
+
+:root {
+  --background: #0a0a0a;
+  --foreground: #ffffff;
+  --primary: #faff69;
+  --primary-foreground: #0a0a0a;
+  --card: #1a1a1a;
+  --border: #2a2a2a;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Tabular numbers formatting utility */
+.font-tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+::-webkit-scrollbar-thumb {
+  background: #2a2a2a;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #faff69;
+}
+
+/* Focus and Selection styles */
+::selection {
+  background-color: #faff69;
+  color: #0a0a0a;
+}
+
+*:focus-visible {
+  outline: 2px solid #faff69;
+  outline-offset: 2px;
+}
+
+/* Reduced Motion Compliance */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Print Rules */
+@media print {
+  body {
+    background: white;
+    color: black;
+  }
+  .no-print {
+    display: none !important;
+  }
+}
