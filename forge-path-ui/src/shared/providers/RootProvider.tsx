@@ -10,6 +10,7 @@ import NavigationProvider from "./NavigationProvider";
 import NotificationProvider from "./NotificationProvider";
 import CommandPaletteProvider from "./CommandPaletteProvider";
 import useKeyboardNavigation from "@/shared/hooks/useKeyboardNavigation";
+import { useClerkSession } from "@/shared/hooks/useClerkSession";
 
 interface RootProviderProps {
   children: ReactNode;
@@ -18,6 +19,9 @@ interface RootProviderProps {
 export default function RootProvider({ children }: RootProviderProps) {
   // Bind global keyboard shortcuts hook
   useKeyboardNavigation();
+
+  // Sync Clerk session to Zustand session store
+  useClerkSession();
 
   return (
     <QueryProvider>

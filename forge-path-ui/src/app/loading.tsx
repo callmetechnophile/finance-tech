@@ -1,11 +1,19 @@
+"use client";
+
+import React from "react";
+import { Sparkles } from "lucide-react";
+
 export default function GlobalLoading() {
   return (
-    <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center p-8">
-      <div className="space-y-4 text-center">
-        <div className="w-8 h-8 border-2 border-[#faff69]/20 border-t-[#faff69] rounded-full animate-spin mx-auto" />
-        <p className="text-xs text-[#cccccc] font-medium tracking-wide">
-          Loading Financial Workspace...
-        </p>
+    <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center p-6">
+      <div className="flex flex-col items-center gap-4">
+        <div className="w-12 h-12 rounded-2xl bg-[#111] border border-[#222] flex items-center justify-center text-[#faff69] shadow-lg animate-bounce">
+          <Sparkles className="w-6 h-6 animate-pulse" />
+        </div>
+        <div className="text-center space-y-1">
+          <span className="text-xs font-bold text-white uppercase tracking-widest block">FORGE-PATH</span>
+          <span className="text-[10px] text-white/40 font-mono block">Loading Workspace Telemetry...</span>
+        </div>
       </div>
     </div>
   );

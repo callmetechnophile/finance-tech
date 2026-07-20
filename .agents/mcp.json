@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "devfolio": {
+      "type": "http",
+      "url": "https://mcp.devfolio.co/mcp",
+      "scope": "user"
+    }
+  }
+}

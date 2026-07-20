@@ -1,0 +1,55 @@
+"use client";
+
+import React from "react";
+import { Bot, Sparkles, ArrowRight } from "lucide-react";
+import { Panel } from "@/shared/components/layout/Panel";
+
+export function AIPanelPlaceholder() {
+  const collectionPrompts = [
+    "What is the predicted payment probability for Apex Steel INV-089?",
+    "Generate an optimal payment plan proposal for Delta Fabrication.",
+    "Recommend priority order for 12 overdue customer accounts.",
+  ];
+
+  return (
+    <Panel className="bg-[#111] border-[#222] space-y-4" padded>
+      <div className="flex justify-between items-center border-b border-[#222] pb-2">
+        <h3 className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
+          <Bot className="w-4 h-4 text-[#faff69] animate-pulse" /> AI Collections Copilot
+        </h3>
+        <span className="px-1.5 py-0.5 text-[8px] font-bold rounded bg-[#faff69]/10 text-[#faff69] border border-[#faff69]/20 uppercase tracking-widest">
+          Payment Predictor
+        </span>
+      </div>
+
+      <div className="space-y-3">
+        <div className="p-3 rounded-xl bg-[#1a1a1a] border border-[#222] space-y-2 text-xs">
+          <div className="flex items-center gap-1.5 text-[10px] text-[#faff69] font-bold uppercase tracking-wider">
+            <Sparkles className="w-3.5 h-3.5" /> Predictive Recovery Score
+          </div>
+          <p className="text-white/70 leading-relaxed">
+            Apex Steel payment probability evaluated at **94%**. Recommending initiating L3 Phone Call rather than immediate legal escalation to preserve long-term client relationship.
+          </p>
+        </div>
+
+        <div className="space-y-1.5">
+          <span className="text-[9px] text-white/40 uppercase tracking-wider font-bold block">
+            Suggested Collections Prompts
+          </span>
+          <div className="space-y-1.5">
+            {collectionPrompts.map((cp) => (
+              <button
+                key={cp}
+                onClick={() => alert(`Collections AI Query: "${cp}"`)}
+                className="w-full text-left p-2 rounded-lg bg-[#0d0d0d] hover:bg-[#1a1a1a] border border-[#222] text-[10px] text-white/60 hover:text-[#faff69] transition-colors leading-relaxed flex items-center justify-between group cursor-pointer"
+              >
+                <span className="line-clamp-2">{cp}</span>
+                <ArrowRight className="w-3 h-3 text-white/20 group-hover:text-[#faff69] shrink-0 ml-1" />
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+    </Panel>
+  );
+}

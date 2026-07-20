@@ -111,9 +111,10 @@ export default function DrawerManager() {
                     onClick={() => updateActiveTab(t.key)}
                     className={`px-3 py-1 text-[10px] font-bold rounded-md uppercase tracking-wider transition-all cursor-pointer ${
                       isActive 
-                        ? "bg-[#faff69] text-[#0a0a0a]" 
-                        : "text-[#888888] hover:text-white hover:bg-[#2a2a2a]/30"
+                        ? "bg-[#2a2a2a] text-white border border-white/5" 
+                        : "text-[#888888] hover:text-white hover:bg-[#2a2a2a]/40"
                     }`}
+
                   >
                     {t.label}
                   </button>

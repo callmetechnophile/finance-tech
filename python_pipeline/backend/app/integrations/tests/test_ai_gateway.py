@@ -2,7 +2,7 @@ import pytest
 import json
 from unittest.mock import patch, AsyncMock
 from app.integrations.ai.ai_config import AIConfig
-from app.integrations.ai.nim_client import NIMClient
+from app.integrations.ai.google_ai_client import GoogleAIClient
 from app.integrations.ai.response_validator import ResponseValidator
 from app.integrations.ai.ai_gateway import AIGateway
 
@@ -12,14 +12,14 @@ def anyio_backend():
 
 def test_ai_config_defaults():
     config = AIConfig()
-    assert config.base_url == "https://integrate.api.nvidia.com/v1"
-    assert config.model_name == "google/gemma-2-9b-it"
-    assert config.is_configured() is False  # No API Key in test environment
+    assert config.base_url == "https://generativelanguage.googleapis.com/v1beta"
+    assert config.model_name == "gemma-4"
+    assert config.is_configured() is False  # Placeholder key in test environment
 
 @pytest.mark.anyio
-async def test_nim_client_offline_mock():
-    client = NIMClient()
-    # Should run in mock mode when API key is missing
+async def test_google_ai_client_offline_mock():
+    client = GoogleAIClient()
+    # Should run in mock mode when API key is missing or placeholder
     response = await client.execute_chat("Write email_subject and email_body")
     data = json.loads(response)
     assert "email_subject" in data
@@ -42,15 +42,15 @@ def test_response_validator_hallucination():
 @pytest.mark.anyio
 async def test_ai_gateway_validation_retry():
     """
-    First call to GemmaService.generate_email returns malformed JSON via NIMClient.
+    First call to GemmaService.generate_email returns malformed JSON via GoogleAIClient.
     Second call returns valid JSON. AIGateway must retry and return the valid output.
     """
     gateway = AIGateway()
 
-    # Patch NIMClient.execute_chat on the gateway's internal service client
+    # Patch GoogleAIClient.execute_chat on the gateway's internal service client
     call_count = {"n": 0}
 
-    async def mocked_execute_chat(prompt):
+    async def mocked_execute_chat(prompt, system_instruction=None):
         call_count["n"] += 1
         if call_count["n"] == 1:
             # First call: return malformed response that fails validation

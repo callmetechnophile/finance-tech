@@ -15,12 +15,14 @@ interface AIState {
   addMessage: (m: Message) => void;
   setStreaming: (s: boolean) => void;
   setStreamingText: (t: string) => void;
+  clearSession: () => void;
 }
 
 export const useAIStore = create<AIState>((set) => ({
   isAiPanelCollapsed: false,
+  // Default greeting has no hardcoded name — will be updated after login
   conversations: [
-    { id: "1", role: "assistant", content: "Hello Alexander. How can I assist you with your cash flow today?" }
+    { id: "1", role: "assistant", content: "Hello. How can I assist you today?" }
   ],
   isStreaming: false,
   streamingText: "",
@@ -28,4 +30,9 @@ export const useAIStore = create<AIState>((set) => ({
   addMessage: (m) => set((s) => ({ conversations: [...s.conversations, m] })),
   setStreaming: (isStreaming) => set({ isStreaming }),
   setStreamingText: (streamingText) => set({ streamingText }),
+  clearSession: () => set({
+    conversations: [{ id: "new", role: "assistant", content: "Hello. How can I assist you today?" }],
+    isStreaming: false,
+    streamingText: "",
+  }),
 }));

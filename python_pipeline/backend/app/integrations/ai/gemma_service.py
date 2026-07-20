@@ -1,18 +1,18 @@
 import json
 import logging
 from typing import Dict, Any, List
-from app.integrations.ai.nim_client import NIMClient
+from app.integrations.ai.google_ai_client import GoogleAIClient
 from app.integrations.ai.prompt_builder import PromptBuilder
 
 logger = logging.getLogger(__name__)
 
 class GemmaService:
     """
-    Service defining functions that query the NIM client and return parsed JSON payloads.
+    Service defining functions that query Google AI Studio (Gemma 4 model) and return parsed JSON payloads.
     """
 
-    def __init__(self, client: NIMClient = None):
-        self.client = client or NIMClient()
+    def __init__(self, client: GoogleAIClient = None):
+        self.client = client or GoogleAIClient()
         self.prompt_builder = PromptBuilder()
 
     async def generate_email(self, context: Dict[str, Any], tone: str) -> Dict[str, Any]:

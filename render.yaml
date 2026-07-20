@@ -1,15 +1,25 @@
 services:
+  # FastAPI Backend Service on Render
   - type: web
-    name: forge-path-data-engine
-    env: node
-    buildCommand: npm install && npm run build
-    startCommand: npm start
+    name: forge-path-api
+    env: python
+    region: ohio
+    rootDir: python_pipeline/backend
+    buildCommand: pip install -r requirements.txt fastapi uvicorn pydantic pydantic-settings sqlalchemy psycopg2-binary
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
     envVars:
-      - key: NODE_VERSION
-        value: 20.0.0
+      - key: APP_ENV
+        value: production
+      - key: API_V1_STR
+        value: /api/v1
       - key: DATABASE_URL
-        sync: false # User will set this in the Render dashboard
-      - key: NVIDIA_API_KEY
-        sync: false
-      - key: PUTER_API_KEY
-        sync: false
+        fromDatabase:
+          name: forge-path-db
+          property: connectionString
+
+databases:
+  # Managed PostgreSQL Database on Render
+  - name: forge-path-db
+    databaseName: forge_path_db
+    user: postgres
+    region: ohio

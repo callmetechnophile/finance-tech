@@ -1,0 +1,29 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Testing
+.pytest_cache/
+.coverage
+
+# Environments
+.venv/
+venv/
+ENV/
+
+# Environment Variables & Secrets
+.env
+.env.local
+.env.development
+.env.production
+.env.*
+!.env.example
+
+# Databases
+*.db
+*.sqlite
+
+# Storage & Uploads
+uploads/
+quarantine/

@@ -1,34 +1,37 @@
 "use client";
 
-import { useEffect } from "react";
+import React, { useEffect } from "react";
+import { AlertTriangle, RefreshCw } from "lucide-react";
 
-interface GlobalErrorProps {
+export default function GlobalError({
+  error,
+  reset,
+}: {
   error: Error & { digest?: string };
   reset: () => void;
-}
-
-export default function GlobalError({ error, reset }: GlobalErrorProps) {
+}) {
   useEffect(() => {
-    console.error("Uncaught application error boundary exception:", error);
+    console.error("Global App Error Boundary Caught Exception:", error);
   }, [error]);
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center p-8">
-      <div className="max-w-md w-full p-8 rounded-lg bg-[#1a1a1a] border border-[#ef4444]/20 text-center space-y-6">
-        <div className="w-12 h-12 rounded-md bg-[#ef4444]/10 border border-[#ef4444]/20 flex items-center justify-center mx-auto text-[#ef4444] font-bold text-xl">
-          !
+    <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center p-6">
+      <div className="p-8 rounded-2xl bg-[#111] border border-red-500/30 max-w-md w-full text-center space-y-4 shadow-2xl">
+        <div className="w-12 h-12 rounded-full bg-red-500/10 flex items-center justify-center text-red-500 mx-auto">
+          <AlertTriangle className="w-6 h-6" />
         </div>
-        <div className="space-y-2">
-          <h1 className="text-xl font-bold text-white tracking-tight">System Exception Detected</h1>
-          <p className="text-xs text-[#cccccc] leading-relaxed">
-            The workspace encountered an unexpected runtime boundary error. Let's try to restore the session.
+        <div>
+          <h2 className="text-lg font-bold text-white uppercase tracking-wider">System Exception Intercepted</h2>
+          <p className="text-xs text-white/50 mt-1 leading-relaxed">
+            {error.message || "An unhandled client error occurred while rendering the workspace."}
           </p>
         </div>
         <button
           onClick={() => reset()}
-          className="w-full py-2 bg-[#faff69] hover:bg-[#e6eb52] text-[#0a0a0a] text-xs font-bold rounded-md transition-colors"
+          className="w-full py-2.5 bg-[#faff69] hover:bg-[#e6eb52] text-xs font-bold text-black rounded-xl transition-colors flex items-center justify-center gap-2 cursor-pointer uppercase tracking-wider"
         >
-          Restore Workspace
+          <RefreshCw className="w-4 h-4 fill-black" />
+          Reset Workspace State
         </button>
       </div>
     </div>

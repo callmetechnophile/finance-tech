@@ -14,6 +14,7 @@ interface BackgroundState {
   updateProgress: (id: string, progress: number) => void;
   completeJob: (id: string) => void;
   failJob: (id: string) => void;
+  clearAll: () => void;
 }
 
 export const useBackgroundStore = create<BackgroundState>((set) => ({
@@ -28,4 +29,5 @@ export const useBackgroundStore = create<BackgroundState>((set) => ({
   failJob: (id) => set((s) => ({
     jobs: s.jobs.map((j) => j.id === id ? { ...j, status: "failed" } : j)
   })),
+  clearAll: () => set({ jobs: [] }),
 }));

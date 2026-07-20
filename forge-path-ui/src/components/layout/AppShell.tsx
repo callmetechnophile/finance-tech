@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { Sidebar } from "./Sidebar";
 import { TopNav } from "./TopNav";
-import { Menu } from "lucide-react";
 
 interface AppShellProps {
   children: React.ReactNode;
@@ -16,14 +15,14 @@ export function AppShell({ children }: AppShellProps) {
   return (
     <div className="flex h-screen w-screen overflow-hidden bg-[#0a0a0a] text-white">
       {/* Sidebar - Desktop */}
-      <div className="hidden lg:block h-full">
+      <div className="hidden lg:block h-full shrink-0">
         <Sidebar collapsed={collapsed} onToggle={() => setCollapsed(!collapsed)} />
       </div>
 
       {/* Sidebar - Mobile Drawer */}
       {mobileOpen && (
         <div className="fixed inset-0 z-50 lg:hidden flex">
-          <div className="fixed inset-0 bg-black/60" onClick={() => setMobileOpen(false)} />
+          <div className="fixed inset-0 bg-black/80 backdrop-blur-sm" onClick={() => setMobileOpen(false)} />
           <Sidebar
             collapsed={false}
             onToggle={() => {}}

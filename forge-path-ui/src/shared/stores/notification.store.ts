@@ -27,6 +27,7 @@ interface NotificationState {
   togglePin: (id: string) => void;
   archiveNotification: (id: string) => void;
   actOnApproval: (id: string, action: "approved" | "rejected") => void;
+  clearAll: () => void;
 }
 
 export const useNotificationStore = create<NotificationState>((set) => ({
@@ -105,4 +106,5 @@ export const useNotificationStore = create<NotificationState>((set) => ({
       return n;
     }),
   })),
+  clearAll: () => set({ notifications: [], isCenterOpen: false }),
 }));

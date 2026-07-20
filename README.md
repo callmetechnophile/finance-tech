@@ -1,71 +1,148 @@
-# FORGE-PATH: AI Financial Operating System & CFO Command Center
+# FORGE-PATH
 
-FORGE-PATH is a next-generation AI Financial Operating System built specifically for Manufacturing SMEs (CNC Machining, Fabrication, Laser Cutting, Welding, Industrial Manufacturing). It combines deterministic financial engines with Gemma 4 (NVIDIA NIM) reasoning to provide real-time cash flow forecasting, liquidity analytics, collections automation, and treasury payment scheduling.
+**AI-Powered Financial Operations & Solvency Management Platform for Manufacturing SMEs**
 
----
-
-## 🛠️ Architecture & Modules Overview
-
-### 📋 Module 0 – Financial Data Intake & Standardization Engine
-- **Purpose**: Ingests unstructured documents (Invoices, Receipts, Purchase Orders, Bank Statements, Ledgers) and standardizes them into structured JSON.
-- **Pipeline**: Converts formats (PDF/DOCX to Markdown, Excel to CSV), runs Puter.js OCR for images, parses text using Gemma, validates mathematical consistency, checks duplicates, and writes to database tables or routes invalid files to a quarantine drawer.
-
-### 📈 Module 1 – Forecast Intelligence Engine
-- **Purpose**: Computes deterministic cash flow projections and detects trajectory trends.
-- **Features**: Processes live receivables and committed payables to calculate inflow/outflow metrics, identifies runway anomalies (unexpected overhead increases), and generates confidence boundaries.
-
-### 💧 Module 2 – Liquidity Intelligence Engine
-- **Purpose**: Calculates real-time cash runway limits and stress-tests operating capital.
-- **Features**: Generates a dynamic Liquidity Score (0–100), computes average daily cash burn rates, and evaluates business resilience under simulated scenarios (e.g., 20% revenue drop, sudden raw material cost hikes).
-
-### 📞 Module 3 – Collection Intelligence Engine
-- **Purpose**: Optimizes accounts receivable collection workflows.
-- **Features**: Priority-ranks unpaid invoices based on customer payment history, generates personalized follow-up templates via Gemma (customized by channel and tone), dispatches notifications (via Twilio SMS/WhatsApp and Brevo Email), and logs delivery trails.
-
-### 💳 Module 4 – Treasury & Payment Intelligence Engine
-- **Purpose**: Maximizes payment efficiency while preserving operating cash reserves.
-- **Features**: Implements a multi-criteria optimization engine to prioritize vendor bills, captures early-payment discounts, avoids late penalties, and dynamically defers payouts if cash reserves fall below the minimum safety buffer.
-
-### 🤖 Module 5 – AI Financial Copilot
-- **Purpose**: Orchestrates all underlying engines to act as a virtual CFO.
-- **Features**: Uses a **Query Router** to map user questions to specific modules, a **Context Builder** to pull structured metric aggregates, and an **AI Gateway** to generate business insights via Gemma 4. Contains a regex-based **Response Validator** to reject and block hallucinated numbers.
+[![CI/CD Pipeline](https://github.com/apex-finance/forge-path/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/apex-finance/forge-path/actions)
+[![Next.js](https://img.shields.io/badge/Next.js-v16.2-black?logo=next.js)](https://nextjs.org)
+[![FastAPI](https://img.shields.io/badge/FastAPI-v0.139-009688?logo=fastapi)](https://fastapi.tiangolo.com)
+[![NVIDIA NIM](https://img.shields.io/badge/NVIDIA_NIM-Gemma_4-76B900?logo=nvidia)](https://build.nvidia.com)
+[![NeonDB](https://img.shields.io/badge/NeonDB-Serverless_PostgreSQL-00E599?logo=postgresql)](https://neon.tech)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 ---
 
-## 🚀 Getting Started
+## 🚀 System Architecture
 
-### 1. Prerequisites & Environment
-Ensure you have Node.js 18+ and Python 3.12+ installed. Set up your credentials in the backend `.env` file:
-```env
-NVIDIA_API_KEY=your_key
-TWILIO_ACCOUNT_SID=your_sid
-TWILIO_AUTH_TOKEN=your_token
-BREVO_API_KEY=your_key
-DATABASE_URL=your_postgres_uri
+```
+                                  +---------------------------------------+
+                                  |         FORGE-PATH Web Client         |
+                                  |   (Next.js 16 + React 19 + Tailwind)  |
+                                  +-------------------+-------------------+
+                                                      |
+                                                      | HTTPS / REST
+                                                      v
+                                  +-------------------+-------------------+
+                                  |      FastAPI Backend Gateway (v1)     |
+                                  |    (Uvicorn + Pydantic + Security)    |
+                                  +---------+-----------------+-----------+
+                                            |                 |
+                   +------------------------+                 +------------------------+
+                   |                                                                   |
+                   v                                                                   v
++------------------+-------------------+                             +-----------------+-----------------+
+|      Neon Serverless PostgreSQL      |                             |        NVIDIA NIM AI Service       |
+|    (Transactions, Audits, AR/AP)     |                             |  (Gemma 4 Virtual CFO Copilot)  |
++--------------------------------------+                             +-----------------------------------+
 ```
 
-### 2. Running the Backend
-Initialize the virtual environment, install requirements, and boot the Flask API server:
-```bash
-cd python_pipeline/backend
-..\venv\Scripts\activate
-pip install -r requirements.txt
-python -m flask --app app.main run --port 8000 --debug
-```
+---
 
-### 3. Running the Frontend
-Boot the responsive Next.js development server on port 3000:
+## ⚡ Core Platform Capabilities
+
+1. **Financial Intake & Document Intelligence (`/documents`)**:
+   - Drag-and-drop ingestion of scanned PDF invoices, XLSX maintenance bills, and CSV bank statements into NeonDB transaction tables.
+   - Intelligent OCR layout parser with confidence threshold validation & quarantine queue.
+
+2. **Executive Financial Operations Dashboard (`/dashboard`)**:
+   - Split-screen desk featuring 8 core telemetry KPIs (*Cash Available, Outstanding Receivables, Outstanding Payables, Liquidity Score, Cash Burn Rate, Monthly Revenue, Monthly Expenses, Forecast Accuracy*).
+
+3. **Cash Flow Forecasting & Intelligence (`/forecast`)**:
+   - Timeseries cash projection model with target horizon selector tabs (**7d**, **30d**, **90d**, **365d**) and interactive stress scenario sandbox.
+
+4. **Liquidity Command Center (`/liquidity`)**:
+   - Solvency buffer telemetry, acid-test quick ratio monitoring, and cash gap risk prediction warnings.
+
+5. **Collections Operations Center (`/collections`)**:
+   - AR aging buckets (0-30d, 31-60d, 61-90d, 90d+ overdue), multi-stage escalation workflow (L1 Email → L2 Demand SMS → L3 Phone Call → L4 Legal Notice), and Brevo/Twilio dispatch controls.
+
+6. **Treasury Operations Center (`/treasury`)**:
+   - Vendor payout queue with early payment discount capture (*2/10 net 30*), multi-bank account sweep controls, and dual-signature wire release approvals.
+
+7. **AI Financial Copilot (`/copilot`)**:
+   - Conversational Virtual CFO powered by Gemma 4 & NVIDIA NIM with real-time financial context telemetry and document context attachments.
+
+8. **Admin Console & System Monitoring (`/admin`)**:
+   - Real-time API access logs, worker queue health, service probes, and security audit trail.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Frontend Core**: Next.js 16 (Turbopack), React 19, TypeScript, Tailwind CSS, Framer Motion, Lucide Icons, Sonner.
+- **Backend Core**: FastAPI 0.139, Python 3.11, Uvicorn, Pydantic v2, SQLAlchemy 2.0.
+- **Databases & Cache**: Neon Serverless PostgreSQL, ClickHouse Telemetry, Redis 7.
+- **AI & ML**: NVIDIA NIM Inference Microservices, Google Gemma 2B/4 model.
+- **Outreach & Communications**: Brevo Email API, Twilio SMS API.
+- **DevOps & Containerization**: Docker Multi-stage builds, Docker Compose, GitHub Actions.
+
+---
+
+## 💻 Quickstart Setup Guide
+
+### 1. Local Development (Node.js & Python)
+
 ```bash
+# Clone Repository
+git clone https://github.com/apex-finance/forge-path.git
+cd SME-FINANCE-SOLUTION
+
+# 1. Install & Run Next.js Frontend
 cd forge-path-ui
 npm install
 npm run dev
+# App will run at http://localhost:3000
+
+# 2. Run FastAPI Backend (Separate Terminal)
+cd ../python_pipeline/backend
+python -m venv venv
+source venv/bin/activate  # On Windows: .\venv\Scripts\activate
+pip install -r requirements.txt fastapi uvicorn pydantic pydantic-settings sqlalchemy
+uvicorn app.main:app --reload --port 8000
+# API Docs will be available at http://localhost:8000/docs
 ```
 
-### 4. Running Tests
-- **Frontend Tests**: `npm test`
-- **Backend Tests (pytest)**:
+### 2. Run Complete Stack via Docker Compose
+
 ```bash
-$env:PYTHONPATH="app"
-pytest -v
+docker-compose --env-file .env.docker up --build
 ```
-Currently passes **73/73 tests** covering all parsing, forecasting, collections, treasury, and copilot modules.
+
+---
+
+## 🔑 Demo Account & Sample Financial Data
+
+### Demo Users
+- **CFO Executive**: `Alexander Miller` (`finance@apex.com` / `password123`)
+- **Company**: `Apex Manufacturing Inc.` (`company_id`: `apex-manufacturing-uuid`)
+
+### Sample Financial Telemetry
+- **Available Liquid Cash**: `$342,000` (68 Days Runway)
+- **Outstanding AR Balance**: `$284,500` (12 Active Customer Invoices)
+- **Outstanding AP Balance**: `$118,400` (8 Supplier Bills Queued)
+- **Liquidity Score**: `84/100 (Optimal)`
+- **Daily Operating Burn Rate**: `$5,000/day`
+- **Quick Ratio (Acid-Test)**: `1.8x`
+- **High-Risk Overdue Account**: `Apex Steel Works ($47,500 overdue 45 days)`
+
+---
+
+## 🌐 API Reference
+
+### Health & Monitoring
+- `GET /health`: Root system health check.
+- `GET /api/v1/health`: Detailed component telemetry (NeonDB, ClickHouse, NVIDIA NIM, Brevo, Twilio).
+
+### Operations Endpoints
+- `GET /api/v1/auth/profile`: Authenticated user & company profile.
+- `GET /api/v1/documents`: List ingested financial documents.
+- `GET /api/v1/cashflow/forecast?horizon=30d`: Predictive cash flow forecast metrics.
+- `GET /api/v1/liquidity/metrics`: Solvency ratios & liquidity score.
+- `GET /api/v1/collections/invoices`: Accounts receivable delinquency queue.
+- `GET /api/v1/treasury/summary`: Bank accounts & payout queue telemetry.
+- `POST /api/v1/copilot/chat`: Virtual CFO conversational query endpoint.
+
+---
+
+## 📄 License
+
+Distributed under the MIT License. Copyright © 2026 Apex Manufacturing Inc. / FORGE-PATH.

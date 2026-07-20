@@ -1,0 +1,118 @@
+version: "3.8"
+
+name: forge-path-platform
+
+services:
+  # 1. Next.js 16 Frontend Web Application
+  frontend:
+    build:
+      context: ./forge-path-ui
+      dockerfile: Dockerfile
+    container_name: forge-path-frontend
+    restart: always
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env.docker
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - forge-path-network
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:3000/ || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+
+  # 2. FastAPI Virtual CFO Backend API Service
+  backend:
+    build:
+      context: ./python_pipeline/backend
+      dockerfile: Dockerfile
+    container_name: forge-path-backend
+    restart: always
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env.docker
+    environment:
+      - APP_ENV=production
+      - DATABASE_URL=postgresql://postgres:forge_secure_password_123@postgres:5432/forge_path_db
+      - REDIS_URL=redis://redis:6379/0
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - quarantine_data:/app/quarantine
+      - uploads_data:/app/uploads
+    networks:
+      - forge-path-network
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8000/health || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  # 3. PostgreSQL 16 Relational Database Service
+  postgres:
+    image: postgres:16-alpine
+    container_name: forge-path-postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: forge_secure_password_123
+      POSTGRES_DB: forge_path_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - forge-path-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d forge_path_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+
+  # 4. Redis 7 Caching & Task Broker Service
+  redis:
+    image: redis:7-alpine
+    container_name: forge-path-redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - forge-path-network
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli ping | grep PONG"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+
+networks:
+  forge-path-network:
+    driver: bridge
+    name: forge-path-network
+
+volumes:
+  postgres_data:
+    name: forge-path-postgres-data
+  redis_data:
+    name: forge-path-redis-data
+  quarantine_data:
+    name: forge-path-quarantine-data
+  uploads_data:
+    name: forge-path-uploads-data
