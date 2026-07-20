@@ -1,9 +1,9 @@
 "use client";
 
-import { SignIn } from "@clerk/nextjs";
+import { SignUp } from "@clerk/nextjs";
 import Link from "next/link";
 
-export default function LoginPage() {
+export default function SignUpPage() {
   return (
     <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center p-6 relative select-none">
       {/* Background grid */}
@@ -30,13 +30,13 @@ export default function LoginPage() {
           </p>
         </div>
 
-        {/* Clerk SignIn */}
-        <SignIn routing="hash" signUpUrl="/signup" />
+        {/* Clerk SignUp */}
+        <SignUp routing="hash" signInUrl="/login" />
         
         <div className="text-center mt-6 text-xs text-[#666666]">
-          Don't have an account?{" "}
-          <Link href="/signup" className="text-[#faff69] font-bold hover:underline">
-            Create Account
+          Already have an account?{" "}
+          <Link href="/login" className="text-[#faff69] font-bold hover:underline">
+            Sign In
           </Link>
         </div>
 
