@@ -28,8 +28,12 @@ class AIService:
         # If valid API key is available, execute real request
         if api_key and not api_key.startswith("AIzaSy_REPLACE") and not api_key.startswith("mock"):
             try:
-                # Primary: Google AI Studio REST endpoint
-                url = f"{base_url}/models/{model_name}:generateContent?key={api_key}"
+                # Primary: Google AI Studio REST endpoint with X-goog-api-key header
+                url = f"{base_url}/models/{model_name}:generateContent"
+                headers = {
+                    "X-goog-api-key": api_key,
+                    "Content-Type": "application/json",
+                }
                 payload = {
                     "contents": [
                         {
@@ -46,7 +50,7 @@ class AIService:
                         "maxOutputTokens": 512
                     }
                 }
-                response = requests.post(url, json=payload, timeout=10)
+                response = requests.post(url, json=payload, headers=headers, timeout=10)
                 if response.status_code == 200:
                     data = response.json()
                     candidates = data.get("candidates", [])

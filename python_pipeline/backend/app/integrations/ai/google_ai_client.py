@@ -19,14 +19,18 @@ class GoogleAIClient:
     async def execute_chat(self, prompt: str, system_instruction: Optional[str] = None) -> str:
         """
         Executes Chat Completion query to Google AI Studio for Gemma 4.
-        Supports both OpenAI-compatible endpoint and native Google AI Studio REST API.
+        Supports both header authentication (X-goog-api-key) and OpenAI-compatible endpoints.
         """
         if not self.config.is_configured():
             logger.warning("Google AI Studio is not configured or using placeholder key. Running in offline mock mode.")
             return self._mock_response(prompt)
 
-        # Primary: Google AI Studio REST API endpoint for Gemma 4
-        url = f"{self.config.base_url}/models/{self.config.model_name}:generateContent?key={self.config.api_key}"
+        # Primary: Google AI Studio REST API endpoint using header auth (X-goog-api-key)
+        url = f"{self.config.base_url}/models/{self.config.model_name}:generateContent"
+        headers = {
+            "X-goog-api-key": self.config.api_key,
+            "Content-Type": "application/json"
+        }
         
         contents = []
         if system_instruction:
@@ -45,10 +49,10 @@ class GoogleAIClient:
 
         try:
             async with httpx.AsyncClient(timeout=self.config.timeout_seconds) as client:
-                response = await client.post(url, json=payload)
+                response = await client.post(url, headers=headers, json=payload)
                 
-                # Fallback to OpenAI-compatible endpoint if native endpoint returns 404
-                if response.status_code == 404:
+                # Fallback to query param or OpenAI-compatible endpoint if 404/401
+                if response.status_code in (404, 401):
                     return await self._execute_openai_compat(prompt, system_instruction)
                     
                 response.raise_for_status()
@@ -100,10 +104,11 @@ class GoogleAIClient:
         if not self.config.is_configured():
             return False
         
-        url = f"{self.config.base_url}/models?key={self.config.api_key}"
+        url = f"{self.config.base_url}/models"
+        headers = {"X-goog-api-key": self.config.api_key}
         try:
             async with httpx.AsyncClient(timeout=5.0) as client:
-                res = await client.get(url)
+                res = await client.get(url, headers=headers)
                 return res.status_code == 200
         except Exception:
             return False
