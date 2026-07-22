@@ -2,10 +2,9 @@
 
 **AI-Powered Financial Operations & Solvency Management Platform for Manufacturing SMEs**
 
-[![CI/CD Pipeline](https://github.com/apex-finance/forge-path/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/apex-finance/forge-path/actions)
 [![Next.js](https://img.shields.io/badge/Next.js-v16.2-black?logo=next.js)](https://nextjs.org)
 [![FastAPI](https://img.shields.io/badge/FastAPI-v0.139-009688?logo=fastapi)](https://fastapi.tiangolo.com)
-[![NVIDIA NIM](https://img.shields.io/badge/NVIDIA_NIM-Gemma_4-76B900?logo=nvidia)](https://build.nvidia.com)
+[![Google AI Studio](https://img.shields.io/badge/Google_AI_Studio-Gemma_4-4285F4?logo=google)](https://aistudio.google.com)
 [![NeonDB](https://img.shields.io/badge/NeonDB-Serverless_PostgreSQL-00E599?logo=postgresql)](https://neon.tech)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
