@@ -9,18 +9,18 @@ export default function Hero() {
     <section className="relative pt-32 pb-24 md:pt-40 md:pb-36 border-b border-[#2b3139] overflow-hidden">
       {/* Subtle grid background */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e2329_1px,transparent_1px),linear-gradient(to_bottom,#1e2329_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-35" />
-      
+
       {/* Moving ambient point glow */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-[#fcd535]/5 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
-        
+
         <div className="lg:col-span-6 space-y-6 text-left">
           <span className="inline-flex items-center gap-1.5 text-[10px] font-extrabold text-[#fcd535] uppercase tracking-[0.2em] bg-[#fcd535]/10 border border-[#fcd535]/25 rounded-md px-3 py-1.5">
             <Sparkles className="w-3.5 h-3.5" /> FORGE-PATH OS
           </span>
           <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-white leading-tight">
-            Enterprise Financial Operating System for Modern SMEs
+            THIS IS THE NEW HERO - TEST BUILD
           </h1>
           <p className="text-sm md:text-base text-[#707a8a] max-w-xl leading-relaxed">
             Transform financial documents into real-time business intelligence using AI-powered OCR, forecasting, and executive analytics. Build an automated bridge between document ingestion and balance sheet solvency.
@@ -47,7 +47,7 @@ export default function Hero() {
           {/* Cinematic Mockup Frame */}
           <div className="w-full max-w-xl p-5 rounded-2xl bg-[#1e2329]/80 border border-[#2b3139] shadow-2xl relative overflow-hidden backdrop-blur-md">
             <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#fcd535]/50 via-[#0ecb81]/50 to-[#38bdf8]/50" />
-            
+
             {/* Fake dashboard headers */}
             <div className="flex justify-between items-center border-b border-[#2b3139] pb-4 mb-4">
               <div className="flex items-center gap-2">
