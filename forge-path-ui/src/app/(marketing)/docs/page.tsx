@@ -60,8 +60,8 @@ export default function DocsPage() {
             Documentation Hub
             <span className="w-4 h-px bg-[#fcd535]" />
           </span>
-          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-white max-w-3xl mx-auto leading-tight">
-            Build and Integrate with <span className="text-[#fcd535]">FORGE-PATH</span>
+          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-white max-w-4xl mx-auto leading-tight">
+            Build and Integrate <span className="inline-flex items-center whitespace-nowrap">with <span className="text-[#fcd535] ml-1.5">FORGE-PATH</span></span>
           </h1>
           <p className="text-sm md:text-base text-[#707a8a] max-w-xl mx-auto leading-relaxed">
             API guides, document processing pipelines, Gemma 4 AI integration, and core architecture references for modern enterprise finance.
