@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { ArrowRight, Menu, X } from "lucide-react";
@@ -36,23 +35,7 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
 
-        {/* ── Logo ── */}
-        <Link href="/" className="flex items-center gap-2.5 group select-none">
-          <div className="relative w-9 h-9 rounded-xl overflow-hidden ring-1 ring-[#fcd535]/20 group-hover:ring-[#fcd535]/60 transition-all duration-200 shadow-lg shadow-[#fcd535]/10">
-            <Image
-              src="/forge-path-logo.jpg"
-              alt="FORGE-PATH Logo"
-              fill
-              className="object-cover"
-              priority
-            />
-          </div>
-          <span className="text-sm font-extrabold text-white tracking-wide group-hover:text-[#fcd535] transition-colors duration-200">
-            FORGE<span className="text-[#fcd535]">-PATH</span>
-          </span>
-        </Link>
-
-        {/* ── Desktop Nav Links ── */}
+        {/* ── Desktop Nav Links (left) ── */}
         <nav className="hidden md:flex items-center gap-6">
           {navLinks.map((link) => (
             <Link
@@ -65,7 +48,7 @@ export default function Navbar() {
           ))}
         </nav>
 
-        {/* ── Desktop CTAs ── */}
+        {/* ── Desktop CTAs (right) ── */}
         <div className="hidden md:flex items-center gap-3">
           <Link
             href="/login"
@@ -81,9 +64,9 @@ export default function Navbar() {
           </Link>
         </div>
 
-        {/* ── Mobile Hamburger ── */}
+        {/* ── Mobile Hamburger (pushes right on mobile) ── */}
         <button
-          className="md:hidden p-2 rounded-lg text-[#848e9c] hover:text-white hover:bg-[#1e2329] transition-colors"
+          className="md:hidden ml-auto p-2 rounded-lg text-[#848e9c] hover:text-white hover:bg-[#1e2329] transition-colors"
           onClick={() => setMobileOpen((v) => !v)}
           aria-label="Toggle menu"
         >
