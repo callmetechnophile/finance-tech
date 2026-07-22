@@ -7,6 +7,7 @@ import Technology from "@/components/marketing/Technology/Technology";
 import Documentation from "@/components/marketing/Documentation/Documentation";
 import Demo from "@/components/marketing/Demo/Demo";
 import CTA from "@/components/marketing/Footer/CTA";
+import Developers from "@/components/marketing/Developers/Developers";
 
 export default function MarketingPage() {
   return (
@@ -20,6 +21,7 @@ export default function MarketingPage() {
       <Documentation />
       <Demo />
       <CTA />
+      <Developers />
     </>
   );
 }
