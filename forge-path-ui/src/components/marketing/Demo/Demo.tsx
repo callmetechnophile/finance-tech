@@ -25,12 +25,15 @@ export default function Demo() {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          video.play().catch((err) => {
-            // Muted autoplay block might fail or resolve depending on browser policies
-            console.log("Autoplay preview paused or restricted by browser:", err);
-          });
+          if (video.paused) {
+            video.play().catch((err) => {
+              console.log("Autoplay preview paused or restricted by browser:", err);
+            });
+          }
         } else {
-          video.pause();
+          if (!video.paused) {
+            video.pause();
+          }
         }
       },
       { threshold: 0.2 } // Trigger when 20% of the video is visible
@@ -62,6 +65,7 @@ export default function Demo() {
         <div className="max-w-6xl mx-auto rounded-3xl bg-[#181A20] border border-[#2b3139] overflow-hidden shadow-2xl relative aspect-video flex items-center justify-center group">
           <video
             ref={videoRef}
+            src="/intro.mp4"
             className="w-full h-full object-cover rounded-3xl"
             controls
             preload="auto"
@@ -70,7 +74,6 @@ export default function Demo() {
             muted
             playsInline
           >
-            <source src="/intro.mp4" type="video/mp4" />
             Your browser does not support HTML5 video.
           </video>
         </div>
