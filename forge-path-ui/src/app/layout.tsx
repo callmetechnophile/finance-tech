@@ -34,7 +34,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
       appearance={{
         variables: {
-          colorBackground: "#0f0f0f",
+          colorBackground: "#111111",
           colorPrimary: "#faff69",
           colorDanger: "#ef4444",
           borderRadius: "0.5rem",
@@ -42,11 +42,20 @@ export default function RootLayout({ children }: RootLayoutProps) {
         },
         elements: {
           card: "bg-[#111111] border border-[#2a2a2a] shadow-2xl shadow-black/80",
-          headerTitle: "text-white",
-          headerSubtitle: "text-[#888888]",
+          headerTitle: "text-white text-lg font-bold",
+          headerSubtitle: "text-[#888888] text-xs",
           formButtonPrimary: "bg-[#faff69] text-black hover:bg-[#f0f560] font-bold",
           formFieldInput: "bg-[#1a1a1a] border-[#2a2a2a] text-white",
-          footerActionLink: "text-[#faff69]",
+          footerActionLink: "text-[#faff69] font-bold hover:underline",
+          socialButtonsBlockButton: "text-white border border-[#2a2a2a] bg-[#1a1a1a] hover:bg-[#222] transition-colors",
+          socialButtonsBlockButtonText: "text-white font-bold",
+          dividerText: "text-[#666666]",
+          dividerLine: "bg-[#2a2a2a]",
+          formFieldLabel: "text-[#888888] text-xs font-semibold uppercase tracking-wider",
+          footerActionText: "text-[#666666] text-xs",
+          identityPreviewText: "text-white font-medium",
+          identityPreviewEditButton: "text-[#faff69] hover:underline",
+          formFieldInputShowPasswordButton: "text-[#888888] hover:text-white",
         },
       }}
     >
