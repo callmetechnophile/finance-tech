@@ -1,6 +1,5 @@
 import "@/app/globals.css";
 import RootProvider from "@/shared/providers/RootProvider";
-import AppShell from "@/shared/components/shell/AppShell";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
@@ -54,9 +53,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <html lang="en" className={`${inter.variable} dark`} suppressHydrationWarning>
         <body className="antialiased min-h-screen bg-[#0a0a0a] text-white">
           <RootProvider>
-            <AppShell>
-              {children}
-            </AppShell>
+            {children}
           </RootProvider>
           <Analytics />
         </body>

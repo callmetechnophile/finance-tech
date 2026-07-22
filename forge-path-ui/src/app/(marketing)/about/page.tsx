@@ -2,11 +2,8 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import LandingNavbar from "@/app/components/landing/LandingNavbar";
-import StatsAndFooter from "@/app/components/landing/StatsAndFooter";
 import {
-  Users, Target, Cpu, ShieldCheck, ArrowRight,
-  ChevronRight, Play, Award, Zap, Code2, Globe, Database
+  Target, Cpu, ShieldCheck, ArrowRight
 } from "lucide-react";
 
 export default function AboutPage() {
@@ -36,12 +33,9 @@ export default function AboutPage() {
   ];
 
   return (
-    <main className="min-h-screen bg-[#0b0e11] text-white selection:bg-[#fcd535] selection:text-black overflow-x-hidden">
-      <LandingNavbar />
-
+    <div className="w-full">
       {/* 1. Hero Section */}
-      <section className="relative pt-32 pb-20 border-b border-[#2b3139] overflow-hidden">
-        {/* Dynamic backdrop glows */}
+      <section className="relative pt-32 pb-20 border-b border-[#2b3139] overflow-hidden bg-[#0b0e11]">
         <div className="absolute top-1/4 left-1/4 w-[500px] h-[250px] bg-[#fcd535]/5 rounded-full blur-[100px] pointer-events-none" />
         <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-[#0ecb81]/3 rounded-full blur-[150px] pointer-events-none" />
 
@@ -121,7 +115,7 @@ export default function AboutPage() {
       </section>
 
       {/* 4. Tech Partners Grid */}
-      <section className="py-20 max-w-7xl mx-auto px-6">
+      <section className="py-20 max-w-7xl mx-auto px-6 mb-12">
         <div className="text-center space-y-4 mb-16">
           <span className="text-[10px] font-extrabold text-[#0ecb81] uppercase tracking-[0.2em]">Modern Architecture</span>
           <h2 className="text-2xl md:text-3xl font-bold text-white tracking-tight">Powering the Solvency Engine</h2>
@@ -147,7 +141,7 @@ export default function AboutPage() {
       </section>
 
       {/* CTA section */}
-      <section className="py-16 bg-[#181a20] border-t border-b border-[#2b3139]">
+      <section className="py-16 bg-[#181a20] border-t border-[#2b3139] mb-12">
         <div className="max-w-7xl mx-auto px-6 text-center space-y-6">
           <h2 className="text-2xl md:text-3xl font-bold text-white">Optimize Your Manufacturing Cash Flow</h2>
           <p className="text-xs text-[#707a8a] max-w-md mx-auto leading-relaxed">
@@ -169,8 +163,6 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
-
-      <StatsAndFooter />
-    </main>
+    </div>
   );
 }

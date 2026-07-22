@@ -1,14 +1,10 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import Link from "next/link";
-import LandingNavbar from "@/app/components/landing/LandingNavbar";
-import StatsAndFooter from "@/app/components/landing/StatsAndFooter";
 import {
-  Search, BookOpen, Code2, Cpu, Terminal, ArrowRight,
-  ChevronRight, Play, CheckCircle2, Shield, Key, FileCode,
-  Zap, Compass, Server, FileText, Settings
+  Search, Cpu, Code2, Shield, Compass, FileText, Server,
+  ChevronRight, ArrowRight
 } from "lucide-react";
 
 export default function DocsPage() {
@@ -52,12 +48,9 @@ export default function DocsPage() {
   ];
 
   return (
-    <main className="min-h-screen bg-[#0b0e11] text-white selection:bg-[#fcd535] selection:text-black overflow-x-hidden">
-      <LandingNavbar />
-
+    <div className="w-full">
       {/* 1. Hero Section */}
-      <section className="relative pt-32 pb-20 border-b border-[#2b3139] overflow-hidden">
-        {/* Abstract background glows */}
+      <section className="relative pt-32 pb-20 border-b border-[#2b3139] overflow-hidden bg-[#0b0e11]">
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[#fcd535]/5 rounded-full blur-[120px] pointer-events-none" />
         <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-[#0ecb81]/3 rounded-full blur-[150px] pointer-events-none" />
 
@@ -74,7 +67,6 @@ export default function DocsPage() {
             API guides, document processing pipelines, Gemma 4 AI integration, and core architecture references for modern enterprise finance.
           </p>
 
-          {/* Search bar */}
           <div className="max-w-xl mx-auto relative mt-8">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#707a8a]" />
             <input
@@ -92,11 +84,10 @@ export default function DocsPage() {
       <section className="py-16 max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           
-          {/* Sidebar Navigation Categories */}
           <div className="lg:col-span-4 space-y-4">
             <h3 className="text-xs font-bold text-[#707a8a] uppercase tracking-wider pl-2">Knowledge Base</h3>
             <div className="space-y-1.5">
-              {categories.map((cat, i) => {
+              {categories.map((cat) => {
                 const Icon = cat.icon;
                 return (
                   <button
@@ -118,7 +109,6 @@ export default function DocsPage() {
               })}
             </div>
 
-            {/* Architecture CTA Card */}
             <div className="mt-8 p-6 rounded-2xl bg-gradient-to-br from-[#1e2329] to-[#0b0e11] border border-[#2b3139] relative overflow-hidden">
               <div className="absolute top-0 right-0 w-24 h-24 bg-[#fcd535]/5 blur-[25px] rounded-full" />
               <h4 className="text-sm font-bold text-white mb-2">Technical Architecture</h4>
@@ -134,10 +124,8 @@ export default function DocsPage() {
             </div>
           </div>
 
-          {/* Docs Detail Pane */}
           <div className="lg:col-span-8 space-y-12">
             
-            {/* Tab Navigation */}
             <div className="flex border-b border-[#2b3139] pb-px">
               {[
                 { id: "quickstart", label: "Quick Start" },
@@ -184,7 +172,6 @@ export default function DocsPage() {
                         {step.desc}
                       </p>
                       
-                      {/* Code Block */}
                       <div className="rounded-xl bg-[#0b0e11] border border-[#2b3139] p-4 font-mono text-[11px] text-[#eaecef] overflow-x-auto relative">
                         <div className="absolute right-3 top-3 flex items-center gap-1.5 bg-[#181a20] border border-[#2b3139] rounded px-2 py-1 text-[9px] text-[#707a8a] font-sans">
                           <span className="w-1.5 h-1.5 bg-[#0ecb81] rounded-full" /> bash
@@ -311,8 +298,6 @@ export default function DocsPage() {
           </div>
         </div>
       </section>
-
-      <StatsAndFooter />
-    </main>
+    </div>
   );
 }

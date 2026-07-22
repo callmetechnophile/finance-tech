@@ -1,17 +1,15 @@
 "use client";
 
-import { motion, useInView, useMotionValue, useSpring, animate } from "framer-motion";
+import { motion, useInView, animate } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
-import LandingNavbar from "@/app/components/landing/LandingNavbar";
-import StatsAndFooter from "@/app/components/landing/StatsAndFooter";
 import {
   ArrowRight, ChevronRight, Zap, Globe, Server, Database,
   Shield, Lock, Activity, Cloud, BrainCircuit, FileText,
   TrendingUp, Layers, GitBranch, Terminal, Code2, Cpu,
   BarChart2, CheckCircle2, AlertCircle, Boxes, Network,
   Workflow, ScanText, Bot, Sparkles, HardDrive, Key,
-  UserCheck, RefreshCw, ArrowDown,
+  UserCheck, RefreshCw, ArrowDown
 } from "lucide-react";
 
 // ─── Motion variants ──────────────────────────────────────────────────────────
@@ -36,7 +34,6 @@ function Reveal({
   );
 }
 
-// ─── Section label ────────────────────────────────────────────────────────────
 function SectionLabel({ text }: { text: string }) {
   return (
     <span className="inline-flex items-center gap-1.5 text-[10px] font-extrabold text-[#fcd535] uppercase tracking-[0.18em] mb-3">
@@ -45,7 +42,6 @@ function SectionLabel({ text }: { text: string }) {
   );
 }
 
-// ─── Animated counter ─────────────────────────────────────────────────────────
 function AnimatedCounter({ target, suffix = "", prefix = "" }: { target: number; suffix?: string; prefix?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true });
@@ -60,7 +56,6 @@ function AnimatedCounter({ target, suffix = "", prefix = "" }: { target: number;
   return <span ref={ref}>{prefix}0{suffix}</span>;
 }
 
-// ─── Pipeline node (vertical connector) ──────────────────────────────────────
 function PipelineNode({
   icon: Icon, label, sub, color = "#fcd535", active = false, delay = 0,
 }: { icon: React.ElementType; label: string; sub?: string; color?: string; active?: boolean; delay?: number }) {
@@ -112,7 +107,6 @@ function PipelineConnector({ delay = 0 }: { delay?: number }) {
   );
 }
 
-// ─── Architecture node card for overview grid ─────────────────────────────────
 function ArchNode({
   icon: Icon, label, desc, color = "#fcd535", badge,
 }: { icon: React.ElementType; label: string; desc: string; color?: string; badge?: string }) {
@@ -146,7 +140,6 @@ function ArchNode({
   );
 }
 
-// ─── DB Table card ────────────────────────────────────────────────────────────
 function DBTable({ name, fields, delay = 0 }: { name: string; fields: string[]; delay?: number }) {
   return (
     <Reveal delay={delay}>
@@ -169,7 +162,6 @@ function DBTable({ name, fields, delay = 0 }: { name: string; fields: string[]; 
   );
 }
 
-// ─── Flow row (horizontal step) ───────────────────────────────────────────────
 function FlowStep({ step, label, sub, color = "#fcd535", delay = 0 }: {
   step: string; label: string; sub?: string; color?: string; delay?: number;
 }) {
@@ -185,7 +177,6 @@ function FlowStep({ step, label, sub, color = "#fcd535", delay = 0 }: {
   );
 }
 
-// ─── Tech card ────────────────────────────────────────────────────────────────
 const TECH = [
   { name: "Next.js 16", why: "App Router + Turbopack for sub-second cold starts and server components at the edge.", color: "#eaecef", icon: Globe },
   { name: "FastAPI", why: "Async Python API framework with automatic OpenAPI docs and Pydantic validation.", color: "#0ecb81", icon: Server },
@@ -222,24 +213,18 @@ const PERF_METRICS = [
   { value: 1000000, suffix: "+", prefix: "", label: "Transactions Supported", sub: "Single Neon instance" },
 ];
 
-// ════════════════════════════════════════════════════════════════════════════════
 export default function ArchitecturePage() {
   const [hoveredTech, setHoveredTech] = useState<number | null>(null);
 
   return (
-    <main className="min-h-screen bg-[#0b0e11] text-white overflow-x-hidden selection:bg-[#fcd535] selection:text-black">
-      <LandingNavbar />
-
-      {/* ══════════════════════════════════════════════════════════════════════
-          HERO
-      ══════════════════════════════════════════════════════════════════════ */}
+    <div className="w-full">
+      {/* HERO */}
       <section className="relative min-h-screen flex flex-col justify-center items-center overflow-hidden px-6 lg:px-12 pt-32 pb-20 bg-[#0b0e11]">
         <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:32px_32px]" />
         <motion.div animate={{ scale: [1, 1.12, 1], x: [0, 40, 0] }} transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
           className="absolute top-[-5%] right-[-5%] w-[50vw] h-[50vh] rounded-full bg-[#fcd535]/3 blur-[180px] pointer-events-none" />
 
         <div className="relative z-10 w-full max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          {/* Left copy */}
           <div className="lg:col-span-6 space-y-6">
             <Reveal>
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#1e2329] border border-[#2b3139]">
@@ -284,7 +269,6 @@ export default function ArchitecturePage() {
             </Reveal>
           </div>
 
-          {/* Right — architecture visual */}
           <div className="lg:col-span-6">
             <Reveal delay={2}>
               <div className="bg-[#1e2329] border border-[#2b3139] rounded-2xl p-5 space-y-2">
@@ -319,9 +303,7 @@ export default function ArchitecturePage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════════════════
-          S1 — SYSTEM OVERVIEW
-      ══════════════════════════════════════════════════════════════════════ */}
+      {/* S1 — SYSTEM OVERVIEW */}
       <section className="py-20 px-6 lg:px-12 border-t border-[#2b3139]">
         <div className="max-w-6xl mx-auto">
           <Reveal>
@@ -332,9 +314,7 @@ export default function ArchitecturePage() {
             </div>
           </Reveal>
 
-          {/* Vertical pipeline + surrounding cards */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-            {/* Left meta cards */}
             <div className="space-y-3">
               {[
                 { icon: Globe, label: "Browser Client", desc: "React 19 with Server Components, streaming SSR and edge delivery via Vercel.", color: "#eaecef" },
@@ -343,7 +323,6 @@ export default function ArchitecturePage() {
               ].map((n, i) => <Reveal key={n.label} delay={i * 0.1}><ArchNode {...n} /></Reveal>)}
             </div>
 
-            {/* Center vertical pipeline */}
             <div className="flex flex-col items-center">
               <PipelineNode icon={Globe} label="Browser" sub="React 19 + SSR" active delay={0} />
               <PipelineConnector delay={0.1} />
@@ -364,7 +343,6 @@ export default function ArchitecturePage() {
               <PipelineNode icon={BarChart2} label="Dashboard" sub="Executive View" delay={0.8} />
             </div>
 
-            {/* Right meta cards */}
             <div className="space-y-3">
               {[
                 { icon: BrainCircuit, label: "Gemma 4 AI", desc: "Financial reasoning, OCR validation, copilot answers and forecast intelligence.", color: "#fcd535", badge: "AI" },
@@ -376,9 +354,7 @@ export default function ArchitecturePage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════════════════
-          S2 — FRONTEND ARCHITECTURE
-      ══════════════════════════════════════════════════════════════════════ */}
+      {/* S2 — FRONTEND ARCHITECTURE */}
       <section className="py-20 px-6 lg:px-12 border-t border-[#2b3139] bg-[#0b0e11]">
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
           <Reveal>
@@ -395,7 +371,7 @@ export default function ArchitecturePage() {
                   { icon: GitBranch, label: "App Router", desc: "File-system routing with nested layouts, loading states and error boundaries." },
                   { icon: Boxes, label: "Enterprise Shell", desc: "Shared sidebar, header and workspace shell with role-aware navigation." },
                   { icon: Workflow, label: "Framer Motion", desc: "Scroll-triggered, gesture and layout animations across all interactive surfaces." },
-                ].map((item, i) => {
+                 ].map((item, i) => {
                   const Icon = item.icon;
                   return (
                     <Reveal key={item.label} delay={i * 0.06}>
@@ -415,7 +391,6 @@ export default function ArchitecturePage() {
             </div>
           </Reveal>
 
-          {/* Component tree visual */}
           <Reveal delay={1}>
             <div className="bg-[#1e2329] border border-[#2b3139] rounded-2xl p-5 font-mono text-[11px] space-y-1">
               <div className="text-[#707a8a] mb-3">src/app/</div>
@@ -449,9 +424,7 @@ export default function ArchitecturePage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════════════════
-          S3 — AUTH FLOW
-      ══════════════════════════════════════════════════════════════════════ */}
+      {/* S3 — AUTH FLOW */}
       <section className="py-20 px-6 lg:px-12 border-t border-[#2b3139]">
         <div className="max-w-6xl mx-auto">
           <Reveal>
@@ -463,7 +436,6 @@ export default function ArchitecturePage() {
           </Reveal>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-            {/* Flow steps */}
             <div className="space-y-0">
               {[
                 { step: "01", label: "Visitor arrives", sub: "Browser requests any FORGE-PATH URL", color: "#eaecef" },
@@ -485,7 +457,6 @@ export default function ArchitecturePage() {
               ))}
             </div>
 
-            {/* Auth visual */}
             <Reveal delay={1}>
               <div className="bg-[#1e2329] border border-[#2b3139] rounded-2xl p-5 space-y-3">
                 <div className="flex items-center gap-2 border-b border-[#2b3139] pb-3">
@@ -518,9 +489,7 @@ export default function ArchitecturePage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════════════════
-          S4 — DOCUMENT PIPELINE
-      ══════════════════════════════════════════════════════════════════════ */}
+      {/* S4 — DOCUMENT PIPELINE */}
       <section className="py-20 px-6 lg:px-12 border-t border-[#2b3139] bg-[#0b0e11]">
         <div className="max-w-6xl mx-auto">
           <Reveal>
@@ -550,13 +519,11 @@ export default function ArchitecturePage() {
                     <Icon className="w-5 h-5" style={{ color: s.color }} />
                   </motion.div>
                   <div className="text-[9px] font-bold text-[#848e9c] text-center leading-tight">{s.label}</div>
-                  {i < 7 && <div className="hidden lg:block absolute translate-x-14 translate-y-6 text-[#2b3139] text-xs">→</div>}
                 </Reveal>
               );
             })}
           </div>
 
-          {/* Pipeline detail card */}
           <Reveal delay={0.4}>
             <div className="mt-10 bg-[#1e2329] border border-[#2b3139] rounded-xl p-5 grid grid-cols-1 sm:grid-cols-3 gap-5">
               {[
@@ -580,9 +547,7 @@ export default function ArchitecturePage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════════════════
-          S5 — AI PIPELINE
-      ══════════════════════════════════════════════════════════════════════ */}
+      {/* S5 — AI PIPELINE */}
       <section className="py-20 px-6 lg:px-12 border-t border-[#2b3139]">
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
           <Reveal>
@@ -611,7 +576,6 @@ export default function ArchitecturePage() {
             </div>
           </Reveal>
 
-          {/* Gemma prompt visual */}
           <Reveal delay={1}>
             <div className="bg-[#1e2329] border border-[#2b3139] rounded-2xl p-5 font-mono text-[10px] space-y-2">
               <div className="flex items-center gap-2 border-b border-[#2b3139] pb-2 mb-2">
@@ -648,9 +612,7 @@ export default function ArchitecturePage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════════════════
-          S6 — DATABASE ARCHITECTURE
-      ══════════════════════════════════════════════════════════════════════ */}
+      {/* S6 — DATABASE ARCHITECTURE */}
       <section className="py-20 px-6 lg:px-12 border-t border-[#2b3139] bg-[#0b0e11]">
         <div className="max-w-6xl mx-auto">
           <Reveal>
@@ -675,7 +637,7 @@ export default function ArchitecturePage() {
           </div>
 
           <Reveal delay={0.5}>
-            <div className="mt-8 flex flex-wrap gap-3 text-[11px]">
+            <div className="mt-8 flex flex-wrap gap-3 text-[11px] justify-center">
               {[
                 { color: "#fcd535", label: "Primary Key" },
                 { color: "#2dbdb6", label: "Foreign Key" },
@@ -692,13 +654,9 @@ export default function ArchitecturePage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════════════════
-          S7 + S8 — SUPABASE + CLICKHOUSE (side by side)
-      ══════════════════════════════════════════════════════════════════════ */}
+      {/* S7 + S8 — SUPABASE + CLICKHOUSE */}
       <section className="py-20 px-6 lg:px-12 border-t border-[#2b3139]">
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
-
-          {/* Supabase Storage */}
           <Reveal>
             <div className="bg-[#1e2329] border border-[#2b3139] rounded-2xl p-6 h-full">
               <div className="flex items-center gap-3 mb-5">
@@ -735,7 +693,6 @@ export default function ArchitecturePage() {
             </div>
           </Reveal>
 
-          {/* ClickHouse */}
           <Reveal delay={0.1}>
             <div className="bg-[#1e2329] border border-[#2b3139] rounded-2xl p-6 h-full">
               <div className="flex items-center gap-3 mb-5">
@@ -774,12 +731,9 @@ export default function ArchitecturePage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════════════════
-          S9 — API ARCHITECTURE
-      ══════════════════════════════════════════════════════════════════════ */}
+      {/* S9 — API ARCHITECTURE */}
       <section className="py-20 px-6 lg:px-12 border-t border-[#2b3139] bg-[#0b0e11]">
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
-          {/* API visual */}
           <Reveal>
             <div className="bg-[#1e2329] border border-[#2b3139] rounded-2xl p-5 font-mono text-[10px] space-y-2">
               <div className="flex items-center gap-2 border-b border-[#2b3139] pb-2 mb-2">
@@ -809,7 +763,6 @@ export default function ArchitecturePage() {
             </div>
           </Reveal>
 
-          {/* API description */}
           <Reveal delay={1}>
             <div className="space-y-5">
               <SectionLabel text="API Architecture" />
@@ -838,9 +791,7 @@ export default function ArchitecturePage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════════════════
-          S10 — SECURITY
-      ══════════════════════════════════════════════════════════════════════ */}
+      {/* S10 — SECURITY */}
       <section className="py-20 px-6 lg:px-12 border-t border-[#2b3139]">
         <div className="max-w-6xl mx-auto">
           <Reveal>
@@ -870,9 +821,7 @@ export default function ArchitecturePage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════════════════
-          S11 — TECH STACK
-      ══════════════════════════════════════════════════════════════════════ */}
+      {/* S11 — TECH STACK */}
       <section className="py-20 px-6 lg:px-12 border-t border-[#2b3139] bg-[#0b0e11]">
         <div className="max-w-6xl mx-auto">
           <Reveal>
@@ -913,9 +862,7 @@ export default function ArchitecturePage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════════════════
-          S12 — WHY THIS ARCHITECTURE
-      ══════════════════════════════════════════════════════════════════════ */}
+      {/* S12 — WHY THIS ARCHITECTURE */}
       <section className="py-20 px-6 lg:px-12 border-t border-[#2b3139]">
         <div className="max-w-5xl mx-auto">
           <Reveal>
@@ -941,7 +888,7 @@ export default function ArchitecturePage() {
               ["Reports take days to compile", "PDF / Excel export from ClickHouse — sub-second generation"],
             ].map((row, i) => (
               <Reveal key={i} delay={i * 0.04}>
-                <div className={`grid grid-cols-2 ${i < 6 ? "border-b border-[#2b3139]" : ""}`}>
+                <div className="grid grid-cols-2 border-b border-[#2b3139] last:border-b-0">
                   <div className="px-6 py-4 flex items-center gap-2.5 text-sm text-[#707a8a]">
                     <AlertCircle className="w-3.5 h-3.5 text-[#f6465d] flex-shrink-0" />{row[0]}
                   </div>
@@ -955,9 +902,7 @@ export default function ArchitecturePage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════════════════
-          S13 — DEPLOYMENT
-      ══════════════════════════════════════════════════════════════════════ */}
+      {/* S13 — DEPLOYMENT */}
       <section className="py-20 px-6 lg:px-12 border-t border-[#2b3139] bg-[#0b0e11]">
         <div className="max-w-6xl mx-auto">
           <Reveal>
@@ -969,7 +914,6 @@ export default function ArchitecturePage() {
           </Reveal>
 
           <div className="relative">
-            {/* Cloud diagram */}
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
               {[
                 { icon: Globe, label: "User", sub: "Browser / Mobile", color: "#eaecef", badge: "" },
@@ -999,7 +943,6 @@ export default function ArchitecturePage() {
               })}
             </div>
 
-            {/* CI/CD info */}
             <Reveal delay={0.5}>
               <div className="mt-8 bg-[#1e2329] border border-[#2b3139] rounded-xl p-5 grid grid-cols-1 sm:grid-cols-3 gap-5 text-sm">
                 {[
@@ -1024,9 +967,7 @@ export default function ArchitecturePage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════════════════
-          S14 — SCALABILITY
-      ══════════════════════════════════════════════════════════════════════ */}
+      {/* S14 — SCALABILITY */}
       <section className="py-20 px-6 lg:px-12 border-t border-[#2b3139]">
         <div className="max-w-6xl mx-auto">
           <Reveal>
@@ -1081,9 +1022,7 @@ export default function ArchitecturePage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════════════════
-          S15 — PERFORMANCE
-      ══════════════════════════════════════════════════════════════════════ */}
+      {/* S15 — PERFORMANCE */}
       <section className="py-20 px-6 lg:px-12 border-t border-[#2b3139] bg-[#0b0e11]">
         <div className="max-w-6xl mx-auto">
           <Reveal>
@@ -1108,7 +1047,6 @@ export default function ArchitecturePage() {
             ))}
           </div>
 
-          {/* Perf detail */}
           <Reveal delay={0.4}>
             <div className="mt-8 bg-[#1e2329] border border-[#2b3139] rounded-xl p-5">
               <div className="text-[10px] font-extrabold text-[#fcd535] uppercase tracking-widest mb-4">Latency Breakdown — Dashboard Load</div>
@@ -1143,9 +1081,7 @@ export default function ArchitecturePage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════════════════
-          FINAL CTA
-      ══════════════════════════════════════════════════════════════════════ */}
+      {/* FINAL CTA */}
       <section className="py-20 px-6 lg:px-12 border-t border-[#2b3139]">
         <div className="max-w-4xl mx-auto">
           <Reveal>
@@ -1175,8 +1111,6 @@ export default function ArchitecturePage() {
           </Reveal>
         </div>
       </section>
-
-      <StatsAndFooter />
-    </main>
+    </div>
   );
 }

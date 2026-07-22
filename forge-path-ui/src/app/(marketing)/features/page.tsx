@@ -4,8 +4,6 @@ import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import LandingNavbar from "@/app/components/landing/LandingNavbar";
-import StatsAndFooter from "@/app/components/landing/StatsAndFooter";
 import {
   FileScan, Bot, TrendingUp, Wallet, Users, Landmark,
   LayoutDashboard, BarChart, Sparkles, ScanText, FileText,
@@ -20,13 +18,6 @@ const fadeUp = {
   visible: (i = 0) => ({
     opacity: 1, y: 0,
     transition: { duration: 0.6, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] },
-  }),
-};
-const fadeIn = {
-  hidden: { opacity: 0 },
-  visible: (i = 0) => ({
-    opacity: 1,
-    transition: { duration: 0.5, delay: i * 0.08, ease: "easeOut" },
   }),
 };
 
@@ -47,7 +38,6 @@ function Reveal({ children, className = "", delay = 0 }: { children: React.React
   );
 }
 
-// ─── Section Label ────────────────────────────────────────────────────────────
 function SectionLabel({ text }: { text: string }) {
   return (
     <span className="inline-flex items-center gap-1.5 text-[10px] font-extrabold text-[#fcd535] uppercase tracking-[0.18em] mb-3">
@@ -253,27 +243,59 @@ function IllustrationPanel({ type }: { type: string }) {
         </div>
       </div>
     ),
-    generic: (
-      <div className="w-full h-56 bg-[#1e2329] rounded-xl border border-[#2b3139] p-5 flex flex-col items-center justify-center gap-3">
-        <div className="w-12 h-12 rounded-xl bg-[#fcd535]/10 border border-[#fcd535]/20 flex items-center justify-center">
-          <Sparkles className="w-6 h-6 text-[#fcd535]" />
-        </div>
-        <div className="text-center">
-          <div className="text-sm font-bold text-white mb-1">AI-Powered</div>
-          <div className="text-[11px] text-[#707a8a]">Intelligent financial automation</div>
-        </div>
-        <div className="flex gap-2">
-          {["Secure", "Fast", "Accurate"].map(t => (
-            <span key={t} className="text-[9px] bg-[#2b3139] text-[#eaecef] px-2 py-1 rounded font-semibold">{t}</span>
-          ))}
-        </div>
-      </div>
-    ),
   };
   return <>{panels[type] ?? panels.generic}</>;
 }
 
-// ─── Features dataset ─────────────────────────────────────────────────────────
+// Reusable FeatureCard Component
+interface FeatureCardProps {
+  id: number;
+  icon: any;
+  label: string;
+  illustration: string;
+  title: string;
+  desc: string;
+  benefits: string[];
+  cta: string;
+  isEven: boolean;
+}
+
+function FeatureCard({ icon: Icon, label, illustration, title, desc, benefits, cta, isEven }: FeatureCardProps) {
+  return (
+    <div className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${isEven ? "" : "lg:[&>*:first-child]:order-2"}`}>
+      {/* Illustration */}
+      <div className="relative">
+        <div className="absolute -inset-4 rounded-2xl bg-[#fcd535]/3 blur-2xl pointer-events-none" />
+        <div className="relative">
+          <IllustrationPanel type={illustration} />
+        </div>
+      </div>
+
+      {/* Copy */}
+      <div className="space-y-5">
+        <div className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-[#1e2329] border border-[#2b3139]">
+          <Icon className="w-3.5 h-3.5 text-[#fcd535]" />
+          <span className="text-[10px] font-extrabold text-[#fcd535] uppercase tracking-wider">{label}</span>
+        </div>
+        <h3 className="text-2xl md:text-3xl font-extrabold text-white leading-snug">{title}</h3>
+        <p className="text-[#848e9c] text-sm leading-relaxed">{desc}</p>
+        <ul className="space-y-2">
+          {benefits.map(b => (
+            <li key={b} className="flex items-center gap-2.5 text-sm text-[#eaecef]">
+              <CheckCircle2 className="w-4 h-4 text-[#0ecb81] flex-shrink-0" />
+              {b}
+            </li>
+          ))}
+        </ul>
+        <Link href="/login"
+          className="inline-flex items-center gap-1.5 text-[#fcd535] text-sm font-semibold hover:gap-2.5 transition-all">
+          {cta} <ChevronRight className="w-4 h-4" />
+        </Link>
+      </div>
+    </div>
+  );
+}
+
 const FEATURES = [
   {
     id: 1, icon: FileScan, label: "Document Intelligence", illustration: "ocr",
@@ -393,26 +415,18 @@ const SECURITY_ITEMS = [
   { icon: Code2, label: "Open Audit Trail", desc: "Every action logged and reviewable" },
 ];
 
-// ─── Page ─────────────────────────────────────────────────────────────────────
 export default function FeaturesPage() {
   const [hoveredTech, setHoveredTech] = useState<number | null>(null);
 
   return (
-    <main className="min-h-screen bg-[#0b0e11] text-white overflow-x-hidden selection:bg-[#fcd535] selection:text-black">
-      <LandingNavbar />
-
-      {/* ══════════════════════════════════════════════════════════════════════
-          1. HERO
-      ══════════════════════════════════════════════════════════════════════ */}
+    <div className="w-full">
+      {/* 1. HERO */}
       <section className="relative min-h-screen bg-[#0b0e11] flex flex-col justify-center items-center overflow-hidden px-6 lg:px-12 pt-32 pb-20">
-        {/* Grid bg */}
         <div className="absolute inset-0 opacity-[0.06] pointer-events-none bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:32px_32px]" />
-        {/* Ambient glow */}
         <motion.div animate={{ scale: [1, 1.1, 1], x: [0, 30, 0] }} transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
           className="absolute top-[-5%] left-[-5%] w-[55vw] h-[55vh] rounded-full bg-[#fcd535]/4 blur-[180px] pointer-events-none" />
 
         <div className="relative z-10 w-full max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          {/* Left */}
           <div className="lg:col-span-6 space-y-6">
             <Reveal>
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#1e2329] border border-[#2b3139]">
@@ -447,7 +461,6 @@ export default function FeaturesPage() {
               </div>
             </Reveal>
 
-            {/* Quick stats */}
             <Reveal delay={4}>
               <div className="flex gap-8 pt-4 border-t border-[#2b3139]">
                 {[["16", "Features"], ["AI", "Powered"], ["99.9%", "Uptime"]].map(([v, l]) => (
@@ -460,11 +473,9 @@ export default function FeaturesPage() {
             </Reveal>
           </div>
 
-          {/* Right — animated dashboard mosaic */}
           <div className="lg:col-span-6">
             <Reveal delay={2}>
               <div className="relative grid grid-cols-2 gap-3">
-                {/* Dashboard preview */}
                 <div className="col-span-2 bg-[#1e2329] rounded-xl border border-[#2b3139] p-4">
                   <div className="flex items-center justify-between mb-3">
                     <span className="text-[11px] font-bold text-[#eaecef]">FORGE-PATH · Feature Overview</span>
@@ -481,7 +492,6 @@ export default function FeaturesPage() {
                     ))}
                   </div>
                 </div>
-                {/* Mini copilot */}
                 <div className="bg-[#1e2329] rounded-xl border border-[#2b3139] p-3">
                   <div className="flex items-center gap-1.5 mb-2">
                     <div className="w-5 h-5 rounded-full bg-[#fcd535] flex items-center justify-center"><Bot className="w-3 h-3 text-[#181a20]" /></div>
@@ -491,7 +501,6 @@ export default function FeaturesPage() {
                     "Runway is 68 days. 3 invoices at risk — recommend follow-up."
                   </div>
                 </div>
-                {/* Mini chart */}
                 <div className="bg-[#1e2329] rounded-xl border border-[#2b3139] p-3">
                   <div className="text-[9px] text-[#707a8a] mb-2">30D Forecast</div>
                   <div className="flex items-end gap-0.5 h-10">
@@ -508,9 +517,7 @@ export default function FeaturesPage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════════════════
-          2. ALTERNATING FEATURE SHOWCASE
-      ══════════════════════════════════════════════════════════════════════ */}
+      {/* 2. ALTERNATING FEATURE SHOWCASE */}
       <section className="py-20 px-6 lg:px-12 border-t border-[#2b3139]">
         <div className="max-w-6xl mx-auto">
           <Reveal>
@@ -523,41 +530,10 @@ export default function FeaturesPage() {
 
           <div className="space-y-24">
             {FEATURES.map((feat, idx) => {
-              const Icon = feat.icon;
               const isEven = idx % 2 === 0;
               return (
                 <Reveal key={feat.id} delay={0}>
-                  <div className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${isEven ? "" : "lg:[&>*:first-child]:order-2"}`}>
-                    {/* Illustration */}
-                    <div className="relative">
-                      <div className="absolute -inset-4 rounded-2xl bg-[#fcd535]/3 blur-2xl pointer-events-none" />
-                      <div className="relative">
-                        <IllustrationPanel type={feat.illustration} />
-                      </div>
-                    </div>
-
-                    {/* Copy */}
-                    <div className="space-y-5">
-                      <div className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-[#1e2329] border border-[#2b3139]">
-                        <Icon className="w-3.5 h-3.5 text-[#fcd535]" />
-                        <span className="text-[10px] font-extrabold text-[#fcd535] uppercase tracking-wider">{feat.label}</span>
-                      </div>
-                      <h3 className="text-2xl md:text-3xl font-extrabold text-white leading-snug">{feat.title}</h3>
-                      <p className="text-[#848e9c] text-sm leading-relaxed">{feat.desc}</p>
-                      <ul className="space-y-2">
-                        {feat.benefits.map(b => (
-                          <li key={b} className="flex items-center gap-2.5 text-sm text-[#eaecef]">
-                            <CheckCircle2 className="w-4 h-4 text-[#0ecb81] flex-shrink-0" />
-                            {b}
-                          </li>
-                        ))}
-                      </ul>
-                      <Link href="/login"
-                        className="inline-flex items-center gap-1.5 text-[#fcd535] text-sm font-semibold hover:gap-2.5 transition-all">
-                        {feat.cta} <ChevronRight className="w-4 h-4" />
-                      </Link>
-                    </div>
-                  </div>
+                  <FeatureCard {...feat} isEven={isEven} />
                 </Reveal>
               );
             })}
@@ -565,9 +541,7 @@ export default function FeaturesPage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════════════════
-          3. INFRASTRUCTURE FEATURES GRID
-      ══════════════════════════════════════════════════════════════════════ */}
+      {/* 3. INFRASTRUCTURE FEATURES GRID */}
       <section className="py-20 px-6 lg:px-12 border-t border-[#2b3139] bg-[#0b0e11]">
         <div className="max-w-6xl mx-auto">
           <Reveal>
@@ -600,9 +574,7 @@ export default function FeaturesPage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════════════════
-          4. WORKFLOW
-      ══════════════════════════════════════════════════════════════════════ */}
+      {/* 4. WORKFLOW */}
       <section className="py-20 px-6 lg:px-12 border-t border-[#2b3139]">
         <div className="max-w-6xl mx-auto">
           <Reveal>
@@ -614,7 +586,6 @@ export default function FeaturesPage() {
           </Reveal>
 
           <div className="relative">
-            {/* Connecting line */}
             <div className="hidden lg:block absolute top-8 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#2b3139] to-transparent" />
             <div className="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-9 gap-4">
               {WORKFLOW_STEPS.map((s, i) => (
@@ -639,9 +610,7 @@ export default function FeaturesPage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════════════════
-          5. WHY FORGE-PATH — COMPARISON TABLE
-      ══════════════════════════════════════════════════════════════════════ */}
+      {/* 5. WHY FORGE-PATH — COMPARISON TABLE */}
       <section className="py-20 px-6 lg:px-12 border-t border-[#2b3139] bg-[#0b0e11]">
         <div className="max-w-4xl mx-auto">
           <Reveal>
@@ -653,7 +622,6 @@ export default function FeaturesPage() {
           </Reveal>
 
           <div className="bg-[#1e2329] rounded-xl border border-[#2b3139] overflow-hidden">
-            {/* Header */}
             <div className="grid grid-cols-2 border-b border-[#2b3139]">
               <div className="px-6 py-4 text-[11px] font-bold text-[#707a8a] uppercase tracking-widest">Traditional Software</div>
               <div className="px-6 py-4 text-[11px] font-bold text-[#fcd535] uppercase tracking-widest bg-[#fcd535]/5 border-l border-[#2b3139]">FORGE-PATH</div>
@@ -676,9 +644,7 @@ export default function FeaturesPage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════════════════
-          6. TECHNOLOGY STACK
-      ══════════════════════════════════════════════════════════════════════ */}
+      {/* 6. TECHNOLOGY STACK */}
       <section className="py-20 px-6 lg:px-12 border-t border-[#2b3139]">
         <div className="max-w-6xl mx-auto">
           <Reveal>
@@ -719,9 +685,7 @@ export default function FeaturesPage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════════════════
-          7. SECURITY
-      ══════════════════════════════════════════════════════════════════════ */}
+      {/* 7. SECURITY */}
       <section className="py-20 px-6 lg:px-12 border-t border-[#2b3139] bg-[#0b0e11]">
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -764,9 +728,7 @@ export default function FeaturesPage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════════════════
-          8. PERFORMANCE METRICS
-      ══════════════════════════════════════════════════════════════════════ */}
+      {/* 8. PERFORMANCE METRICS */}
       <section className="py-20 px-6 lg:px-12 border-t border-[#2b3139]">
         <div className="max-w-6xl mx-auto">
           <Reveal>
@@ -799,14 +761,11 @@ export default function FeaturesPage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════════════════
-          9. FINAL CTA BAND
-      ══════════════════════════════════════════════════════════════════════ */}
-      <section className="py-20 px-6 lg:px-12 border-t border-[#2b3139]">
+      {/* 9. FINAL CTA BAND */}
+      <section className="py-20 px-6 lg:px-12 border-t border-[#2b3139] mb-12">
         <div className="max-w-4xl mx-auto">
           <Reveal>
             <div className="bg-[#1e2329] border border-[#2b3139] rounded-2xl p-10 md:p-14 text-center relative overflow-hidden">
-              {/* Glow */}
               <div className="absolute inset-0 bg-[#fcd535]/3 pointer-events-none" />
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-32 bg-[#fcd535]/5 blur-3xl pointer-events-none" />
 
@@ -837,8 +796,6 @@ export default function FeaturesPage() {
           </Reveal>
         </div>
       </section>
-
-      <StatsAndFooter />
-    </main>
+    </div>
   );
 }
