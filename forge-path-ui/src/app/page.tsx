@@ -1,20 +1,35 @@
 "use client";
 
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { useSessionStore } from "@/shared/stores/session.store";
+import HeroSection from "./components/landing/HeroSection";
+import ProblemSection from "./components/landing/ProblemSection";
+import SolutionSection from "./components/landing/SolutionSection";
+import OcrSimulator from "./components/landing/OcrSimulator";
+import PipelineFlow from "./components/landing/PipelineFlow";
+import InteractiveDashboard from "./components/landing/InteractiveDashboard";
+import CopilotSimulator from "./components/landing/CopilotSimulator";
+import AutomationTimeline from "./components/landing/AutomationTimeline";
+import ComparisonGrid from "./components/landing/ComparisonGrid";
+import TechStackGrid from "./components/landing/TechStackGrid";
+import ScaleMetrics from "./components/landing/ScaleMetrics";
+import GuidedDemoTour from "./components/landing/GuidedDemoTour";
+import StatsAndFooter from "./components/landing/StatsAndFooter";
 
 export default function RootPage() {
-  const router = useRouter();
-  const isAuthenticated = useSessionStore((s) => s.isAuthenticated);
-
-  useEffect(() => {
-    router.replace(isAuthenticated ? "/dashboard" : "/login");
-  }, [isAuthenticated, router]);
-
   return (
-    <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center p-8">
-      <div className="w-6 h-6 border-2 border-[#faff69]/20 border-t-[#faff69] rounded-full animate-spin" />
-    </div>
+    <main className="min-h-screen bg-[#08080a] text-white overflow-x-hidden selection:bg-[#faff69] selection:text-black">
+      <HeroSection />
+      <ProblemSection />
+      <SolutionSection />
+      <OcrSimulator />
+      <PipelineFlow />
+      <InteractiveDashboard />
+      <CopilotSimulator />
+      <AutomationTimeline />
+      <ComparisonGrid />
+      <TechStackGrid />
+      <ScaleMetrics />
+      <GuidedDemoTour />
+      <StatsAndFooter />
+    </main>
   );
 }
