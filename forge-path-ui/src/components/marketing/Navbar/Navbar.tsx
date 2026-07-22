@@ -202,11 +202,11 @@ export default function Navbar() {
 
       {/* ── Enterprise Inquiry Modal ── */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/75 backdrop-blur-md px-4 py-6 overflow-y-auto">
+        <div className="fixed inset-0 z-[100] overflow-y-auto bg-black/75 backdrop-blur-md flex justify-center items-start py-8 md:py-16 px-4">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="w-full max-w-[700px] bg-[#181a20]/95 border border-[#2b3139] p-6 md:p-8 rounded-2xl shadow-2xl relative max-h-[90vh] overflow-y-auto"
+            className="w-full max-w-[700px] bg-[#181a20]/95 border border-[#2b3139] p-6 md:p-8 rounded-2xl shadow-2xl relative my-auto"
           >
             {/* Close Button */}
             <button
