@@ -1,0 +1,165 @@
+@import "tailwindcss";
+
+@theme {
+  --color-clickhouse-yellow: #faff69;
+  --color-clickhouse-black: #0a0a0a;
+  --color-clickhouse-card: #1a1a1a;
+  --color-clickhouse-border: #2a2a2a;
+}
+
+:root {
+  --background: #0a0a0a;
+  --foreground: #ffffff;
+  --primary: #faff69;
+  --primary-foreground: #0a0a0a;
+  --card: #1a1a1a;
+  --border: #2a2a2a;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Tabular numbers formatting utility */
+.font-tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+::-webkit-scrollbar-thumb {
+  background: #2a2a2a;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #faff69;
+}
+
+/* Focus and Selection styles */
+::selection {
+  background-color: #faff69;
+  color: #0a0a0a;
+}
+
+*:focus-visible {
+  outline: 2px solid #faff69;
+  outline-offset: 2px;
+}
+
+/* Reduced Motion Compliance */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Print Rules */
+@media print {
+  body {
+    background: white;
+    color: black;
+  }
+  .no-print {
+    display: none !important;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   CLERK COMPONENT HIGH-CONTRAST DARK THEME OVERRIDES
+   ───────────────────────────────────────────────────────────────────────────── */
+.cl-card, 
+.cl-main,
+.cl-rootBox {
+  color: #ffffff !important;
+}
+
+.cl-headerTitle {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+}
+
+.cl-headerSubtitle {
+  color: #888888 !important;
+}
+
+.cl-formFieldLabel {
+  color: #888888 !important;
+  text-transform: uppercase !important;
+  font-size: 10px !important;
+  letter-spacing: 0.05em !important;
+}
+
+.cl-socialButtonsBlockButton {
+  border: 1px solid #2a2a2a !important;
+  background-color: #1a1a1a !important;
+  color: #ffffff !important;
+}
+
+.cl-socialButtonsBlockButton:hover {
+  background-color: #222222 !important;
+}
+
+.cl-socialButtonsBlockButtonText {
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}
+
+.cl-dividerText {
+  color: #666666 !important;
+}
+
+.cl-dividerLine {
+  background-color: #2a2a2a !important;
+}
+
+.cl-footerActionText {
+  color: #666666 !important;
+}
+
+.cl-footerActionLink {
+  color: #faff69 !important;
+  font-weight: bold !important;
+}
+
+.cl-footerActionLink:hover {
+  text-decoration: underline !important;
+}
+
+.cl-identityPreviewText {
+  color: #ffffff !important;
+}
+
+.cl-identityPreviewEditButton {
+  color: #faff69 !important;
+}
+
+.cl-formFieldInputShowPasswordButton {
+  color: #888888 !important;
+}
+
+.cl-formFieldInput {
+  background-color: #161616 !important;
+  border: 1px solid #2a2a2a !important;
+  color: #ffffff !important;
+}
+
+.cl-formFieldInput:focus {
+  border-color: #faff69 !important;
+}
+
+.cl-userButtonOuterIdentifier {
+  color: #ffffff !important;
+}
