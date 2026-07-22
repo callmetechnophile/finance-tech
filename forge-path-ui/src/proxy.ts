@@ -4,6 +4,8 @@ import { NextResponse } from "next/server";
 // Public routes that do not require authentication
 const isPublicRoute = createRouteMatcher([
   "/login(.*)",
+  "/signup(.*)",
+  "/sign-up(.*)",
   "/",
 ]);
 
@@ -34,5 +36,6 @@ export const config = {
     "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
     // Always run for API routes
     "/(api|trpc)(.*)",
+    "/__clerk/:path*",
   ],
 };
