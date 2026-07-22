@@ -1,13 +1,16 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { ArrowRight, Menu, X } from "lucide-react";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 20);
@@ -33,45 +36,79 @@ export default function Navbar() {
           : "bg-transparent"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-6 lg:px-10 h-16 grid grid-cols-2 md:grid-cols-3 items-center">
 
-        {/* ── Desktop Nav Links (left) ── */}
-        <nav className="hidden md:flex items-center gap-6">
-          {navLinks.map((link) => (
-            <Link
-              key={link.label}
-              href={link.href}
-              className="text-[11px] font-semibold text-[#848e9c] hover:text-white uppercase tracking-widest transition-colors duration-150"
-            >
-              {link.label}
-            </Link>
-          ))}
-        </nav>
-
-        {/* ── Desktop CTAs (right) ── */}
-        <div className="hidden md:flex items-center gap-3">
-          <Link
-            href="/login"
-            className="text-[11px] font-bold text-[#848e9c] hover:text-white uppercase tracking-wider transition-colors px-3 py-2"
+        {/* ── Left: Branding ── */}
+        <div className="flex justify-start">
+          <a
+            href="https://github.com/callmetechnophile/finance-tech"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 group select-none"
           >
-            Sign In
-          </Link>
-          <Link
-            href="/login"
-            className="inline-flex items-center gap-1.5 h-8 px-4 rounded-md bg-[#fcd535] hover:bg-[#f0b90b] text-[#181a20] text-[11px] font-extrabold uppercase tracking-wider transition-all duration-150 shadow-md shadow-[#fcd535]/20"
-          >
-            Launch Workspace <ArrowRight className="w-3 h-3" />
-          </Link>
+            <Image
+              src="/forge-path-logo.jpg"
+              alt="FORGE-PATH"
+              width={24}
+              height={24}
+              className="rounded-md object-contain"
+            />
+            <span className="text-[12px] font-semibold text-white tracking-wide uppercase transition-colors duration-200 group-hover:text-[#fcd535]">
+              FORGE<span className="text-[#fcd535]">-PATH</span>
+            </span>
+          </a>
         </div>
 
-        {/* ── Mobile Hamburger (pushes right on mobile) ── */}
-        <button
-          className="md:hidden ml-auto p-2 rounded-lg text-[#848e9c] hover:text-white hover:bg-[#1e2329] transition-colors"
-          onClick={() => setMobileOpen((v) => !v)}
-          aria-label="Toggle menu"
-        >
-          {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-        </button>
+        {/* ── Center: Desktop Nav Links ── */}
+        <nav className="hidden md:flex items-center justify-center gap-8">
+          {navLinks.map((link) => {
+            const isActive = pathname === link.href;
+            return (
+              <Link
+                key={link.label}
+                href={link.href}
+                className={`relative py-1 text-[11px] font-medium uppercase tracking-widest transition-colors duration-150 group ${
+                  isActive ? "text-[#fcd535]" : "text-[#848e9c] hover:text-white"
+                }`}
+              >
+                {link.label}
+                <span
+                  className={`absolute bottom-0 left-0 w-full h-0.5 bg-[#fcd535] origin-left transition-transform duration-200 ${
+                    isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                  }`}
+                />
+              </Link>
+            );
+          })}
+        </nav>
+
+        {/* ── Right: Desktop CTAs / Hamburger ── */}
+        <div className="flex items-center justify-end">
+          {/* Desktop CTAs */}
+          <div className="hidden md:flex items-center gap-3">
+            <Link
+              href="/login"
+              className="text-[11px] font-bold text-[#848e9c] hover:text-white uppercase tracking-wider transition-colors px-3 py-2"
+            >
+              Sign In
+            </Link>
+            <Link
+              href="/login"
+              className="inline-flex items-center gap-1.5 h-8 px-4 rounded-md bg-[#fcd535] hover:bg-[#f0b90b] text-[#181a20] text-[11px] font-extrabold uppercase tracking-wider transition-all duration-150 shadow-md shadow-[#fcd535]/20"
+            >
+              Launch Workspace <ArrowRight className="w-3 h-3" />
+            </Link>
+          </div>
+
+          {/* Mobile Hamburger */}
+          <button
+            className="md:hidden p-2 rounded-lg text-[#848e9c] hover:text-white hover:bg-[#1e2329] transition-colors"
+            onClick={() => setMobileOpen((v) => !v)}
+            aria-label="Toggle menu"
+          >
+            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        </div>
       </div>
 
       {/* ── Mobile Drawer ── */}
