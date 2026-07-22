@@ -1,5 +1,5 @@
 "use client";
-import React, { forwardRef, useState } from "react";
+import React, { forwardRef, useId, useState } from "react";
 import { cn } from "@/shared/utils/cn";
 
 interface CurrencyInputProps {
@@ -31,7 +31,8 @@ export const CurrencyInput = forwardRef<HTMLInputElement, CurrencyInputProps>(
     },
     ref
   ) => {
-    const inputId = id ?? `currency-${Math.random().toString(36).slice(2, 9)}`;
+    const generatedId = useId();
+    const inputId = id ?? `currency-${generatedId}`;
     const [raw, setRaw] = useState(value !== undefined ? String(value) : "");
 
     const symbol =

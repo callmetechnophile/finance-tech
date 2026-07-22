@@ -1,5 +1,5 @@
 "use client";
-import React, { forwardRef } from "react";
+import React, { forwardRef, useId } from "react";
 import { Calendar } from "lucide-react";
 import { cn } from "@/shared/utils/cn";
 
@@ -17,7 +17,8 @@ interface DatePickerProps {
 
 export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
   ({ label, value, onChange, error, disabled, min, max, className, id }, ref) => {
-    const inputId = id ?? `date-${Math.random().toString(36).slice(2, 9)}`;
+    const generatedId = useId();
+    const inputId = id ?? `date-${generatedId}`;
 
     return (
       <div className="flex flex-col gap-1.5">

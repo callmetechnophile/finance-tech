@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useId } from "react";
 import { Check } from "lucide-react";
 import { cn } from "@/shared/utils/cn";
 
@@ -22,7 +22,8 @@ export function Checkbox({
   id,
   indeterminate,
 }: CheckboxProps) {
-  const checkId = id ?? `check-${Math.random().toString(36).slice(2, 9)}`;
+  const generatedId = useId();
+  const checkId = id ?? `check-${generatedId}`;
 
   return (
     <div className="flex flex-col gap-1">

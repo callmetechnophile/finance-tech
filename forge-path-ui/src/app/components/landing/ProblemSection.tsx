@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import { FileText, Table, Mail, DollarSign, RefreshCw, FileWarning } from "lucide-react";
 
 export default function ProblemSection() {
+  // Animation deltas defined as stable constants — never call Math.random() during render
+  // as that produces different values on server vs client and causes hydration mismatches.
   const floatingCards = [
     {
       id: 1,
@@ -13,6 +15,11 @@ export default function ProblemSection() {
       color: "border-red-500/30 text-red-400 bg-red-950/10",
       x: "-25%",
       y: "-15%",
+      dx: 8,
+      dy: -6,
+      rotate: 1.2,
+      duration: 7,
+      hoverRotate: 2,
     },
     {
       id: 2,
@@ -22,6 +29,11 @@ export default function ProblemSection() {
       color: "border-yellow-500/30 text-yellow-400 bg-yellow-950/10",
       x: "20%",
       y: "-30%",
+      dx: -5,
+      dy: 9,
+      rotate: -1.8,
+      duration: 8.5,
+      hoverRotate: -2.5,
     },
     {
       id: 3,
@@ -31,6 +43,11 @@ export default function ProblemSection() {
       color: "border-blue-500/30 text-blue-400 bg-blue-950/10",
       x: "-30%",
       y: "25%",
+      dx: 10,
+      dy: -8,
+      rotate: 2.0,
+      duration: 6.5,
+      hoverRotate: 3,
     },
     {
       id: 4,
@@ -40,6 +57,11 @@ export default function ProblemSection() {
       color: "border-purple-500/30 text-purple-400 bg-purple-950/10",
       x: "25%",
       y: "15%",
+      dx: -7,
+      dy: 5,
+      rotate: -1.5,
+      duration: 9,
+      hoverRotate: -2,
     },
   ];
 
@@ -99,16 +121,16 @@ export default function ProblemSection() {
                 y: card.y,
               }}
               animate={{
-                x: [card.x, `calc(${card.x} + ${Math.random() * 20 - 10}px)`, card.x],
-                y: [card.y, `calc(${card.y} + ${Math.random() * 20 - 10}px)`, card.y],
-                rotate: [0, Math.random() * 4 - 2, 0],
+                x: [card.x, `calc(${card.x} + ${card.dx}px)`, card.x],
+                y: [card.y, `calc(${card.y} + ${card.dy}px)`, card.y],
+                rotate: [0, card.rotate, 0],
               }}
               transition={{
-                duration: 6 + Math.random() * 4,
+                duration: card.duration,
                 repeat: Infinity,
                 ease: "easeInOut",
               }}
-              whileHover={{ scale: 1.05, rotate: Math.random() * 6 - 3 }}
+              whileHover={{ scale: 1.05, rotate: card.hoverRotate }}
               className={`absolute p-5 rounded-2xl border ${card.color} w-64 backdrop-blur-md shadow-2xl flex flex-col gap-3 cursor-pointer`}
             >
               <div className="flex items-center gap-3">
