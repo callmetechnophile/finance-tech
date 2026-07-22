@@ -455,9 +455,9 @@ export default function FeaturesPage() {
                   className="h-10 px-6 rounded-md bg-[#fcd535] hover:bg-[#f0b90b] text-[#181a20] font-bold text-sm transition-all flex items-center gap-2 shadow-lg shadow-[#fcd535]/10">
                   Launch Workspace <ArrowRight className="w-4 h-4" />
                 </Link>
-                <button className="h-10 px-6 rounded-md bg-[#1e2329] hover:bg-[#2b3139] text-white border border-[#2b3139] font-semibold text-sm transition-all flex items-center gap-2">
+                <Link href="/#interactive-demo" className="h-10 px-6 rounded-md bg-[#1e2329] hover:bg-[#2b3139] text-white border border-[#2b3139] font-semibold text-sm transition-all flex items-center gap-2">
                   <Play className="w-4 h-4 text-[#fcd535]" /> Watch Demo
-                </button>
+                </Link>
               </div>
             </Reveal>
 

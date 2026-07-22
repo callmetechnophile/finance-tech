@@ -32,14 +32,12 @@ export default function Hero() {
             >
               Launch Workspace <ArrowRight className="w-4 h-4" />
             </Link>
-            <button
-              onClick={() => {
-                document.getElementById("interactive-demo")?.scrollIntoView({ behavior: "smooth" });
-              }}
+            <Link
+              href="#interactive-demo"
               className="h-12 px-6 border border-[#2b3139] hover:border-[#fcd535] text-white hover:text-[#fcd535] font-extrabold text-xs uppercase tracking-wider rounded-md flex items-center justify-center gap-2 transition-all bg-[#181a20]/40 backdrop-blur-sm"
             >
               <Play className="w-4 h-4 fill-current" /> Watch Interactive Demo
-            </button>
+            </Link>
           </div>
         </div>
 
