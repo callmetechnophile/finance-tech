@@ -90,10 +90,8 @@ export default function Navbar() {
 
         {/* ── Left: Branding ── */}
         <div className="flex justify-start">
-          <a
-            href="https://github.com/callmetechnophile/finance-tech"
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            href="/"
             className="flex items-center gap-2 group select-none"
           >
             <Image
@@ -106,7 +104,7 @@ export default function Navbar() {
             <span className="text-[12px] font-semibold text-white tracking-wide uppercase transition-colors duration-200 group-hover:text-[#fcd535]">
               FORGE<span className="text-[#fcd535]">-PATH</span>
             </span>
-          </a>
+          </Link>
         </div>
 
         {/* ── Center: Desktop Nav Links ── */}
