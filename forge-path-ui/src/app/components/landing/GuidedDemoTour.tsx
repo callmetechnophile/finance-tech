@@ -2,166 +2,183 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Play, X, ChevronRight, CheckCircle2, Loader2, ArrowRight } from "lucide-react";
+import { Play, Square, Loader2, Bot, Layers, CheckCircle2, ChevronRight } from "lucide-react";
 
 export default function GuidedDemoTour() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [tourStep, setTourStep] = useState(0);
+  const [isRunning, setIsRunning] = useState(false);
+  const [currentStep, setCurrentStep] = useState(0);
+  const [progress, setProgress] = useState(0);
 
-  const steps = [
-    { title: "Initialize Workspace", desc: "Setting up Neon transactional ledger and indexing documents..." },
-    { title: "Invoice Ingestion (OCR)", desc: "Parser scanning INV-2026-089. Extracting due dates and values..." },
-    { title: "AI Risk Analysis", desc: "Gemma 4 assessing payment delays and historical trends..." },
-    { title: "Cash Forecast Calculation", desc: "Updating 90-day cash projection matrix in ClickHouse..." },
-    { title: "Copilot Risk Briefing", desc: "AI CFO Copilot generating payment extensions recommendations..." },
+  const tourSteps = [
+    {
+      title: "1. Setup & Integration",
+      desc: "Connect Neon DB ledger and configure the automated collections workflow queue.",
+      icon: Layers,
+      duration: 5,
+    },
+    {
+      title: "2. Document Ingest & OCR",
+      desc: "Drag invoice. Gemma models run cognitive OCR extraction and verify ledger totals.",
+      icon: Loader2,
+      duration: 6,
+    },
+    {
+      title: "3. Cash Flow Forecast",
+      desc: "Compute liquid cash buffer metrics and project 90-day runway curves automatically.",
+      icon: Bot,
+      duration: 6,
+    },
+    {
+      title: "4. Autonomous Risk Brief",
+      desc: "Review daily critical alerts and trigger smart extensions or reminder campaigns.",
+      icon: CheckCircle2,
+      duration: 5,
+    },
   ];
 
+  const handleStartTour = () => {
+    setIsRunning(true);
+    setCurrentStep(0);
+    setProgress(0);
+  };
+
+  const handleStopTour = () => {
+    setIsRunning(false);
+    setProgress(0);
+  };
+
+  // Run progress bar of current step
   useEffect(() => {
-    if (!isOpen) return;
+    if (!isRunning) return;
 
-    const interval = setInterval(() => {
-      setTourStep((prev) => {
-        if (prev < steps.length - 1) {
-          return prev + 1;
-        } else {
-          clearInterval(interval);
-          return prev; // stays on final step
+    const stepDuration = tourSteps[currentStep].duration * 1000;
+    const intervalTime = 50;
+    const increment = (intervalTime / stepDuration) * 100;
+
+    const timer = setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 100) {
+          clearInterval(timer);
+          if (currentStep < tourSteps.length - 1) {
+            setCurrentStep((s) => s + 1);
+            return 0;
+          } else {
+            setIsRunning(false);
+            return 0;
+          }
         }
+        return prev + increment;
       });
-    }, 4500);
+    }, intervalTime);
 
-    return () => clearInterval(interval);
-  }, [isOpen]);
-
-  const startTour = () => {
-    setTourStep(0);
-    setIsOpen(true);
-  };
-
-  const closeTour = () => {
-    setIsOpen(false);
-  };
+    return () => clearInterval(timer);
+  }, [isRunning, currentStep]);
 
   return (
-    <section className="relative min-h-screen bg-[#08080a] flex flex-col justify-center items-center overflow-hidden px-6 py-20 select-none border-t border-[#1a1a1a]">
+    <section id="guided-demo-section" className="relative min-h-screen bg-[#0b0e11] flex flex-col justify-center items-center overflow-hidden px-6 py-20 select-none border-t border-[#2b3139]">
       {/* Title */}
-      <div className="relative z-10 text-center max-w-2xl mx-auto space-y-6 mb-12">
-        <h2 className="text-[#faff69] uppercase text-xs tracking-widest font-bold">
-          Chapter 12: Live Demo Tour
+      <div className="relative z-10 text-center max-w-2xl mx-auto space-y-4 mb-16">
+        <h2 className="text-[#fcd535] uppercase text-xs tracking-widest font-bold">
+          Chapter 12: Interactive Journey
         </h2>
         <h3 className="text-white text-3xl md:text-5xl font-extrabold tracking-tight">
-          Experience the Platform in 30 Seconds
+          Guided Platform Tour
         </h3>
-        <p className="text-[#888888] text-sm md:text-base font-medium max-w-lg mx-auto">
-          Start the guided tour to see how the system operates autonomously from document upload to executive brief.
+        <p className="text-[#eaecef] text-sm md:text-base max-w-lg mx-auto">
+          Start the 30-second automated demo tour to witness full financial pipelines running in real-time.
         </p>
-        <button
-          onClick={startTour}
-          className="mx-auto px-6 py-3.5 rounded-xl bg-[#faff69] hover:bg-[#f0f560] text-black font-extrabold text-sm transition-all cursor-pointer shadow-lg shadow-[#faff69]/10 flex items-center gap-2"
-        >
-          <Play className="w-4 h-4 fill-black" /> Start Guided Tour
-        </button>
       </div>
 
-      {/* Guided Tour Modal Overlay */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-4 backdrop-blur-sm"
-          >
-            {/* Modal Box */}
-            <motion.div
-              initial={{ scale: 0.95, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.95, y: 20 }}
-              className="relative w-full max-w-2xl bg-[#0f0f11] border border-[#2a2a2a] rounded-3xl p-8 shadow-2xl flex flex-col justify-between min-h-[380px] text-left"
+      <div className="relative w-full max-w-3xl rounded-3xl bg-[#1e2329] border border-[#2b3139] p-8 shadow-2xl z-10 text-left space-y-8 min-h-[380px] flex flex-col justify-between">
+        {!isRunning ? (
+          // Landing Screen
+          <div className="space-y-6 flex-1 flex flex-col justify-center">
+            <h4 className="text-white text-lg font-bold">Ready to see FORGE-PATH in action?</h4>
+            <p className="text-xs text-[#eaecef]/70 leading-relaxed max-w-xl">
+              The guided tour automatically walks through database setup, invoice OCR ingestion, cash flow forecasting, and AI Copilot reasoning.
+            </p>
+            <button
+              onClick={handleStartTour}
+              className="h-10 px-6 rounded-md bg-[#fcd535] hover:bg-[#f0b90b] text-[#181a20] font-bold text-xs transition-all flex items-center justify-center gap-2 cursor-pointer w-fit shadow-lg shadow-[#fcd535]/5"
             >
-              {/* Close Button */}
-              <button onClick={closeTour} className="absolute right-6 top-6 text-[#666] hover:text-white transition-colors cursor-pointer">
-                <X className="w-5 h-5" />
-              </button>
-
-              {/* Progress Indicator */}
-              <div className="flex gap-1.5 w-full mb-8">
-                {steps.map((_, idx) => (
-                  <div key={idx} className="flex-1 h-[3px] bg-[#222] rounded-full overflow-hidden">
-                    <motion.div
-                      initial={{ width: "0%" }}
-                      animate={{
-                        width: idx === tourStep ? "100%" : idx < tourStep ? "100%" : "0%",
+              <Play className="w-4 h-4 fill-[#181a20]" /> Start Guided Tour
+            </button>
+          </div>
+        ) : (
+          // Active Tour Modal overlay style
+          <div className="flex-1 flex flex-col justify-between gap-6">
+            {/* Step indicators */}
+            <div className="flex justify-between items-center gap-2">
+              {tourSteps.map((step, idx) => (
+                <div key={idx} className="flex-1 space-y-2">
+                  <div className="h-1 rounded-full bg-black/40 overflow-hidden">
+                    <div
+                      className="h-full bg-[#fcd535] transition-all"
+                      style={{
+                        width: idx < currentStep ? "100%" : idx === currentStep ? `${progress}%` : "0%",
                       }}
-                      transition={{
-                        duration: idx === tourStep ? 4.5 : 0.3,
-                        ease: "linear",
-                      }}
-                      className="h-full bg-[#faff69]"
                     />
                   </div>
-                ))}
-              </div>
-
-              {/* Step Info */}
-              <div className="flex-1 flex flex-col justify-center space-y-4">
-                <span className="text-[10px] font-bold text-[#faff69] uppercase tracking-widest">
-                  Step {tourStep + 1} of {steps.length}
-                </span>
-
-                <h4 className="text-white text-2xl font-extrabold tracking-tight">
-                  {steps[tourStep].title}
-                </h4>
-
-                <p className="text-sm text-[#888] leading-relaxed max-w-lg">
-                  {steps[tourStep].desc}
-                </p>
-
-                {/* Animated status widget */}
-                <div className="pt-4 flex items-center gap-3">
-                  {tourStep < steps.length - 1 ? (
-                    <>
-                      <Loader2 className="w-4 h-4 text-[#faff69] animate-spin" />
-                      <span className="text-[10px] text-[#666] font-bold uppercase tracking-wider">Simulating system processes...</span>
-                    </>
-                  ) : (
-                    <>
-                      <CheckCircle2 className="w-5 h-5 text-emerald-400" />
-                      <span className="text-[10px] text-emerald-400 font-bold uppercase tracking-wider">Platform Demo Finished</span>
-                    </>
-                  )}
+                  <span className={`hidden md:block text-[9px] font-bold uppercase tracking-wider ${
+                    idx === currentStep ? "text-[#fcd535]" : "text-[#707a8a]"
+                  }`}>
+                    {step.title}
+                  </span>
                 </div>
-              </div>
+              ))}
+            </div>
 
-              {/* Action buttons footer */}
-              <div className="flex justify-between items-center border-t border-[#222] pt-6 mt-8">
-                <button
-                  onClick={closeTour}
-                  className="px-5 py-2.5 rounded-xl border border-[#2a2a2a] text-white font-bold text-xs hover:border-[#faff69]/40 hover:bg-[#151518] transition-all cursor-pointer"
-                >
-                  Skip Tour
-                </button>
+            {/* Current Step Content */}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentStep}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.3 }}
+                className="flex flex-col md:flex-row gap-6 items-start flex-1 py-4"
+              >
+                {/* Step Icon */}
+                <div className="w-12 h-12 rounded-xl bg-[#fcd535]/10 border border-[#fcd535]/20 flex items-center justify-center text-[#fcd535]">
+                  {(() => {
+                    const CurrentIcon = tourSteps[currentStep].icon;
+                    return <CurrentIcon className={`w-6 h-6 ${CurrentIcon === Loader2 ? 'animate-spin' : ''}`} />;
+                  })()}
+                </div>
 
-                {tourStep < steps.length - 1 ? (
-                  <button
-                    onClick={() => setTourStep((prev) => prev + 1)}
-                    className="px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-white font-bold text-xs transition-all flex items-center gap-1.5 cursor-pointer"
-                  >
-                    Next Step <ChevronRight className="w-3.5 h-3.5" />
-                  </button>
-                ) : (
-                  <a
-                    href="/signup"
-                    className="px-5 py-2.5 rounded-xl bg-[#faff69] hover:bg-[#f0f560] text-black font-extrabold text-xs transition-all flex items-center gap-1.5 shadow-lg shadow-[#faff69]/10"
-                  >
-                    Get Started Free <ArrowRight className="w-3.5 h-3.5" />
-                  </a>
-                )}
-              </div>
-            </motion.div>
-          </motion.div>
+                <div className="space-y-2 text-left flex-1">
+                  <h4 className="text-white text-base font-bold">{tourSteps[currentStep].title}</h4>
+                  <p className="text-xs text-[#eaecef] leading-relaxed max-w-xl">{tourSteps[currentStep].desc}</p>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+
+            {/* Controls footer */}
+            <div className="flex justify-between items-center pt-4 border-t border-[#2b3139]">
+              <button
+                onClick={handleStopTour}
+                className="h-10 px-5 rounded-md border border-[#3a3a3a] text-white hover:bg-[#242424] font-bold text-xs transition-colors flex items-center gap-2 cursor-pointer"
+              >
+                <Square className="w-3.5 h-3.5 fill-white" /> Stop Tour
+              </button>
+
+              <button
+                onClick={() => {
+                  setProgress(0);
+                  if (currentStep < tourSteps.length - 1) {
+                    setCurrentStep((s) => s + 1);
+                  } else {
+                    setIsRunning(false);
+                  }
+                }}
+                className="h-10 px-5 rounded-md bg-white hover:bg-[#fcd535] text-black font-bold text-xs transition-colors flex items-center gap-1.5 cursor-pointer"
+              >
+                Next Step <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
         )}
-      </AnimatePresence>
+      </div>
     </section>
   );
 }

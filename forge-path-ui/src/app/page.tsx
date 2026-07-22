@@ -16,7 +16,7 @@ import StatsAndFooter from "./components/landing/StatsAndFooter";
 
 export default function RootPage() {
   return (
-    <main className="min-h-screen bg-[#08080a] text-white overflow-x-hidden selection:bg-[#faff69] selection:text-black">
+    <main className="min-h-screen bg-[#0b0e11] text-white overflow-x-hidden selection:bg-[#fcd535] selection:text-black">
       <HeroSection />
       <ProblemSection />
       <SolutionSection />

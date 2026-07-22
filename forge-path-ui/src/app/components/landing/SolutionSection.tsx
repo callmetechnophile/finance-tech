@@ -8,20 +8,20 @@ export default function SolutionSection() {
     { title: "AI-Powered Collections", desc: "Automated follow-ups & risk models", icon: Cpu },
     { title: "Real-time Cash Forecasting", desc: "Predictive cash flow projections", icon: Database },
     { title: "Treasury Operations Center", desc: "Unified payment pipeline", icon: ShieldCheck },
-    { title: "Document Intelligence", desc: "Auto-ingest receipts & invoices", icon: CheckCircle2 },
+    { title: "Document Ingestion (OCR)", desc: "Auto-ingest receipts & invoices", icon: CheckCircle2 },
   ];
 
   return (
-    <section className="relative min-h-screen bg-[#08080a] flex flex-col justify-center items-center overflow-hidden px-6 py-20 select-none border-t border-[#1a1a1a]">
+    <section className="relative min-h-screen bg-[#0b0e11] flex flex-col justify-center items-center overflow-hidden px-6 py-20 select-none border-t border-[#2b3139]">
       {/* Title */}
       <div className="relative z-10 text-center max-w-2xl mx-auto space-y-4 mb-16">
-        <h2 className="text-[#faff69] uppercase text-xs tracking-widest font-bold">
-          Chapter 2: The Unified Path
+        <h2 className="text-[#fcd535] uppercase text-xs tracking-widest font-bold">
+          Chapter 2: The Solution
         </h2>
         <h3 className="text-white text-3xl md:text-5xl font-extrabold tracking-tight">
-          One Platform. <br />Every Financial Workflow.
+          Everything Connected. <br />Powered by AI.
         </h3>
-        <p className="text-[#888888] text-sm md:text-base font-medium max-w-lg mx-auto">
+        <p className="text-[#eaecef] text-sm md:text-base max-w-lg mx-auto">
           We bring invoices, ledger analysis, stress testing, and cash forecasting into a single unified workspace.
         </p>
       </div>
@@ -29,7 +29,7 @@ export default function SolutionSection() {
       {/* Merged Platform Visualization */}
       <div className="relative w-full max-w-4xl flex flex-col lg:flex-row items-center gap-8 justify-center">
         {/* Glowing Ambient Background Spot */}
-        <div className="absolute w-[400px] h-[400px] rounded-full bg-[#faff69]/5 blur-[120px] pointer-events-none" />
+        <div className="absolute w-[400px] h-[400px] rounded-full bg-[#fcd535]/5 blur-[120px] pointer-events-none" />
 
         {/* Central Core Console Card */}
         <motion.div
@@ -37,20 +37,20 @@ export default function SolutionSection() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="relative w-full max-w-lg p-8 rounded-3xl bg-[#0f0f11] border border-[#2a2a2a] shadow-[0_0_50px_rgba(250,255,105,0.05)] z-10 overflow-hidden"
+          className="relative w-full max-w-lg p-8 rounded-3xl bg-[#1e2329] border border-[#2b3139] shadow-[0_0_50px_rgba(250,213,53,0.03)] z-10 overflow-hidden"
         >
           {/* Logo Watermark */}
           <div className="absolute right-[-20px] bottom-[-20px] opacity-5 pointer-events-none">
-            <Zap className="w-64 h-64 text-[#faff69]" />
+            <Zap className="w-64 h-64 text-[#fcd535]" />
           </div>
 
           <div className="flex items-center gap-4 mb-8">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#faff69] to-[#b8bd1e] flex items-center justify-center border border-[#3a3a3c]">
-              <Zap className="w-6 h-6 text-[#0a0a0a]" />
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#fcd535] to-[#f0b90b] flex items-center justify-center border border-[#2b3139]">
+              <Zap className="w-6 h-6 text-[#181a20]" />
             </div>
             <div className="text-left">
               <h4 className="text-sm font-bold text-white tracking-wide">FORGE-PATH PLATFORM</h4>
-              <p className="text-[10px] text-[#666666] font-semibold uppercase tracking-widest">
+              <p className="text-[10px] text-[#707a8a] font-semibold uppercase tracking-widest">
                 Operational Financial OS
               </p>
             </div>
@@ -67,16 +67,16 @@ export default function SolutionSection() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: idx * 0.15, duration: 0.5 }}
-                  className="p-4 rounded-2xl bg-black/40 border border-[#222] hover:border-[#faff69]/40 hover:bg-[#151518] transition-all flex flex-col gap-2 group cursor-pointer"
+                  className="p-4 rounded-2xl bg-[#0b0e11] border border-[#2b3139] hover:border-[#fcd535]/40 hover:bg-[#1e2329] transition-all flex flex-col gap-2 group cursor-pointer"
                 >
-                  <div className="w-8 h-8 rounded-lg bg-[#faff69]/10 border border-[#faff69]/20 flex items-center justify-center text-[#faff69] group-hover:bg-[#faff69] group-hover:text-black transition-all">
+                  <div className="w-8 h-8 rounded-lg bg-[#fcd535]/10 border border-[#fcd535]/20 flex items-center justify-center text-[#fcd535] group-hover:bg-[#fcd535] group-hover:text-[#181a20] transition-all">
                     <Icon className="w-4 h-4" />
                   </div>
                   <div className="text-left">
-                    <h5 className="text-xs font-bold text-white group-hover:text-[#faff69] transition-colors">
+                    <h5 className="text-xs font-bold text-white group-hover:text-[#fcd535] transition-colors">
                       {item.title}
                     </h5>
-                    <p className="text-[10px] text-[#666666] mt-0.5 leading-relaxed">
+                    <p className="text-[10px] text-[#707a8a] mt-0.5 leading-relaxed">
                       {item.desc}
                     </p>
                   </div>

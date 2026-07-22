@@ -44,17 +44,17 @@ export default function ProblemSection() {
   ];
 
   return (
-    <section className="relative min-h-screen bg-[#08080a] flex flex-col justify-center items-center overflow-hidden px-6 py-20 select-none border-t border-[#1a1a1a]">
+    <section className="relative min-h-screen bg-[#0b0e11] flex flex-col justify-center items-center overflow-hidden px-6 py-20 select-none border-t border-[#2b3139]">
       {/* Title */}
       <div className="relative z-10 text-center max-w-2xl mx-auto space-y-4 mb-16">
-        <h2 className="text-[#666666] uppercase text-xs tracking-widest font-bold">
+        <h2 className="text-[#707a8a] uppercase text-xs tracking-widest font-bold">
           Chapter 1: The Disconnected Reality
         </h2>
         <h3 className="text-white text-3xl md:text-5xl font-extrabold tracking-tight">
-          Financial operations shouldn't feel like this.
+          Financial Operations Are Fragmented
         </h3>
-        <p className="text-[#888888] text-sm md:text-base font-medium max-w-lg mx-auto">
-          Invoices, spreadsheets, emails, and bank statements floating separately, bound by fragile manual workflows.
+        <p className="text-[#eaecef] text-sm md:text-base max-w-lg mx-auto">
+          Invoices, Excel spreadsheets, emails, and bank statements floating separately, bound by fragile manual workflows.
         </p>
       </div>
 
@@ -64,25 +64,25 @@ export default function ProblemSection() {
         <svg className="absolute inset-0 w-full h-full pointer-events-none" xmlns="http://www.w3.org/2000/svg">
           <motion.line
             x1="30%" y1="35%" x2="45%" y2="55%"
-            stroke="#ef4444" strokeWidth="1" strokeDasharray="3 3"
+            stroke="#f6465d" strokeWidth="1" strokeDasharray="3 3"
             animate={{ strokeDashoffset: [0, 10] }}
             transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
           />
           <motion.line
             x1="70%" y1="30%" x2="55%" y2="55%"
-            stroke="#ef4444" strokeWidth="1" strokeDasharray="3 3"
+            stroke="#f6465d" strokeWidth="1" strokeDasharray="3 3"
             animate={{ strokeDashoffset: [0, -10] }}
             transition={{ duration: 2.5, repeat: Infinity, ease: "linear" }}
           />
           <motion.line
             x1="28%" y1="65%" x2="48%" y2="60%"
-            stroke="#ef4444" strokeWidth="1" strokeDasharray="3 3"
+            stroke="#f6465d" strokeWidth="1" strokeDasharray="3 3"
             animate={{ strokeDashoffset: [0, 8] }}
             transition={{ duration: 1.8, repeat: Infinity, ease: "linear" }}
           />
           <motion.line
             x1="72%" y1="65%" x2="52%" y2="60%"
-            stroke="#ef4444" strokeWidth="1" strokeDasharray="3 3"
+            stroke="#f6465d" strokeWidth="1" strokeDasharray="3 3"
             animate={{ strokeDashoffset: [0, -8] }}
             transition={{ duration: 2.2, repeat: Infinity, ease: "linear" }}
           />
@@ -136,7 +136,7 @@ export default function ProblemSection() {
           }}
           className="w-20 h-20 rounded-full bg-red-950/30 border border-red-500/20 flex items-center justify-center backdrop-blur-lg shadow-xl shadow-red-950/20"
         >
-          <RefreshCw className="w-8 h-8 text-red-500 animate-spin" style={{ animationDuration: "12s" }} />
+          <RefreshCw className="w-8 h-8 text-[#f6465d] animate-spin" style={{ animationDuration: "12s" }} />
         </motion.div>
       </div>
     </section>

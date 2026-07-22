@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { UploadCloud, FileText, Check, Cpu, Loader2 } from "lucide-react";
 
 export default function OcrSimulator() {
@@ -72,32 +72,32 @@ export default function OcrSimulator() {
   }, [step]);
 
   return (
-    <section className="relative min-h-screen bg-[#08080a] flex flex-col justify-center items-center overflow-hidden px-6 py-20 select-none border-t border-[#1a1a1a]">
+    <section className="relative min-h-screen bg-[#0b0e11] flex flex-col justify-center items-center overflow-hidden px-6 py-20 select-none border-t border-[#2b3139]">
       {/* Title */}
       <div className="relative z-10 text-center max-w-2xl mx-auto space-y-4 mb-16">
-        <h2 className="text-[#faff69] uppercase text-xs tracking-widest font-bold">
+        <h2 className="text-[#fcd535] uppercase text-xs tracking-widest font-bold">
           Chapters 3 & 4: Cognitive Parsing
         </h2>
         <h3 className="text-white text-3xl md:text-5xl font-extrabold tracking-tight">
           Document OCR & AI Reasoning
         </h3>
-        <p className="text-[#888888] text-sm md:text-base font-medium max-w-lg mx-auto">
+        <p className="text-[#eaecef] text-sm md:text-base max-w-lg mx-auto">
           Upload an invoice to witness real-time OCR extraction and Gemma 4’s autonomous cognitive workflow analysis.
         </p>
       </div>
 
       <div className="relative w-full max-w-5xl grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch justify-center z-10">
         {/* Left Side: Invoice upload simulator */}
-        <div className="rounded-3xl bg-[#0f0f11] border border-[#2a2a2a] p-6 flex flex-col justify-between min-h-[420px] relative overflow-hidden">
+        <div className="rounded-3xl bg-[#1e2329] border border-[#2b3139] p-6 flex flex-col justify-between min-h-[420px] relative overflow-hidden">
           {step === "idle" && (
             <div
               onClick={handleStartSimulation}
-              className="flex-1 border-2 border-dashed border-[#3a3a3c] rounded-2xl flex flex-col items-center justify-center p-8 hover:border-[#faff69]/40 cursor-pointer hover:bg-white/[0.01] transition-all"
+              className="flex-1 border border-dashed border-[#3a3a3a] rounded-2xl flex flex-col items-center justify-center p-8 hover:border-[#fcd535]/40 cursor-pointer hover:bg-white/[0.01] transition-all"
             >
-              <UploadCloud className="w-12 h-12 text-[#666] mb-4 animate-bounce" style={{ animationDuration: "3s" }} />
+              <UploadCloud className="w-12 h-12 text-[#707a8a] mb-4 animate-bounce" style={{ animationDuration: "3s" }} />
               <h4 className="text-white text-sm font-bold">Drop invoice here to analyze</h4>
-              <p className="text-[11px] text-[#666] mt-2">Supports PDF, PNG, JPG up to 10MB</p>
-              <button className="mt-6 px-5 py-2.5 rounded-xl bg-white text-black font-bold text-xs hover:bg-[#faff69] transition-colors shadow-lg">
+              <p className="text-[11px] text-[#707a8a] mt-2">Supports PDF, PNG, JPG up to 10MB</p>
+              <button className="mt-6 h-10 px-5 rounded-md bg-white text-black font-bold text-xs hover:bg-[#fcd535] transition-colors shadow-lg">
                 Select Mock Invoice
               </button>
             </div>
@@ -106,7 +106,7 @@ export default function OcrSimulator() {
           {step !== "idle" && (
             <div className="flex-1 flex flex-col gap-6 relative">
               {/* Document Mockup */}
-              <div className="relative border border-[#2a2a2a] rounded-2xl bg-black/40 p-5 flex flex-col justify-between overflow-hidden flex-1">
+              <div className="relative border border-[#2b3139] rounded-2xl bg-black/40 p-5 flex flex-col justify-between overflow-hidden flex-1">
                 {/* Laser line overlay during scanning */}
                 {step === "scanning" && (
                   <motion.div
@@ -118,35 +118,35 @@ export default function OcrSimulator() {
                       repeat: Infinity,
                       ease: "easeInOut",
                     }}
-                    className="absolute left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#faff69] to-transparent shadow-[0_0_10px_#faff69] z-20 pointer-events-none"
+                    className="absolute left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#fcd535] to-transparent shadow-[0_0_10px_#fcd535] z-20 pointer-events-none"
                   />
                 )}
 
-                <div className="flex justify-between items-start border-b border-[#2a2a2a] pb-4">
+                <div className="flex justify-between items-start border-b border-[#2b3139] pb-4">
                   <div className="flex items-center gap-3">
-                    <FileText className="w-8 h-8 text-[#faff69]" />
+                    <FileText className="w-8 h-8 text-[#fcd535]" />
                     <div className="text-left">
                       <h4 className="text-xs font-bold text-white uppercase tracking-wider">Invoice</h4>
-                      <p className="text-[9px] text-[#666] mt-0.5">INV-2026-089</p>
+                      <p className="text-[9px] text-[#707a8a] mt-0.5">INV-2026-089</p>
                     </div>
                   </div>
-                  <span className="text-[10px] text-white/50 font-tabular font-semibold">DATE: 07/22/2026</span>
+                  <span className="text-[10px] text-[#eaecef]/50 font-tabular font-semibold">DATE: 07/22/2026</span>
                 </div>
 
                 <div className="py-4 space-y-3">
                   {/* Field Highlights */}
-                  <div className={`p-2.5 rounded-lg border transition-all ${revealedFields.includes("Vendor") ? "border-[#faff69]/40 bg-[#faff69]/5" : "border-transparent"}`}>
-                    <span className="block text-[9px] text-[#666] uppercase font-bold tracking-wider">Vendor</span>
+                  <div className={`p-2.5 rounded-lg border transition-all ${revealedFields.includes("Vendor") ? "border-[#fcd535]/40 bg-[#fcd535]/5" : "border-transparent"}`}>
+                    <span className="block text-[9px] text-[#707a8a] uppercase font-bold tracking-wider">Vendor</span>
                     <span className="text-xs text-white font-medium">Apex Steel & Wire Corp</span>
                   </div>
 
-                  <div className={`p-2.5 rounded-lg border transition-all ${revealedFields.includes("Amount") ? "border-[#faff69]/40 bg-[#faff69]/5" : "border-transparent"}`}>
-                    <span className="block text-[9px] text-[#666] uppercase font-bold tracking-wider">Total Amount</span>
+                  <div className={`p-2.5 rounded-lg border transition-all ${revealedFields.includes("Amount") ? "border-[#fcd535]/40 bg-[#fcd535]/5" : "border-transparent"}`}>
+                    <span className="block text-[9px] text-[#707a8a] uppercase font-bold tracking-wider">Total Amount</span>
                     <span className="text-xs text-white font-tabular font-medium">$47,500.00 USD</span>
                   </div>
 
-                  <div className={`p-2.5 rounded-lg border transition-all ${revealedFields.includes("DueDate") ? "border-[#faff69]/40 bg-[#faff69]/5" : "border-transparent"}`}>
-                    <span className="block text-[9px] text-[#666] uppercase font-bold tracking-wider">Due Date</span>
+                  <div className={`p-2.5 rounded-lg border transition-all ${revealedFields.includes("DueDate") ? "border-[#fcd535]/40 bg-[#fcd535]/5" : "border-transparent"}`}>
+                    <span className="block text-[9px] text-[#707a8a] uppercase font-bold tracking-wider">Due Date</span>
                     <span className="text-xs text-white font-medium">August 15, 2026</span>
                   </div>
                 </div>
@@ -156,19 +156,19 @@ export default function OcrSimulator() {
         </div>
 
         {/* Right Side: Gemma Reasoning & Thought Stream */}
-        <div className="rounded-3xl bg-[#0f0f11] border border-[#2a2a2a] p-6 flex flex-col justify-between min-h-[420px] relative overflow-hidden">
-          <div className="flex items-center justify-between border-b border-[#2a2a2a] pb-4 mb-4">
+        <div className="rounded-3xl bg-[#1e2329] border border-[#2b3139] p-6 flex flex-col justify-between min-h-[420px] relative overflow-hidden">
+          <div className="flex items-center justify-between border-b border-[#2b3139] pb-4 mb-4">
             <div className="flex items-center gap-3">
-              <Cpu className="w-5 h-5 text-[#faff69]" />
+              <Cpu className="w-5 h-5 text-[#fcd535]" />
               <h4 className="text-xs font-bold text-white uppercase tracking-widest">Gemma 4 Cognitive Engine</h4>
             </div>
             {step === "scanning" && (
-              <span className="flex items-center gap-1.5 text-[9px] text-[#faff69] font-bold uppercase tracking-wider">
+              <span className="flex items-center gap-1.5 text-[9px] text-[#fcd535] font-bold uppercase tracking-wider">
                 <Loader2 className="w-3 h-3 animate-spin" /> Scanning Document...
               </span>
             )}
             {step === "reasoning" && (
-              <span className="flex items-center gap-1.5 text-[9px] text-[#faff69] font-bold uppercase tracking-wider animate-pulse">
+              <span className="flex items-center gap-1.5 text-[9px] text-[#fcd535] font-bold uppercase tracking-wider animate-pulse">
                 Thinking...
               </span>
             )}
@@ -180,31 +180,27 @@ export default function OcrSimulator() {
           </div>
 
           {/* Thought log terminal */}
-          <div className="flex-1 bg-black/40 border border-[#222] rounded-2xl p-4 font-mono text-[10px] text-emerald-400/90 overflow-y-auto max-h-[260px] text-left leading-relaxed whitespace-pre-wrap select-text">
+          <div className="flex-1 bg-black/40 border border-[#2b3139] rounded-2xl p-4 font-mono text-[10px] text-emerald-400/90 overflow-y-auto max-h-[260px] text-left leading-relaxed whitespace-pre-wrap select-text">
             {step === "idle" && (
-              <span className="text-[#555] font-semibold italic">Waiting for document ingest...</span>
+              <span className="text-[#707a8a] font-semibold italic">Waiting for document ingest...</span>
             )}
             {step !== "idle" && reasoningText}
           </div>
 
           {/* Action Footer */}
           {step === "done" && (
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="mt-4 p-4 rounded-xl border border-emerald-500/20 bg-emerald-950/5 text-left"
-            >
+            <div className="mt-4 p-4 rounded-xl border border-emerald-500/20 bg-emerald-950/5 text-left">
               <h5 className="text-[10px] text-emerald-400 font-bold uppercase tracking-wider">Executive Recommendation</h5>
               <p className="text-xs text-white/80 mt-1 leading-relaxed">
                 Flagged: Apex Steel average delay is **+18 days**. Recommended action: **Auto-schedule Net-30 reminder** & trigger stress scenario projection.
               </p>
-            </motion.div>
+            </div>
           )}
 
           {step === "done" && (
             <button
               onClick={() => setStep("idle")}
-              className="mt-4 w-full py-3 rounded-xl border border-[#2a2a2a] text-white font-bold text-xs hover:border-[#faff69]/40 hover:bg-[#151518] transition-all cursor-pointer"
+              className="mt-4 w-full h-10 rounded-md border border-[#3a3a3a] text-white font-bold text-xs hover:border-[#fcd535]/40 hover:bg-[#242424] transition-all cursor-pointer"
             >
               Reset Simulation
             </button>
