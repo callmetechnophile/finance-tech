@@ -51,8 +51,8 @@ export function useLogout() {
         });
       }
 
-      // 4. Navigate to login
-      router.replace("/login");
+      // 4. Navigate to landing page
+      router.replace("/");
     }
   }, [clearSession, clearAI, clearNotifications, clearBackgroundJobs, closeAllDrawers, router]);
 

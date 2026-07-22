@@ -12,11 +12,32 @@ import ToastContainer from "./ToastContainer";
 import CommandPaletteOverlay from "@/features/command-palette/CommandPaletteOverlay";
 import NotificationCenterDrawer from "@/features/notifications/components/NotificationCenterDrawer";
 
+import { usePathname } from "next/navigation";
+
 interface AppShellProps {
   children?: ReactNode;
 }
 
 export default function AppShell({ children }: AppShellProps) {
+  const pathname = usePathname();
+
+  // Check if current route is a public route
+  const isPublicRoute =
+    pathname === "/" ||
+    pathname?.startsWith("/login") ||
+    pathname?.startsWith("/signup") ||
+    pathname?.startsWith("/sign-up") ||
+    pathname?.startsWith("/features") ||
+    pathname?.startsWith("/architecture") ||
+    pathname?.startsWith("/technology") ||
+    pathname?.startsWith("/docs") ||
+    pathname?.startsWith("/about") ||
+    pathname?.startsWith("/contact");
+
+  if (isPublicRoute) {
+    return <>{children}</>;
+  }
+
   return (
     <div className="h-screen w-screen overflow-hidden flex flex-col bg-[#0a0a0a]">
       {/* Top Header */}

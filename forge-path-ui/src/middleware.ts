@@ -3,10 +3,16 @@ import { NextResponse } from "next/server";
 
 // Public routes that do not require authentication
 const isPublicRoute = createRouteMatcher([
+  "/",
+  "/features(.*)",
+  "/architecture(.*)",
+  "/technology(.*)",
+  "/docs(.*)",
+  "/about(.*)",
+  "/contact(.*)",
   "/login(.*)",
   "/signup(.*)",
   "/sign-up(.*)",
-  "/",
 ]);
 
 export default clerkMiddleware(async (auth, request) => {
