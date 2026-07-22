@@ -1,26 +1,46 @@
 "use client";
 
-import { useState, useRef } from "react";
-import Link from "next/link";
-import { Play, Check, ArrowRight } from "lucide-react";
+import { useEffect, useRef } from "react";
 
 export default function Demo() {
-  const [isPlayingDemo, setIsPlayingDemo] = useState(false);
-  const [demoComplete, setDemoComplete] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  const handlePlayDemo = () => {
-    setIsPlayingDemo(true);
-    setDemoComplete(false);
-    if (videoRef.current) {
-      videoRef.current.play();
-    }
-  };
+  useEffect(() => {
+    // Verify file presence
+    fetch("/intro.mp4", { method: "HEAD" })
+      .then((res) => {
+        if (!res.ok) {
+          console.warn(`GET /intro.mp4 returned status ${res.status}. Video file might be missing or inaccessible.`);
+        }
+      })
+      .catch((err) => {
+        console.warn("Failed to verify /intro.mp4 presence:", err);
+      });
+  }, []);
 
-  const handleVideoEnded = () => {
-    setDemoComplete(true);
-    setIsPlayingDemo(false);
-  };
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          video.play().catch((err) => {
+            // Muted autoplay block might fail or resolve depending on browser policies
+            console.log("Autoplay preview paused or restricted by browser:", err);
+          });
+        } else {
+          video.pause();
+        }
+      },
+      { threshold: 0.2 } // Trigger when 20% of the video is visible
+    );
+
+    observer.observe(video);
+    return () => {
+      observer.unobserve(video);
+    };
+  }, []);
 
   return (
     <section id="interactive-demo" className="py-24 border-b border-[#2b3139] bg-[#0b0e11] relative">
@@ -39,52 +59,20 @@ export default function Demo() {
         </div>
 
         {/* Cinematic Video Player Container */}
-        <div className="max-w-4xl mx-auto rounded-3xl bg-[#1e2329] border border-[#2b3139] overflow-hidden shadow-2xl relative aspect-video flex items-center justify-center group">
-          
+        <div className="max-w-6xl mx-auto rounded-3xl bg-[#181A20] border border-[#2b3139] overflow-hidden shadow-2xl relative aspect-video flex items-center justify-center group">
           <video
             ref={videoRef}
-            src="/intro.mp4"
-            className="w-full h-full object-cover"
-            controls={isPlayingDemo}
-            onEnded={handleVideoEnded}
-          />
-
-          {/* Custom Overlay Play Button */}
-          {!isPlayingDemo && (
-            <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px] flex flex-col items-center justify-center space-y-4 z-10 transition-all">
-              <button
-                onClick={handlePlayDemo}
-                className="w-16 h-16 rounded-full bg-[#fcd535] hover:bg-[#e2be28] text-[#181a20] flex items-center justify-center shadow-lg transition-transform hover:scale-105"
-              >
-                <Play className="w-6 h-6 fill-current ml-1" />
-              </button>
-              <span className="text-xs font-extrabold uppercase tracking-widest text-[#eaecef]">
-                {demoComplete ? "Replay Video Demo" : "Play Interactive Overview (2 min)"}
-              </span>
-            </div>
-          )}
-
-          {/* Demo complete overlay */}
-          {demoComplete && (
-            <div className="absolute inset-0 bg-black/85 backdrop-blur-[4px] flex flex-col items-center justify-center space-y-6 z-20 transition-all">
-              <div className="w-12 h-12 rounded-full bg-[#0ecb81]/15 border border-[#0ecb81]/30 text-[#0ecb81] flex items-center justify-center">
-                <Check className="w-6 h-6" />
-              </div>
-              <div className="space-y-2 text-center">
-                <h3 className="text-base font-bold text-white uppercase tracking-wider">Journey Complete</h3>
-                <p className="text-xs text-[#707a8a] max-w-sm mx-auto">
-                  You've seen how FORGE-PATH processes cash data. Now try launching your own active workspace.
-                </p>
-              </div>
-              <Link
-                href="/login"
-                className="h-11 px-6 bg-[#fcd535] hover:bg-[#e2be28] text-[#181a20] font-extrabold text-xs uppercase tracking-wider rounded-md flex items-center justify-center gap-1.5 transition-colors"
-              >
-                Launch Workspace <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
-            </div>
-          )}
-
+            className="w-full h-full object-cover rounded-3xl"
+            controls
+            preload="auto"
+            poster="/demo-poster.jpg"
+            autoPlay
+            muted
+            playsInline
+          >
+            <source src="/intro.mp4" type="video/mp4" />
+            Your browser does not support HTML5 video.
+          </video>
         </div>
 
       </div>
