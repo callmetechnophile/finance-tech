@@ -76,3 +76,91 @@ body {
     display: none !important;
   }
 }
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   CLERK COMPONENT HIGH-CONTRAST DARK THEME OVERRIDES
+   ───────────────────────────────────────────────────────────────────────────── */
+.cl-card, 
+.cl-main,
+.cl-rootBox {
+  color: #ffffff !important;
+}
+
+.cl-headerTitle {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+}
+
+.cl-headerSubtitle {
+  color: #888888 !important;
+}
+
+.cl-formFieldLabel {
+  color: #888888 !important;
+  text-transform: uppercase !important;
+  font-size: 10px !important;
+  letter-spacing: 0.05em !important;
+}
+
+.cl-socialButtonsBlockButton {
+  border: 1px solid #2a2a2a !important;
+  background-color: #1a1a1a !important;
+  color: #ffffff !important;
+}
+
+.cl-socialButtonsBlockButton:hover {
+  background-color: #222222 !important;
+}
+
+.cl-socialButtonsBlockButtonText {
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}
+
+.cl-dividerText {
+  color: #666666 !important;
+}
+
+.cl-dividerLine {
+  background-color: #2a2a2a !important;
+}
+
+.cl-footerActionText {
+  color: #666666 !important;
+}
+
+.cl-footerActionLink {
+  color: #faff69 !important;
+  font-weight: bold !important;
+}
+
+.cl-footerActionLink:hover {
+  text-decoration: underline !important;
+}
+
+.cl-identityPreviewText {
+  color: #ffffff !important;
+}
+
+.cl-identityPreviewEditButton {
+  color: #faff69 !important;
+}
+
+.cl-formFieldInputShowPasswordButton {
+  color: #888888 !important;
+}
+
+.cl-formFieldInput {
+  background-color: #161616 !important;
+  border: 1px solid #2a2a2a !important;
+  color: #ffffff !important;
+}
+
+.cl-formFieldInput:focus {
+  border-color: #faff69 !important;
+}
+
+.cl-userButtonOuterIdentifier {
+  color: #ffffff !important;
+}
+
