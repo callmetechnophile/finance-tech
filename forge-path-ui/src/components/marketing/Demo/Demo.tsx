@@ -22,6 +22,9 @@ export default function Demo() {
     const video = videoRef.current;
     if (!video) return;
 
+    // Explicitly set muted property to bypass React's muted attribute bug
+    video.muted = true;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -36,7 +39,7 @@ export default function Demo() {
           }
         }
       },
-      { threshold: 0.2 } // Trigger when 20% of the video is visible
+      { threshold: 0.05 } // Trigger when 5% of the video is visible
     );
 
     observer.observe(video);
@@ -73,6 +76,7 @@ export default function Demo() {
             autoPlay
             muted
             playsInline
+            loop
           >
             Your browser does not support HTML5 video.
           </video>
