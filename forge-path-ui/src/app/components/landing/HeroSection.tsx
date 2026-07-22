@@ -5,7 +5,7 @@ import { Zap, Play, ArrowRight, Bot, TrendingUp, DollarSign } from "lucide-react
 
 export default function HeroSection() {
   return (
-    <section className="relative min-h-screen bg-[#0b0e11] flex flex-col justify-center items-center overflow-hidden px-6 lg:px-12 py-20 select-none">
+    <section className="relative min-h-screen bg-[#0b0e11] flex flex-col justify-center items-center overflow-hidden px-6 lg:px-12 pt-32 pb-20 select-none">
       {/* Engineering Grid Background */}
       <div className="absolute inset-0 opacity-[0.07] pointer-events-none bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:32px_32px]" />
 

@@ -1,6 +1,7 @@
 "use client";
 
 import HeroSection from "./components/landing/HeroSection";
+import LandingNavbar from "./components/landing/LandingNavbar";
 import ProblemSection from "./components/landing/ProblemSection";
 import SolutionSection from "./components/landing/SolutionSection";
 import OcrSimulator from "./components/landing/OcrSimulator";
@@ -17,6 +18,7 @@ import StatsAndFooter from "./components/landing/StatsAndFooter";
 export default function RootPage() {
   return (
     <main className="min-h-screen bg-[#0b0e11] text-white overflow-x-hidden selection:bg-[#fcd535] selection:text-black">
+      <LandingNavbar />
       <HeroSection />
       <ProblemSection />
       <SolutionSection />
