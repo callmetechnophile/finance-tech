@@ -68,16 +68,15 @@ export default function Demo() {
         <div className="max-w-6xl mx-auto rounded-3xl bg-[#181A20] border border-[#2b3139] overflow-hidden shadow-2xl relative aspect-video flex items-center justify-center group">
           <video
             ref={videoRef}
-            src="/intro.mp4"
-            className="w-full h-full object-cover rounded-3xl"
+            className="w-full h-full rounded-3xl object-cover"
             controls
-            preload="auto"
-            poster="/demo-poster.jpg"
             autoPlay
             muted
             playsInline
             loop
+            preload="metadata"
           >
+            <source src="/intro.mp4" type="video/mp4" />
             Your browser does not support HTML5 video.
           </video>
         </div>
