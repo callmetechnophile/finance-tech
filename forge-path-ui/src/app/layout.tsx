@@ -42,6 +42,11 @@ export default function RootLayout({ children }: RootLayoutProps) {
               fontFamily: "var(--font-inter), sans-serif",
             },
             elements: {
+              formFieldInput: {
+                backgroundColor: "#181A20",
+                borderColor: "#2B3139",
+                color: "#FFFFFF",
+              },
               card: {
                 backgroundColor: "#181A20",
                 border: "1px solid #2B3139",
@@ -62,7 +67,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
                 opacity: "1",
               },
               main: {
-                backgroundColor: "transparent",
+                backgroundColor: "#181A20",
               },
               modalBackdrop: {
                 background: "rgba(0,0,0,0.65)",
@@ -73,25 +78,21 @@ export default function RootLayout({ children }: RootLayoutProps) {
                 border: "1px solid #2B3139",
                 borderRadius: "16px",
                 boxShadow: "0 20px 60px rgba(0,0,0,0.55)",
-                opacity: "1",
                 backdropFilter: "none",
               },
               userButtonPopoverContainer: {
                 backgroundColor: "#181A20",
-                opacity: "1",
                 backdropFilter: "none",
               },
               userButtonPopoverFooter: {
                 backgroundColor: "#111216",
                 borderTop: "1px solid #2B3139",
-                opacity: "1",
               },
               userProfileKeepCard: {
                 backgroundColor: "#181A20",
                 border: "1px solid #2B3139",
                 borderRadius: "16px",
                 boxShadow: "0 20px 60px rgba(0,0,0,0.55)",
-                opacity: "1",
                 backdropFilter: "none",
               },
               navbar: {
