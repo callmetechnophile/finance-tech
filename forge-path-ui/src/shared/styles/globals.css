@@ -78,12 +78,13 @@ body {
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
-   CLERK COMPONENT HIGH-CONTRAST DARK THEME OVERRIDES
+   CLERK COMPONENT HIGH-CONTRAST DARK THEME OVERRIDES (FULLY OPAQUE)
    ───────────────────────────────────────────────────────────────────────────── */
 .cl-card, 
 .cl-main,
 .cl-rootBox {
   color: #ffffff !important;
+  opacity: 1 !important;
 }
 
 .cl-headerTitle {
@@ -92,24 +93,25 @@ body {
 }
 
 .cl-headerSubtitle {
-  color: #888888 !important;
+  color: #848e9c !important;
 }
 
 .cl-formFieldLabel {
-  color: #888888 !important;
+  color: #848e9c !important;
   text-transform: uppercase !important;
   font-size: 10px !important;
   letter-spacing: 0.05em !important;
 }
 
 .cl-socialButtonsBlockButton {
-  border: 1px solid #2a2a2a !important;
-  background-color: #1a1a1a !important;
+  border: 1px solid #2b3139 !important;
+  background-color: #111216 !important;
   color: #ffffff !important;
+  border-radius: 8px !important;
 }
 
 .cl-socialButtonsBlockButton:hover {
-  background-color: #222222 !important;
+  background-color: #1e2329 !important;
 }
 
 .cl-socialButtonsBlockButtonText {
@@ -118,19 +120,19 @@ body {
 }
 
 .cl-dividerText {
-  color: #666666 !important;
+  color: #848e9c !important;
 }
 
 .cl-dividerLine {
-  background-color: #2a2a2a !important;
+  background-color: #2b3139 !important;
 }
 
 .cl-footerActionText {
-  color: #666666 !important;
+  color: #848e9c !important;
 }
 
 .cl-footerActionLink {
-  color: #faff69 !important;
+  color: #fcd535 !important;
   font-weight: bold !important;
 }
 
@@ -143,21 +145,22 @@ body {
 }
 
 .cl-identityPreviewEditButton {
-  color: #faff69 !important;
+  color: #fcd535 !important;
 }
 
 .cl-formFieldInputShowPasswordButton {
-  color: #888888 !important;
+  color: #848e9c !important;
 }
 
 .cl-formFieldInput {
-  background-color: #161616 !important;
-  border: 1px solid #2a2a2a !important;
+  background-color: #111216 !important;
+  border: 1px solid #2b3139 !important;
   color: #ffffff !important;
+  border-radius: 8px !important;
 }
 
 .cl-formFieldInput:focus {
-  border-color: #faff69 !important;
+  border-color: #fcd535 !important;
 }
 
 .cl-userButtonOuterIdentifier {
@@ -165,40 +168,43 @@ body {
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
-   CLERK MODAL BACKDROP BLUR & CARD STYLING
+   CLERK MODAL BACKDROP & CARD STYLING (FULLY OPAQUE)
    ───────────────────────────────────────────────────────────────────────────── */
 .cl-modalBackdrop {
-  backdrop-filter: blur(12px) !important;
-  background-color: rgba(10, 12, 16, 0.75) !important;
+  backdrop-filter: none !important;
+  background: rgba(0, 0, 0, 0.65) !important;
 }
 
-.cl-card {
-  background-color: rgba(18, 20, 24, 0.95) !important;
-  backdrop-filter: blur(20px) !important;
+.cl-card,
+[class*="cl-card"] {
+  background-color: #181a20 !important;
+  background: #181a20 !important;
+  backdrop-filter: none !important;
   border: 1px solid #2b3139 !important;
-  border-radius: 20px !important;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.75) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55) !important;
+  opacity: 1 !important;
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
-   CLERK USER BUTTON POPOVER DROPDOWN OVERRIDES (OPAQUE)
+   CLERK USER BUTTON POPOVER DROPDOWN OVERRIDES (FULLY OPAQUE)
    ───────────────────────────────────────────────────────────────────────────── */
 [class*="cl-userButtonPopoverCard"],
 [class*="cl-popoverCard"],
 .cl-userButtonPopoverCard {
-  background-color: #121418 !important;
-  background: #121418 !important;
+  background-color: #181a20 !important;
+  background: #181a20 !important;
   border: 1px solid #2b3139 !important;
-  border-radius: 12px !important;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.7), 0 10px 10px -5px rgba(0, 0, 0, 0.7) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55) !important;
   opacity: 1 !important;
   backdrop-filter: none !important;
 }
 
 [class*="cl-userButtonPopoverContainer"],
 .cl-userButtonPopoverContainer {
-  background-color: #121418 !important;
-  background: #121418 !important;
+  background-color: #181a20 !important;
+  background: #181a20 !important;
   opacity: 1 !important;
   backdrop-filter: none !important;
 }
@@ -215,7 +221,7 @@ body {
 
 [class*="cl-userButtonPopoverFooter"],
 .cl-userButtonPopoverFooter {
-  background-color: #0b0e11 !important;
+  background-color: #111216 !important;
   border-top: 1px solid #2b3139 !important;
   opacity: 1 !important;
 }

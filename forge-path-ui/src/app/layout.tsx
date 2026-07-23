@@ -35,20 +35,71 @@ export default function RootLayout({ children }: RootLayoutProps) {
           publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || "pk_test_dHJ1c3R5LWJhZGdlci02MC5jbGVyay5hY2NvdW50cy5kZXYk"}
           appearance={{
             variables: {
-              colorBackground: "transparent",
-              colorPrimary: "#F7F15A",
+              colorBackground: "#181A20",
+              colorPrimary: "#FCD535",
               colorDanger: "#FF8080",
-              borderRadius: "14px",
+              borderRadius: "16px",
               fontFamily: "var(--font-inter), sans-serif",
             },
             elements: {
-              card: "bg-transparent border-none shadow-none p-0 w-full max-w-full",
-              cardBox: "bg-transparent border-none shadow-none p-0 w-full max-w-full",
-              main: "bg-transparent w-full",
-              rootBox: "w-full bg-transparent border-none shadow-none",
-              developmentBadge: "bg-[#F7F15A]/12 border border-[#F7F15A] text-[#F7F15A] rounded-full px-[14px] py-[6px] text-[10px] font-bold uppercase tracking-wider no-underline",
-              developmentBadgeLink: "bg-[#F7F15A]/12 border border-[#F7F15A] text-[#F7F15A] rounded-full px-[14px] py-[6px] text-[10px] font-bold uppercase tracking-wider no-underline",
-              badge: "bg-[#F7F15A]/12 border border-[#F7F15A] text-[#F7F15A] rounded-full px-[14px] py-[6px] text-[10px] font-bold uppercase tracking-wider no-underline",
+              card: {
+                backgroundColor: "#181A20",
+                border: "1px solid #2B3139",
+                borderRadius: "16px",
+                boxShadow: "0 20px 60px rgba(0,0,0,0.55)",
+                opacity: "1",
+                backdropFilter: "none",
+              },
+              cardBox: {
+                backgroundColor: "#181A20",
+                border: "1px solid #2B3139",
+                borderRadius: "16px",
+                boxShadow: "0 20px 60px rgba(0,0,0,0.55)",
+                opacity: "1",
+                backdropFilter: "none",
+              },
+              rootBox: {
+                opacity: "1",
+              },
+              main: {
+                backgroundColor: "transparent",
+              },
+              modalBackdrop: {
+                background: "rgba(0,0,0,0.65)",
+                backdropFilter: "none",
+              },
+              userButtonPopoverCard: {
+                backgroundColor: "#181A20",
+                border: "1px solid #2B3139",
+                borderRadius: "16px",
+                boxShadow: "0 20px 60px rgba(0,0,0,0.55)",
+                opacity: "1",
+                backdropFilter: "none",
+              },
+              userButtonPopoverContainer: {
+                backgroundColor: "#181A20",
+                opacity: "1",
+                backdropFilter: "none",
+              },
+              userButtonPopoverFooter: {
+                backgroundColor: "#111216",
+                borderTop: "1px solid #2B3139",
+                opacity: "1",
+              },
+              userProfileKeepCard: {
+                backgroundColor: "#181A20",
+                border: "1px solid #2B3139",
+                borderRadius: "16px",
+                boxShadow: "0 20px 60px rgba(0,0,0,0.55)",
+                opacity: "1",
+                backdropFilter: "none",
+              },
+              navbar: {
+                borderRight: "1px solid #2B3139",
+              },
+              developmentBadge: "bg-[#FCD535]/12 border border-[#FCD535] text-[#FCD535] rounded-full px-[14px] py-[6px] text-[10px] font-bold uppercase tracking-wider no-underline",
+              developmentBadgeLink: "bg-[#FCD535]/12 border border-[#FCD535] text-[#FCD535] rounded-full px-[14px] py-[6px] text-[10px] font-bold uppercase tracking-wider no-underline",
+              badge: "bg-[#FCD535]/12 border border-[#FCD535] text-[#FCD535] rounded-full px-[14px] py-[6px] text-[10px] font-bold uppercase tracking-wider no-underline",
             },
           }}
         >
