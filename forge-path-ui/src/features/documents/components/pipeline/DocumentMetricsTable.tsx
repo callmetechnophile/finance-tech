@@ -81,7 +81,7 @@ function ConfidenceDisplay({ value }: { value: number }) {
 
 interface DocumentMetricsTableProps {
   documents: PipelineDocument[];
-  selectedDocId: string;
+  selectedDocId: string | null;
   onSelectDoc: (id: string) => void;
 }
 
@@ -115,91 +115,100 @@ export function DocumentMetricsTable({
         </thead>
         <tbody>
           <AnimatePresence initial={false}>
-            {documents.map((doc, idx) => {
-              const isSelected = doc.id === selectedDocId;
-              const currentStage = PIPELINE_STAGES[doc.activeStageIndex];
-              return (
-                <motion.tr
-                  key={doc.id}
-                  layout
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  onClick={() => onSelectDoc(doc.id)}
-                  className={cn(
-                    "border-b border-[#1a1a1a] cursor-pointer transition-colors duration-150",
-                    "focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-1 focus-visible:ring-[#faff69]",
-                    isSelected
-                      ? "bg-[#faff69]/[0.03] border-l-2 border-l-[#faff69]"
-                      : "hover:bg-white/[0.02]",
-                    idx === documents.length - 1 && "border-b-0"
-                  )}
-                  tabIndex={0}
-                  role="row"
-                  aria-selected={isSelected}
-                  aria-label={`${doc.fileName} — ${doc.status}`}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      e.preventDefault();
-                      onSelectDoc(doc.id);
-                    }
-                  }}
-                >
-                  {/* Document name */}
-                  <td className="px-4 py-3">
-                    <div className="flex items-center gap-2 min-w-0">
-                      <span aria-hidden="true">{FILE_ICON[doc.fileType] ?? <FileText className="w-3.5 h-3.5" />}</span>
-                      <div className="min-w-0">
-                        <p className="text-xs font-semibold text-white/80 truncate max-w-[160px]" title={doc.fileName}>
-                          {doc.fileName}
-                        </p>
-                        <p className="text-[9px] text-white/30">{doc.fileSizeMB} MB · {doc.fileType}</p>
+            {documents.length === 0 ? (
+              <tr>
+                <td colSpan={6} className="px-4 py-10 text-center">
+                  <p className="text-xs text-white/30">No documents in queue</p>
+                  <p className="text-[10px] text-white/20 mt-1">Upload a document to begin processing</p>
+                </td>
+              </tr>
+            ) : (
+              documents.map((doc, idx) => {
+                const isSelected = doc.id === selectedDocId;
+                const currentStage = PIPELINE_STAGES[doc.activeStageIndex];
+                return (
+                  <motion.tr
+                    key={doc.id}
+                    layout
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    onClick={() => onSelectDoc(doc.id)}
+                    className={cn(
+                      "border-b border-[#1a1a1a] cursor-pointer transition-colors duration-150",
+                      "focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-1 focus-visible:ring-[#faff69]",
+                      isSelected
+                        ? "bg-[#faff69]/[0.03] border-l-2 border-l-[#faff69]"
+                        : "hover:bg-white/[0.02]",
+                      idx === documents.length - 1 && "border-b-0"
+                    )}
+                    tabIndex={0}
+                    role="row"
+                    aria-selected={isSelected}
+                    aria-label={`${doc.fileName} — ${doc.status}`}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        onSelectDoc(doc.id);
+                      }
+                    }}
+                  >
+                    {/* Document name */}
+                    <td className="px-4 py-3">
+                      <div className="flex items-center gap-2 min-w-0">
+                        <span aria-hidden="true">{FILE_ICON[doc.fileType] ?? <FileText className="w-3.5 h-3.5" />}</span>
+                        <div className="min-w-0">
+                          <p className="text-xs font-semibold text-white/80 truncate max-w-[160px]" title={doc.fileName}>
+                            {doc.fileName}
+                          </p>
+                          <p className="text-[9px] text-white/30">{doc.fileSizeMB} MB · {doc.fileType}</p>
+                        </div>
+                        {doc.stages.some((s) => s.warningCount > 0) && (
+                          <AlertTriangle className="w-3 h-3 text-amber-400 shrink-0" aria-label="Has warnings" />
+                        )}
                       </div>
-                      {doc.stages.some((s) => s.warningCount > 0) && (
-                        <AlertTriangle className="w-3 h-3 text-amber-400 shrink-0" aria-label="Has warnings" />
-                      )}
-                    </div>
-                  </td>
+                    </td>
 
-                  {/* Status */}
-                  <td className="px-4 py-3">
-                    <DocStatusBadge status={doc.status} />
-                  </td>
+                    {/* Status */}
+                    <td className="px-4 py-3">
+                      <DocStatusBadge status={doc.status} />
+                    </td>
 
-                  {/* Current stage */}
-                  <td className="px-4 py-3">
-                    <span className="text-[10px] text-white/60 font-medium whitespace-nowrap">
-                      {doc.status === "completed"
-                        ? "All stages complete"
-                        : doc.status === "failed"
-                        ? "Pipeline halted"
-                        : doc.status === "queued"
-                        ? "Waiting in queue"
-                        : currentStage?.name ?? "—"}
-                    </span>
-                  </td>
+                    {/* Current stage */}
+                    <td className="px-4 py-3">
+                      <span className="text-[10px] text-white/60 font-medium whitespace-nowrap">
+                        {doc.status === "completed"
+                          ? "All stages complete"
+                          : doc.status === "failed"
+                          ? "Pipeline halted"
+                          : doc.status === "queued"
+                          ? "Waiting in queue"
+                          : currentStage?.name ?? "—"}
+                      </span>
+                    </td>
 
-                  {/* Overall progress */}
-                  <td className="px-4 py-3 min-w-[140px]">
-                    <MiniProgressBar value={doc.overallProgress} status={doc.status} />
-                  </td>
+                    {/* Overall progress */}
+                    <td className="px-4 py-3 min-w-[140px]">
+                      <MiniProgressBar value={doc.overallProgress} status={doc.status} />
+                    </td>
 
-                  {/* Confidence */}
-                  <td className="px-4 py-3 text-center">
-                    <ConfidenceDisplay value={doc.overallConfidence} />
-                  </td>
+                    {/* Confidence */}
+                    <td className="px-4 py-3 text-center">
+                      <ConfidenceDisplay value={doc.overallConfidence} />
+                    </td>
 
-                  {/* ETA */}
-                  <td className="px-4 py-3">
-                    <span className="text-[10px] font-mono text-white/40">
-                      {doc.status === "completed" || doc.status === "failed" || doc.status === "queued"
-                        ? "—"
-                        : formatEta(doc.estimatedRemainingMs)}
-                    </span>
-                  </td>
-                </motion.tr>
-              );
-            })}
+                    {/* ETA */}
+                    <td className="px-4 py-3">
+                      <span className="text-[10px] font-mono text-white/40">
+                        {doc.status === "completed" || doc.status === "failed" || doc.status === "queued"
+                          ? "—"
+                          : formatEta(doc.estimatedRemainingMs)}
+                      </span>
+                    </td>
+                  </motion.tr>
+                );
+              })
+            )}
           </AnimatePresence>
         </tbody>
       </table>

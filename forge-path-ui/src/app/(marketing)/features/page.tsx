@@ -94,7 +94,7 @@ function IllustrationPanel({ type }: { type: string }) {
         </div>
         {[
           { role: "user", text: "What's our 30-day cash runway?" },
-          { role: "ai", text: "Based on current burn rate of $42K/month and $284K in verified receivables, runway is 68 days. ⚠️ 3 invoices totaling $87K are 30+ days overdue." },
+          { role: "ai", text: "Based on current burn rate of ₹42K/month and ₹2.84L in verified receivables, runway is 68 days. ⚠️ 3 invoices totaling ₹87K are 30+ days overdue." },
         ].map((m, i) => (
           <motion.div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}
             initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 + i * 0.4 }}>
@@ -141,7 +141,7 @@ function IllustrationPanel({ type }: { type: string }) {
           {[
             { label: "Liquidity Score", value: "84/100", color: "#0ecb81" },
             { label: "Cash Runway", value: "68 days", color: "#fcd535" },
-            { label: "Working Capital", value: "$284K", color: "#eaecef" },
+            { label: "Working Capital", value: "₹2.84L", color: "#eaecef" },
             { label: "Stress Buffer", value: "PASS", color: "#0ecb81" },
           ].map((m, i) => (
             <motion.div key={i} className="bg-[#2b3139] rounded-lg p-2.5" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 + i * 0.1 }}>
@@ -162,9 +162,9 @@ function IllustrationPanel({ type }: { type: string }) {
       <div className="w-full h-56 bg-[#1e2329] rounded-xl border border-[#2b3139] p-4 flex flex-col gap-2">
         <div className="flex items-center justify-between mb-1"><span className="text-[11px] font-bold text-[#eaecef]">Outstanding Invoices</span><span className="text-[10px] text-[#fcd535] font-bold">12 Clients</span></div>
         {[
-          { client: "Acme Corp", amount: "$47,500", days: "45d", risk: "high" },
-          { client: "TechVentures", amount: "$28,000", days: "32d", risk: "med" },
-          { client: "Global Trade", amount: "$12,800", days: "18d", risk: "low" },
+          { client: "Acme Corp", amount: "₹47,500", days: "45d", risk: "high" },
+          { client: "TechVentures", amount: "₹28,000", days: "32d", risk: "med" },
+          { client: "Global Trade", amount: "₹12,800", days: "18d", risk: "low" },
         ].map((inv, i) => (
           <motion.div key={i} className="flex items-center gap-2 bg-[#2b3139] rounded-lg px-3 py-2"
             initial={{ x: 20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.2 + i * 0.15 }}>
@@ -182,9 +182,9 @@ function IllustrationPanel({ type }: { type: string }) {
       <div className="w-full h-56 bg-[#1e2329] rounded-xl border border-[#2b3139] p-4 flex flex-col gap-2">
         <div className="flex items-center justify-between mb-1"><span className="text-[11px] font-bold text-[#eaecef]">Treasury Operations</span><span className="text-[9px] text-[#0ecb81] bg-[#0ecb81]/10 px-2 py-0.5 rounded-full font-bold">3 Pending</span></div>
         {[
-          { name: "Payroll — Nov", amount: "$84,200", status: "Approved", color: "#0ecb81" },
-          { name: "Vendor AWS", amount: "$4,100", status: "Pending", color: "#fcd535" },
-          { name: "Office Rent", amount: "$12,000", status: "Review", color: "#f6465d" },
+          { name: "Payroll — Nov", amount: "₹84,200", status: "Approved", color: "#0ecb81" },
+          { name: "Vendor AWS", amount: "₹4,100", status: "Pending", color: "#fcd535" },
+          { name: "Office Rent", amount: "₹12,000", status: "Review", color: "#f6465d" },
         ].map((t, i) => (
           <motion.div key={i} className="flex items-center gap-3 bg-[#2b3139] rounded-lg px-3 py-2"
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 + i * 0.12 }}>
@@ -196,7 +196,7 @@ function IllustrationPanel({ type }: { type: string }) {
         ))}
         <div className="mt-auto flex items-center gap-2">
           <div className="flex-1 bg-[#2b3139] rounded-lg px-3 py-1.5 text-[9px] text-[#707a8a]">Total outflow this month</div>
-          <span className="text-[11px] font-bold text-[#fcd535] font-mono">$100,300</span>
+          <span className="text-[11px] font-bold text-[#fcd535] font-mono">₹1,00,300</span>
         </div>
       </div>
     ),
@@ -205,9 +205,9 @@ function IllustrationPanel({ type }: { type: string }) {
         <div className="text-[10px] text-[#707a8a] font-bold uppercase tracking-widest mb-1">Executive Dashboard</div>
         <div className="grid grid-cols-3 gap-2">
           {[
-            { label: "Revenue", value: "$1.2M", delta: "+12%", up: true },
+            { label: "Revenue", value: "₹1.2Cr", delta: "+12%", up: true },
             { label: "Margin", value: "34%", delta: "+3%", up: true },
-            { label: "Burn", value: "$42K", delta: "-8%", up: false },
+            { label: "Burn", value: "₹42K", delta: "-8%", up: false },
           ].map((k, i) => (
             <motion.div key={i} className="bg-[#2b3139] rounded-lg p-2" initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: 0.15 + i * 0.1 }}>
               <div className="text-[8px] text-[#707a8a]">{k.label}</div>
@@ -238,7 +238,7 @@ function IllustrationPanel({ type }: { type: string }) {
           </svg>
         </div>
         <div className="flex gap-4">
-          <div><div className="text-[9px] text-[#707a8a]">YTD Revenue</div><div className="text-[11px] font-bold text-[#fcd535] font-mono">$1.24M</div></div>
+          <div><div className="text-[9px] text-[#707a8a]">YTD Revenue</div><div className="text-[11px] font-bold text-[#fcd535] font-mono">₹1.24Cr</div></div>
           <div><div className="text-[9px] text-[#707a8a]">YoY Growth</div><div className="text-[11px] font-bold text-[#0ecb81] font-mono">+34%</div></div>
         </div>
       </div>

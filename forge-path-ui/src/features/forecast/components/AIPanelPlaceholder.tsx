@@ -7,7 +7,7 @@ import { Panel } from "@/shared/components/layout/Panel";
 export function AIPanelPlaceholder() {
   const suggestedQuestions = [
     "What is the impact if Apex Steel delays payment by 30 days?",
-    "Can we safely approve the $45,000 CNC maintenance wire on July 24?",
+    "Can we safely approve the ₹45,000 CNC maintenance wire on July 24?",
     "Show me 90-day cash gap predictions under a 20% sales drop.",
   ];
 
@@ -28,7 +28,7 @@ export function AIPanelPlaceholder() {
             <Sparkles className="w-3.5 h-3.5" /> Automated Solvency Advisory
           </div>
           <p className="text-white/70 leading-relaxed">
-            Predictive cash runway evaluates at **68 Days**. Receivables collection velocity is optimal. Recommending a **$42,000** yield sweep to the Neon Treasury Reserve to capture 4.8% APY.
+            Predictive cash runway evaluates at **68 Days**. Receivables collection velocity is optimal. Recommending a **₹42,000** yield sweep to the Neon Treasury Reserve to capture 4.8% APY.
           </p>
         </div>
 

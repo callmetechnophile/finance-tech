@@ -10,7 +10,7 @@ export function CashDriversRegion() {
     {
       title: "Apex Steel Works Collection (INV-089)",
       type: "inflow",
-      amount: "$47,500",
+      amount: "₹47,500",
       impact: "High (+14d runway)",
       status: "Risk: Delayed",
       riskLevel: "negative",
@@ -18,7 +18,7 @@ export function CashDriversRegion() {
     {
       title: "Delta Fabrication Wire Receipt (INV-074)",
       type: "inflow",
-      amount: "$28,000",
+      amount: "₹28,000",
       impact: "Moderate (+8d runway)",
       status: "Settled",
       riskLevel: "positive",
@@ -26,7 +26,7 @@ export function CashDriversRegion() {
     {
       title: "CNC Machine #3 Annual Maintenance Contract",
       type: "outflow",
-      amount: "$45,000",
+      amount: "₹45,000",
       impact: "Critical (-12d runway)",
       status: "Due July 24",
       riskLevel: "neutral",
@@ -34,7 +34,7 @@ export function CashDriversRegion() {
     {
       title: "NVIDIA NIM Infrastructure License Sweep",
       type: "outflow",
-      amount: "$18,400",
+      amount: "₹18,400",
       impact: "Low (-4d runway)",
       status: "Scheduled",
       riskLevel: "positive",

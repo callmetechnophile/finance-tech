@@ -75,14 +75,14 @@ export const dashboardService = {
       return {
         success: true,
         metrics: {
-          cash_balance: "$2.45M",
-          receivables: "$4.12M",
-          payables: "$1.89M",
-          working_capital: "$4.68M",
+          cash_balance: "₹2.45Cr",
+          receivables: "₹4.12Cr",
+          payables: "₹1.89Cr",
+          working_capital: "₹4.68Cr",
           liquidity_score: 78,
           cash_runway_days: 68,
-          revenue_mtd: "$8.24M",
-          expenses_mtd: "$5.73M",
+          revenue_mtd: "₹8.24Cr",
+          expenses_mtd: "₹5.73Cr",
         },
         charts: {
           cash_flow_trend: [
@@ -110,7 +110,7 @@ export const dashboardService = {
           ],
         },
         collections_summary: {
-          total_outstanding: "$2.34M",
+          total_outstanding: "₹2.34Cr",
           pie_data: [
             { name: "0-30 Days", value: 38, color: "#3b82f6" },
             { name: "31-60 Days", value: 29, color: "#8b5cf6" },
@@ -119,17 +119,17 @@ export const dashboardService = {
           ],
         },
         treasury_summary: {
-          total_payments_week: "$1.26M",
+          total_payments_week: "₹1.26Cr",
           pending_approvals: 2,
           scheduled_payments: 7,
           wire_transfers: 3,
         },
         top_customers: [
-          { name: "1. TechNova Solutions", amount: "$682K", pct: "85%" },
-          { name: "2. Global Retail Ltd", amount: "$478K", pct: "65%" },
-          { name: "3. Bright Manufacturing", amount: "$312K", pct: "45%" },
-          { name: "4. HealthPlus Inc", amount: "$265K", pct: "38%" },
-          { name: "5. Future Systems", amount: "$198K", pct: "28%" },
+          { name: "1. TechNova Solutions", amount: "₹6.82L", pct: "85%" },
+          { name: "2. Global Retail Ltd", amount: "₹4.78L", pct: "65%" },
+          { name: "3. Bright Manufacturing", amount: "₹3.12L", pct: "45%" },
+          { name: "4. HealthPlus Inc", amount: "₹2.65L", pct: "38%" },
+          { name: "5. Future Systems", amount: "₹1.98L", pct: "28%" },
         ],
         recent_documents: [
           { doc: "PO_450023_TechNova.pdf", type: "Purchase Order", source: "TechNova Solutions", time: "2 mins ago", status: "Processed", success: true },
@@ -137,8 +137,8 @@ export const dashboardService = {
           { doc: "BNK_STMT_May2025.pdf", type: "Bank Statement", source: "Chase Bank", time: "45 mins ago", status: "Processed", success: true },
         ],
         upcoming_payments: [
-          { vendor: "TechNova Solutions", type: "Wire Transfer", amount: "$250,000", date: "May 21, 2025" },
-          { vendor: "Office Supplies Co.", type: "ACH Payment", amount: "$8,750", date: "May 22, 2025" },
+          { vendor: "TechNova Solutions", type: "Wire Transfer", amount: "₹2,50,000", date: "May 21, 2025" },
+          { vendor: "Office Supplies Co.", type: "ACH Payment", amount: "₹8,750", date: "May 22, 2025" },
         ],
         ai_executive_brief: "Your cash position is strong with 68 days of runway. Collections performance improved by 12% this week. Key risk: Receivable concentration in Top 3 customers.",
         ai_insight: "Consider accelerating collections from TechNova Solutions. Their payments are consistently delayed by 8-12 days.",

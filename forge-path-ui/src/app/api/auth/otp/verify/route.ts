@@ -60,7 +60,7 @@ export async function POST(request: Request) {
           id: "apex-manufacturing-uuid",
           name: "Apex Manufacturing Inc.",
           industry: "CNC & Fabrication",
-          currency: "USD",
+          currency: "INR",
         },
         token: `mock-jwt-phone-${Math.random().toString(36).substring(7)}`,
       });

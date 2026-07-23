@@ -82,10 +82,10 @@ export default function AnalyticsPage() {
             </h3>
             <div className="space-y-2 text-xs">
               {[
-                { cohort: "0-30 Days Overdue", amount: "$120,500", pct: 42, color: "bg-green-500" },
-                { cohort: "31-60 Days Overdue", amount: "$85,200", pct: 30, color: "bg-[#faff69]" },
-                { cohort: "61-90 Days Overdue", amount: "$45,000", pct: 16, color: "bg-amber-500" },
-                { cohort: "90+ Days Overdue (Legal)", amount: "$33,800", pct: 12, color: "bg-red-500" },
+                { cohort: "0-30 Days Overdue", amount: "₹1,20,500", pct: 42, color: "bg-green-500" },
+                { cohort: "31-60 Days Overdue", amount: "₹85,200", pct: 30, color: "bg-[#faff69]" },
+                { cohort: "61-90 Days Overdue", amount: "₹45,000", pct: 16, color: "bg-amber-500" },
+                { cohort: "90+ Days Overdue (Legal)", amount: "₹33,800", pct: 12, color: "bg-red-500" },
               ].map((c) => (
                 <div key={c.cohort} className="space-y-1">
                   <div className="flex justify-between text-[11px] text-white/70">

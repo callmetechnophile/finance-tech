@@ -222,7 +222,7 @@ export const UploadQueueItem = memo(function UploadQueueItem({
           {file.status === "complete" && file.completedAt && (
             <span className="text-green-400">
               Ingested at{" "}
-              {new Date(file.completedAt).toLocaleTimeString("en-US", {
+              {new Date(file.completedAt).toLocaleTimeString("en-IN", {
                 hour: "2-digit",
                 minute: "2-digit",
               })}

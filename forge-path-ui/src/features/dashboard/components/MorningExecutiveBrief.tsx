@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -72,7 +72,7 @@ export function MorningExecutiveBrief({ state, onRetry }: MorningExecutiveBriefP
       month: "long",
       day: "numeric",
     };
-    setCurrentDate(new Date().toLocaleDateString("en-US", dateOptions));
+    setCurrentDate(new Date().toLocaleDateString("en-IN", dateOptions));
 
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     setPrefersReducedMotion(mediaQuery.matches);
@@ -213,7 +213,7 @@ export function MorningExecutiveBrief({ state, onRetry }: MorningExecutiveBriefP
       >
         <MetricCard
           label="Total Available Cash Position"
-          value={hasData ? "$342,000" : "---"}
+          value={hasData ? "₹3,42,000" : "---"}
           trend={hasData ? { value: "+4.2%", direction: "up", label: "vs 7d ago" } : { value: "---", direction: "flat" }}
           severity="normal"
           icon={<DollarSign className="w-4 h-4 text-[#faff69]" aria-hidden="true" />}
@@ -263,12 +263,12 @@ export function MorningExecutiveBrief({ state, onRetry }: MorningExecutiveBriefP
                     {hasData ? (
                       <>
                         Your business health is{" "}
-                        <strong className="text-white/90">stable</strong> with $342,000
+                        <strong className="text-white/90">stable</strong> with ₹3,42,000
                         in liquid accounts. Receivables display a backlog of{" "}
-                        <strong className="text-white/90">$284,500</strong>, where{" "}
+                        <strong className="text-white/90">₹2,84,500</strong>, where{" "}
                         <strong className="text-amber-400">Apex Steel Works</strong> invoices
                         have exceeded delinquent targets by 14 days. Outflow projections
-                        identify a scheduled contract wire for machine maintenance ($45,000)
+                        identify a scheduled contract wire for machine maintenance (₹45,000)
                         on July 24, which will compress short-term runways slightly, but cash
                         reserves will remain within baseline buffer targets.
                       </>
@@ -313,7 +313,7 @@ export function MorningExecutiveBrief({ state, onRetry }: MorningExecutiveBriefP
                       />
                       <p className="min-w-0 text-xs text-white/70">
                         <span className="text-white/80 font-medium">Delinquency warning:</span>{" "}
-                        Apex Steel Works ($47,500 · INV-2024-089) is 45 days overdue. Level 4
+                        Apex Steel Works (₹47,500 · INV-2024-089) is 45 days overdue. Level 4
                         escalation triggers are active.
                       </p>
                     </div>
@@ -323,7 +323,7 @@ export function MorningExecutiveBrief({ state, onRetry }: MorningExecutiveBriefP
                       className="flex items-start gap-2.5 p-2 rounded bg-amber-500/[0.02] border border-amber-500/10 hover:border-amber-500/30 hover:bg-amber-500/[0.04] transition-all duration-150 cursor-default focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-amber-400"
                       tabIndex={0}
                       role="listitem"
-                      aria-label="Upcoming wire outflow: $45,000 due in 5 days"
+                      aria-label="Upcoming wire outflow: ₹45,000 due in 5 days"
                       onKeyDown={(e) =>
                         handleAlertKeyDown(e, () =>
                           alert("View scheduled payout in Treasury workspace.")
@@ -336,7 +336,7 @@ export function MorningExecutiveBrief({ state, onRetry }: MorningExecutiveBriefP
                       />
                       <p className="min-w-0 text-xs text-white/70">
                         <span className="text-white/80 font-medium">Upcoming wire outflow:</span>{" "}
-                        $45,000 scheduled mechanical service agreement payment due in 5 days.
+                        ₹45,000 scheduled mechanical service agreement payment due in 5 days.
                       </p>
                     </div>
                   </li>
@@ -365,7 +365,7 @@ export function MorningExecutiveBrief({ state, onRetry }: MorningExecutiveBriefP
                   title="Escalate Apex Steel Delinquency"
                   description="Automate payment reminders and flag accounting profiles directly to CEO/CFO signature review layers."
                   priority="critical"
-                  impact="Recovers +$47.5k ledger buffer"
+                  impact="Recovers +₹47.5k ledger buffer"
                   action={{
                     label: "Escalate Now",
                     onClick: () => {
@@ -376,9 +376,9 @@ export function MorningExecutiveBrief({ state, onRetry }: MorningExecutiveBriefP
                 />
                 <RecommendationCard
                   title="Optimize High-Yield Treasury Sweep"
-                  description="Sweep excess balance exceeding $300k reserve buffer into overnight cash assets to earn 4.8% APY."
+                  description="Sweep excess balance exceeding ₹3,00,000 reserve buffer into overnight cash assets to earn 4.8% APY."
                   priority="medium"
-                  impact="Generates estimated $140 monthly yield"
+                  impact="Generates estimated ₹140 monthly yield"
                   action={{
                     label: "Open Treasury",
                     onClick: () => {},

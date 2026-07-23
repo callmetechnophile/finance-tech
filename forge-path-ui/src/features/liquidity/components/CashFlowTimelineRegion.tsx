@@ -7,11 +7,11 @@ import { Section } from "@/shared/components/layout/Section";
 
 export function CashFlowTimelineRegion() {
   const weeklyFlows = [
-    { week: "W1 (July 1 - 7)", inflow: "$95,000", outflow: "$32,000", net: "+$63,000", buffer: "$310,000", isActual: true },
-    { week: "W2 (July 8 - 14)", inflow: "$82,000", outflow: "$48,000", net: "+$34,000", buffer: "$344,000", isActual: true },
-    { week: "W3 (July 15 - 21)", inflow: "$110,000", outflow: "$65,000", net: "+$45,000", buffer: "$389,000", isActual: true },
-    { week: "W4 (July 22 - 28)", inflow: "$45,000", outflow: "$92,000", net: "-$47,000", buffer: "$342,000", isActual: false },
-    { week: "W5 (July 29 - Aug 4)", inflow: "$88,000", outflow: "$42,000", net: "+$46,000", buffer: "$388,000", isActual: false },
+    { week: "W1 (July 1 - 7)", inflow: "₹95,000", outflow: "₹32,000", net: "+₹63,000", buffer: "₹3,10,000", isActual: true },
+    { week: "W2 (July 8 - 14)", inflow: "₹82,000", outflow: "₹48,000", net: "+₹34,000", buffer: "₹3,44,000", isActual: true },
+    { week: "W3 (July 15 - 21)", inflow: "₹1,10,000", outflow: "₹65,000", net: "+₹45,000", buffer: "₹3,89,000", isActual: true },
+    { week: "W4 (July 22 - 28)", inflow: "₹45,000", outflow: "₹92,000", net: "-₹47,000", buffer: "₹3,42,000", isActual: false },
+    { week: "W5 (July 29 - Aug 4)", inflow: "₹88,000", outflow: "₹42,000", net: "+₹46,000", buffer: "₹3,88,000", isActual: false },
   ];
 
   return (

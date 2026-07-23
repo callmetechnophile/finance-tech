@@ -21,19 +21,19 @@ export function ActivityTimelineRegion() {
           action="sent Brevo L2 Demand SMS to"
           target="Apex Steel Works"
           timestamp="14 min ago"
-          detail="Targeted overdue invoice INV-2024-089 ($47,500)."
+          detail="Targeted overdue invoice INV-2024-089 (₹47,500)."
         />
         <AuditCard
           actor="System Ingestion"
           action="recorded wire payment match for"
-          target="Delta Fabrication ($28,000)"
+          target="Delta Fabrication (₹28,000)"
           timestamp="2 hours ago"
           detail="Cleared invoice INV-2024-074 from collections queue."
         />
         <AuditCard
           actor="Gemma Collections AI"
           action="adjusted payment probability vector for"
-          target="Titan Aerospace ($18,000)"
+          target="Titan Aerospace (₹18,000)"
           timestamp="4 hours ago"
           detail="Confidence rating updated to 88% based on historical payment pattern."
         />

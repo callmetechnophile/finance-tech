@@ -10,9 +10,9 @@ export function LiquidityForecastRegion() {
   const [selectedWindow, setSelectedWindow] = useState<"7d" | "14d" | "30d">("14d");
 
   const windows = {
-    "7d": { label: "7-Day Short-Term Window", buffer: "$320,000", status: "Optimal", minThreshold: "$250,000", warning: false },
-    "14d": { label: "14-Day Rolling Horizon", buffer: "$298,500", status: "Stable", minThreshold: "$250,000", warning: false },
-    "30d": { label: "30-Day Solvency Outlook", buffer: "$285,400", status: "Attention Needed", minThreshold: "$250,000", warning: true },
+    "7d": { label: "7-Day Short-Term Window", buffer: "₹3,20,000", status: "Optimal", minThreshold: "₹2,50,000", warning: false },
+    "14d": { label: "14-Day Rolling Horizon", buffer: "₹2,98,500", status: "Stable", minThreshold: "₹2,50,000", warning: false },
+    "30d": { label: "30-Day Solvency Outlook", buffer: "₹2,85,400", status: "Attention Needed", minThreshold: "₹2,50,000", warning: true },
   };
 
   const activeWindow = windows[selectedWindow];
@@ -78,7 +78,7 @@ export function LiquidityForecastRegion() {
           <div className="flex-1 text-xs">
             <span className="font-bold text-white block">Predicted Cash Gap Risk Window (August 12 - August 18)</span>
             <p className="text-[10px] text-white/60 mt-0.5 leading-relaxed">
-              Concurrent payouts to equipment maintenance vendors ($45,000) and delayed collections from Apex Steel ($47,500) may narrow the liquidity buffer to $18,400 above minimum thresholds.
+              Concurrent payouts to equipment maintenance vendors (₹45,000) and delayed collections from Apex Steel (₹47,500) may narrow the liquidity buffer to ₹18,400 above minimum thresholds.
             </p>
           </div>
           <button

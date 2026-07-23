@@ -10,14 +10,13 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import { type PipelineDocument, type PipelineStageState, PIPELINE_STAGES } from "../types/pipeline.types";
-import { MOCK_PIPELINE_DOCUMENTS } from "../data/pipeline.mock";
 
 const TICK_MS = 120;
 const ADVANCE_PER_TICK = 0.9; // progress points per tick
 
 export function usePipelineSimulator() {
-  const [documents, setDocuments] = useState<PipelineDocument[]>(MOCK_PIPELINE_DOCUMENTS);
-  const [selectedDocId, setSelectedDocId] = useState<string>(MOCK_PIPELINE_DOCUMENTS[0].id);
+  const [documents, setDocuments] = useState<PipelineDocument[]>([]);
+  const [selectedDocId, setSelectedDocId] = useState<string | null>(null);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   // Advance a single processing document's active stage
@@ -120,7 +119,9 @@ export function usePipelineSimulator() {
     };
   }, [tick]);
 
-  const selectedDocument = documents.find((d) => d.id === selectedDocId) ?? documents[0];
+  const selectedDocument = selectedDocId
+    ? (documents.find((d) => d.id === selectedDocId) ?? documents[0])
+    : documents[0];
 
   return {
     documents,

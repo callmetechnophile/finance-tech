@@ -6,9 +6,12 @@ import { PageContainer } from "@/shared/components/layout/PageContainer";
 import { WorkspaceHeader } from "@/shared/components/layout/WorkspaceHeader";
 import { Section } from "@/shared/components/layout/Section";
 import { Panel } from "@/shared/components/layout/Panel";
+import { useWorkspaceStore } from "@/shared/stores/workspace.store";
+import type { SupportedCurrency } from "@/shared/utils/currency";
 
 export default function SettingsPage() {
   const [saved, setSaved] = useState(false);
+  const { currency, setCurrency } = useWorkspaceStore();
 
   const handleSave = () => {
     setSaved(true);
@@ -68,12 +71,20 @@ export default function SettingsPage() {
               </div>
               <div>
                 <label className="block text-[10px] font-bold text-white/50 uppercase tracking-wider mb-1">Base Currency</label>
-                <input
-                  type="text"
-                  defaultValue="USD ($)"
-                  readOnly
-                  className="w-full bg-[#1a1a1a] border border-[#2a2a2a] rounded px-3 py-2 text-white/50 text-xs font-mono"
-                />
+                <select
+                  value={currency}
+                  onChange={(e) => setCurrency(e.target.value as SupportedCurrency)}
+                  className="w-full bg-[#1a1a1a] border border-[#2a2a2a] rounded px-3 py-2 text-white text-xs focus:outline-none focus:border-[#faff69] cursor-pointer"
+                >
+                  <option value="INR">INR (₹) — Indian Rupee</option>
+                  <option value="USD">USD ($) — US Dollar</option>
+                  <option value="EUR">EUR (€) — Euro</option>
+                  <option value="GBP">GBP (£) — British Pound</option>
+                  <option value="JPY">JPY (¥) — Japanese Yen</option>
+                  <option value="AED">AED (د.إ) — UAE Dirham</option>
+                  <option value="SGD">SGD (S$) — Singapore Dollar</option>
+                </select>
+                <p className="text-[9px] text-white/25 mt-1">Changes apply globally across all modules.</p>
               </div>
             </div>
           </Panel>

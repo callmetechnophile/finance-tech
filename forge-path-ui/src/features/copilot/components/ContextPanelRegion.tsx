@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import { Layers, Database, ShieldCheck, Activity, DollarSign } from "lucide-react";
@@ -7,10 +7,10 @@ import { Panel } from "@/shared/components/layout/Panel";
 export function ContextPanelRegion() {
   const contextItems = [
     { label: "NeonDB ACID Ledger", status: "Active & Synced", value: "3,412 Records" },
-    { label: "Available Liquid Cash", status: "Verified", value: "$342,000" },
-    { label: "Outstanding AR Balance", status: "12 Invoices", value: "$284,500" },
-    { label: "Outstanding AP Queue", status: "8 Bills", value: "$118,400" },
-    { label: "Daily Operating Burn", status: "Stable", value: "$5,000/day" },
+    { label: "Available Liquid Cash", status: "Verified", value: "₹3,42,000" },
+    { label: "Outstanding AR Balance", status: "12 Invoices", value: "₹2,84,500" },
+    { label: "Outstanding AP Queue", status: "8 Bills", value: "₹1,18,400" },
+    { label: "Daily Operating Burn", status: "Stable", value: "₹5,000/day" },
     { label: "Acid-Test Quick Ratio", status: "Optimal", value: "1.8x" },
   ];
 

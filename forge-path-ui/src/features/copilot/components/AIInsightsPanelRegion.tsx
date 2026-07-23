@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import { Sparkles, ArrowRight, ShieldCheck, AlertCircle } from "lucide-react";
@@ -15,14 +15,14 @@ export function AIInsightsPanelRegion() {
     },
     {
       id: "i2",
-      title: "Sweep $42,000 to Neon Yield Reserve",
-      impact: "+4.8% APY ($168/mo Yield)",
+      title: "Sweep ₹42,000 to Neon Yield Reserve",
+      impact: "+4.8% APY (₹168/mo Yield)",
       action: "Execute Sweep",
       type: "yield",
     },
     {
       id: "i3",
-      title: "Approve $45,000 CNC Maintenance Wire",
+      title: "Approve ₹45,000 CNC Maintenance Wire",
       impact: "Preserves Machinery Warranty",
       action: "Review Wire",
       type: "payout",

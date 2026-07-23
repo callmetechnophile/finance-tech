@@ -36,7 +36,7 @@ console.log(\`Ingested: \${document.id} | Amount: \${document.amount}\`);`,
   "extracted_data": {
     "vendor": "Apex Steel",
     "amount": 47500.00,
-    "currency": "USD",
+    "currency": "INR",
     "due_date": "2026-08-30",
     "risk_assessment": {
       "rating": "low",

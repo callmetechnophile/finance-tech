@@ -20,19 +20,31 @@ import {
 import { Panel } from "@/shared/components/layout/Panel";
 import { Section } from "@/shared/components/layout/Section";
 import { usePipelineSimulator } from "../../hooks/usePipelineSimulator";
-import { MOCK_SUMMARY_STATS } from "../../data/pipeline.mock";
-import { PIPELINE_STAGES } from "../../types/pipeline.types";
+import { PIPELINE_STAGES, type PipelineSummaryStats } from "../../types/pipeline.types";
 import { PipelineSummary } from "./PipelineSummary";
 import { DocumentMetricsTable } from "./DocumentMetricsTable";
 import { PipelineStageRow } from "./PipelineStageRow";
+import { useDocumentStatusStore } from "@/shared/stores/document-status.store";
+
+const EMPTY_STATS: PipelineSummaryStats = {
+  totalDocuments: 0,
+  processing: 0,
+  completed: 0,
+  failed: 0,
+  avgProcessingMs: 0,
+  avgConfidence: 0,
+  queueLength: 0,
+};
 
 export function DocumentProcessingPipeline() {
   const { documents, selectedDocument, selectedDocId, setSelectedDocId } =
     usePipelineSimulator();
+  const { uploadedCount } = useDocumentStatusStore();
+  const hasDocuments = uploadedCount > 0 || documents.length > 0;
 
   // Track which stage rows are expanded
   const [expandedStages, setExpandedStages] = useState<Set<string>>(
-    () => new Set(["ocr_processing"]) // pre-expand OCR for demo
+    () => new Set([])
   );
 
   // Collapse/expand all toggle
@@ -82,7 +94,7 @@ export function DocumentProcessingPipeline() {
     >
       {/* ── Pipeline Summary Stats ─────────────────────────────────────── */}
       <Section title="Pipeline Overview" compact>
-        <PipelineSummary stats={MOCK_SUMMARY_STATS} />
+        <PipelineSummary stats={EMPTY_STATS} />
       </Section>
 
       {/* ── Document Metrics Table ─────────────────────────────────────── */}
@@ -127,68 +139,75 @@ export function DocumentProcessingPipeline() {
           </div>
         }
       >
-        {/* Document identity bar */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={selectedDocId}
-            initial={{ opacity: 0, y: -4 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 4 }}
-            transition={{ duration: 0.18, ease: "easeOut" }}
-            className="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-[#faff69]/[0.03] border border-[#faff69]/10"
-            aria-live="polite"
-            aria-label={`Viewing pipeline for: ${selectedDocument?.fileName}`}
-          >
-            <Cpu className="w-3.5 h-3.5 text-[#faff69] shrink-0" aria-hidden="true" />
-            <div className="min-w-0 flex-1">
-              <p className="text-xs font-semibold text-white/80 truncate">
-                {selectedDocument?.fileName ?? "—"}
-              </p>
-              <p className="text-[10px] text-white/40">
-                {selectedDocument?.fileType} · {selectedDocument?.fileSizeMB} MB ·
-                Overall confidence:{" "}
-                <span className="text-white/60 font-mono">
-                  {selectedDocument?.overallConfidence
-                    ? `${selectedDocument.overallConfidence}%`
-                    : "—"}
-                </span>
-              </p>
-            </div>
-            <div className="flex items-center gap-1 shrink-0">
-              <span className="text-[10px] text-white/30">
-                Stage {Math.min(activeStageIndex + 1, PIPELINE_STAGES.length)}/{PIPELINE_STAGES.length}
-              </span>
-              <div
-                className="ml-2 h-1 w-20 bg-[#222] rounded-full overflow-hidden"
-                aria-hidden="true"
-              >
-                <motion.div
-                  className="h-full bg-[#faff69] rounded-full"
-                  animate={{ width: `${selectedDocument?.overallProgress ?? 0}%` }}
-                  transition={{ duration: 0.3, ease: "easeOut" }}
-                />
+        {/* Document identity bar — only show when a document is selected */}
+        {hasDocuments && selectedDocument ? (
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={selectedDocId}
+              initial={{ opacity: 0, y: -4 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 4 }}
+              transition={{ duration: 0.18, ease: "easeOut" }}
+              className="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-[#faff69]/[0.03] border border-[#faff69]/10"
+              aria-live="polite"
+              aria-label={`Viewing pipeline for: ${selectedDocument?.fileName}`}
+            >
+              <Cpu className="w-3.5 h-3.5 text-[#faff69] shrink-0" aria-hidden="true" />
+              <div className="min-w-0 flex-1">
+                <p className="text-xs font-semibold text-white/80 truncate">
+                  {selectedDocument?.fileName ?? "—"}
+                </p>
+                <p className="text-[10px] text-white/40">
+                  {selectedDocument?.fileType} · {selectedDocument?.fileSizeMB} MB ·
+                  Overall confidence:{" "}
+                  <span className="text-white/60 font-mono">
+                    {selectedDocument?.overallConfidence
+                      ? `${selectedDocument.overallConfidence}%`
+                      : "—"}
+                  </span>
+                </p>
               </div>
-              <span className="font-mono text-[10px] text-[#faff69] w-8 text-right">
-                {selectedDocument?.overallProgress ?? 0}%
-              </span>
-            </div>
-          </motion.div>
-        </AnimatePresence>
+              <div className="flex items-center gap-1 shrink-0">
+                <span className="text-[10px] text-white/30">
+                  Stage {Math.min(activeStageIndex + 1, PIPELINE_STAGES.length)}/{PIPELINE_STAGES.length}
+                </span>
+                <div
+                  className="ml-2 h-1 w-20 bg-[#222] rounded-full overflow-hidden"
+                  aria-hidden="true"
+                >
+                  <motion.div
+                    className="h-full bg-[#faff69] rounded-full"
+                    animate={{ width: `${selectedDocument?.overallProgress ?? 0}%` }}
+                    transition={{ duration: 0.3, ease: "easeOut" }}
+                  />
+                </div>
+                <span className="font-mono text-[10px] text-[#faff69] w-8 text-right">
+                  {selectedDocument?.overallProgress ?? 0}%
+                </span>
+              </div>
+            </motion.div>
+          </AnimatePresence>
+        ) : (
+          <div className="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-[#faff69]/[0.02] border border-[#faff69]/5">
+            <Cpu className="w-3.5 h-3.5 text-white/20 shrink-0" aria-hidden="true" />
+            <p className="text-xs text-white/25">No document selected — upload a file to begin</p>
+          </div>
+        )}
 
         {/* Stage list */}
         <Panel
           className="bg-[#0d0d0d] border-[#1e1e1e] pt-4 pl-4 pr-2 pb-2"
           padded={false}
           role="list"
-          aria-label={`Processing stages for ${selectedDocument?.fileName}`}
+          aria-label={`Processing stages for ${selectedDocument?.fileName ?? "document"}`}
         >
           <div
             className="max-h-[640px] overflow-y-auto pr-2"
             style={{ scrollbarWidth: "thin", scrollbarColor: "#2a2a2a transparent" }}
           >
-            <AnimatePresence initial={false}>
-              {selectedDocument &&
-                PIPELINE_STAGES.map((def, idx) => {
+            {hasDocuments && selectedDocument ? (
+              <AnimatePresence initial={false}>
+                {PIPELINE_STAGES.map((def, idx) => {
                   const stageState = selectedDocument.stages[idx];
                   if (!stageState) return null;
                   return (
@@ -206,7 +225,13 @@ export function DocumentProcessingPipeline() {
                     />
                   );
                 })}
-            </AnimatePresence>
+              </AnimatePresence>
+            ) : (
+              <div className="py-12 text-center">
+                <p className="text-xs text-white/25">No financial documents have been processed yet.</p>
+                <p className="text-[10px] text-white/15 mt-1">Pipeline stages will appear here after your first upload.</p>
+              </div>
+            )}
           </div>
         </Panel>
 

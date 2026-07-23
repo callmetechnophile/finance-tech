@@ -10,25 +10,25 @@ export function PaymentQueueRegion() {
     {
       id: "pay-1",
       vendor: "CNC Machinery Corp",
-      amount: "$45,000",
+      amount: "₹45,000",
       dueDate: "July 24, 2026",
       status: "Approval Pending",
-      discount: "Save $900 (2/10 net 30)",
+      discount: "Save ₹900 (2/10 net 30)",
       isHighValue: true,
     },
     {
       id: "pay-2",
       vendor: "NVIDIA NIM Cloud Services",
-      amount: "$18,400",
+      amount: "₹18,400",
       dueDate: "July 28, 2026",
       status: "Scheduled",
-      discount: "Save $368 (2/10 net 30)",
+      discount: "Save ₹368 (2/10 net 30)",
       isHighValue: false,
     },
     {
       id: "pay-3",
       vendor: "Steel Traders Inc",
-      amount: "$22,000",
+      amount: "₹22,000",
       dueDate: "August 2, 2026",
       status: "Queued",
       discount: "N/A",
@@ -37,7 +37,7 @@ export function PaymentQueueRegion() {
     {
       id: "pay-4",
       vendor: "Apex Industrial Tooling",
-      amount: "$33,000",
+      amount: "₹33,000",
       dueDate: "August 10, 2026",
       status: "Queued",
       discount: "N/A",
@@ -52,7 +52,7 @@ export function PaymentQueueRegion() {
           <h3 className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
             <DollarSign className="w-3.5 h-3.5 text-[#faff69]" /> Scheduled Supplier Payouts
           </h3>
-          <span className="text-[10px] text-white/40 font-mono">4 Payables Queued ($118,400)</span>
+          <span className="text-[10px] text-white/40 font-mono">4 Payables Queued (₹1,18,400)</span>
         </div>
 
         <div className="space-y-2">

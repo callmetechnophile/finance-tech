@@ -59,9 +59,9 @@ export function CommunicationCenterRegion() {
           </div>
 
           <div className="p-2.5 rounded bg-[#0d0d0d] font-mono text-[10px] text-white/80 leading-relaxed space-y-1">
-            <p className="text-white font-bold">[URGENT DEMAND NOTICE] - Invoice INV-2024-089 Overdue ($47,500)</p>
+            <p className="text-white font-bold">[URGENT DEMAND NOTICE] - Invoice INV-2024-089 Overdue (₹47,500)</p>
             <p className="text-white/60">Dear Finance Team,</p>
-            <p className="text-white/60">This is a formal notification regarding outstanding invoice INV-2024-089 ($47,500) which is currently 45 days past due. Please confirm wire remittance by 5:00 PM EST to avoid account credit hold.</p>
+            <p className="text-white/60">This is a formal notification regarding outstanding invoice INV-2024-089 (₹47,500) which is currently 45 days past due. Please confirm wire remittance by 5:00 PM EST to avoid account credit hold.</p>
           </div>
 
           <div className="flex justify-between items-center pt-1">

@@ -7,6 +7,6 @@ export const APP_METADATA = {
 
 export const WORKSPACE_PRESETS = {
   defaultDensity: "loose" as const,
-  defaultCurrency: "USD" as const,
-  minBufferLimit: 280000, // $280k minimum cash threshold
+  defaultcurrency: "INR" as const,
+  minBufferLimit: 280000, // ₹2,80,000 minimum cash threshold
 };

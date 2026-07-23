@@ -32,22 +32,22 @@ export function ForecastRegion({
     "7d": {
       label: "7-Day Daily Granularity",
       periods: [342, 345, 340, 350, 358, 362, 368],
-      target: "$320,000",
+      target: "₹3,20,000",
     },
     "30d": {
       label: "30-Day Rolling Forecast",
       periods: [310, 320, 315, 338, 345, 342, 355, 360, 372, 368, 380, 385],
-      target: "$300,000",
+      target: "₹3,00,000",
     },
     "90d": {
       label: "90-Day Quarterly Horizon",
       periods: [290, 310, 342, 360, 375, 350, 365, 380, 395, 410, 405, 420],
-      target: "$280,000",
+      target: "₹2,80,000",
     },
     "365d": {
       label: "365-Day Annual Fiscal Horizon",
       periods: [250, 280, 310, 342, 370, 390, 410, 430, 450, 470, 490, 510],
-      target: "$250,000",
+      target: "₹2,50,000",
     },
   };
 

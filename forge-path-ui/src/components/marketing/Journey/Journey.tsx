@@ -170,7 +170,7 @@ export default function Journey() {
                         />
                         <div className="space-y-2 text-[10px] font-mono bg-[#0b0e11] p-3 rounded-lg border border-[#2b3139]">
                           <div className="flex justify-between"><span className="text-[#707a8a]">Vendor:</span> <span className="text-white">Apex Steel Fabrication</span></div>
-                          <div className="flex justify-between"><span className="text-[#707a8a]">Amount:</span> <span className="text-[#0ecb81]">$47,500.00</span></div>
+                          <div className="flex justify-between"><span className="text-[#707a8a]">Amount:</span> <span className="text-[#0ecb81]">₹47,500.00</span></div>
                           <div className="flex justify-between"><span className="text-[#707a8a]">Date:</span> <span className="text-white">2026-07-20</span></div>
                           <div className="flex justify-between"><span className="text-[#707a8a]">Due Date:</span> <span className="text-white">2026-08-30</span></div>
                           <div className="flex justify-between"><span className="text-[#707a8a]">Terms:</span> <span className="text-white">Net 40 Days</span></div>
@@ -259,7 +259,7 @@ Query OK, 1 row affected (12ms)`}
                           <div className="flex items-baseline gap-2">
                             <span className="text-xl font-bold font-mono text-white">$237,000</span>
                             <span className="text-xs text-[#eaecef]">→</span>
-                            <span className="text-xl font-bold font-mono text-[#fcd535]">$284,500</span>
+                            <span className="text-xl font-bold font-mono text-[#fcd535]">₹2,84,500</span>
                           </div>
                         </div>
                         <div className="w-10 h-10 rounded-full border border-[#fcd535]/20 flex items-center justify-center bg-[#fcd535]/5 text-[#fcd535]">
@@ -278,7 +278,7 @@ Query OK, 1 row affected (12ms)`}
                       >
                         <div className="flex justify-between items-center"><span className="text-[10px] text-[#fcd535] font-extrabold uppercase tracking-wider">Morning Executive Brief</span> <span className="text-[8px] text-[#707a8a]">08:00 AM</span></div>
                         <p className="text-[10px] text-[#eaecef] leading-relaxed">
-                          "A new invoice from **Apex Steel** ($47.5k) has been ingested. While liquidity has improved by +4 runway days, this vendor exhibits delay drift trends. Recommend assigning automation outreach rules."
+                          "A new invoice from **Apex Steel** (₹47.5k) has been ingested. While liquidity has improved by +4 runway days, this vendor exhibits delay drift trends. Recommend assigning automation outreach rules."
                         </p>
                       </motion.div>
                     )}

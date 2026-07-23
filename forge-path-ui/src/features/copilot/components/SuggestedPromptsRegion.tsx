@@ -10,7 +10,7 @@ interface SuggestedPromptsRegionProps {
 export function SuggestedPromptsRegion({ onSelectPrompt }: SuggestedPromptsRegionProps) {
   const prompts = [
     "Project 90-day cash gap predictions under 15% sales drop",
-    "Should we execute the $45k CNC wire payout on July 24?",
+    "Should we execute the ₹45k CNC wire payout on July 24?",
     "Evaluate early payment discount ROI for Apex Steel",
     "Summarize top accounts receivable delinquency exposures",
   ];

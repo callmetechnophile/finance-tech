@@ -1,6 +1,8 @@
 "use client";
 import React, { forwardRef, useId, useState } from "react";
 import { cn } from "@/shared/utils/cn";
+import { useWorkspaceStore } from "@/shared/stores/workspace.store";
+import { getCurrencySymbol } from "@/shared/utils/currency";
 
 interface CurrencyInputProps {
   label?: string;
@@ -21,8 +23,8 @@ export const CurrencyInput = forwardRef<HTMLInputElement, CurrencyInputProps>(
       label,
       value,
       onChange,
-      currency = "USD",
-      locale = "en-US",
+      currency = "INR",
+      locale = "en-IN",
       error,
       placeholder = "0.00",
       disabled,
@@ -34,11 +36,10 @@ export const CurrencyInput = forwardRef<HTMLInputElement, CurrencyInputProps>(
     const generatedId = useId();
     const inputId = id ?? `currency-${generatedId}`;
     const [raw, setRaw] = useState(value !== undefined ? String(value) : "");
+    const workspaceCurrency = useWorkspaceStore((s) => s.currency);
+    const activeCurrency = currency !== "INR" ? currency : workspaceCurrency;
 
-    const symbol =
-      new Intl.NumberFormat(locale, { style: "currency", currency })
-        .formatToParts(0)
-        .find((p) => p.type === "currency")?.value ?? "$";
+    const symbol = getCurrencySymbol(activeCurrency) ?? "₹";
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const stripped = e.target.value.replace(/[^0-9.]/g, "");

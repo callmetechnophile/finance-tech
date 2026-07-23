@@ -19,14 +19,14 @@ export function TreasuryTimelineRegion() {
         <AuditCard
           actor="Alexander Miller"
           action="approved dual-signature wire for"
-          target="CNC Machine Contract ($45,000)"
+          target="CNC Machine Contract (₹45,000)"
           timestamp="30 min ago"
           detail="1st signature authorized. Pending 2nd CFO authorization."
         />
         <AuditCard
           actor="Gemma Treasury Engine"
           action="executed automated yield sweep of"
-          target="$42,000 → Neon Yield Reserve"
+          target="₹42,000 → Neon Yield Reserve"
           timestamp="2 hours ago"
           detail="Swept idle Chase checking funds to 4.8% APY reserve."
         />

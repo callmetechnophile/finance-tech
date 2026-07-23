@@ -16,7 +16,7 @@ export default function TreasuryPage() {
   const HeaderActions = (
     <div className="flex items-center gap-2">
       <button
-        onClick={() => alert("Batch executing approved vendor payouts ($63,400 total).")}
+        onClick={() => alert("Batch executing approved vendor payouts (₹63,400 total).")}
         className="px-3 py-1.5 rounded-lg bg-[#1a1a1a] hover:bg-[#222] border border-[#2a2a2a] text-xs font-semibold text-white transition-colors flex items-center gap-1.5 cursor-pointer"
       >
         <Send className="w-3.5 h-3.5 text-[#faff69]" />
@@ -35,7 +35,7 @@ export default function TreasuryPage() {
 
   const HeaderBadge = (
     <span className="px-2 py-0.5 rounded text-[9px] font-bold bg-[#faff69]/10 text-[#faff69] border border-[#faff69]/20 uppercase tracking-wider flex items-center gap-1">
-      <Landmark className="w-3 h-3" /> 3 Accounts Connected • $342,000 Total Liquid
+      <Landmark className="w-3 h-3" /> 3 Accounts Connected • ₹3,42,000 Total Liquid
     </span>
   );
 

@@ -6,7 +6,7 @@ import { Panel } from "@/shared/components/layout/Panel";
 
 export function AIPanelPlaceholder() {
   const liquidityPrompts = [
-    "What is our quick ratio if Apex Steel defaults on $47,500?",
+    "What is our quick ratio if Apex Steel defaults on ₹47,500?",
     "Should we delay vendor payout to NVIDIA NIM by 15 days?",
     "Recommend optimal liquidity allocation between Chase & Neon Reserve.",
   ];

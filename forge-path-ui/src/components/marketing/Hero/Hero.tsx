@@ -62,12 +62,12 @@ export default function Hero() {
               <div className="grid grid-cols-3 gap-3">
                 <div className="p-3 bg-[#181a20] rounded-xl border border-[#2b3139] space-y-1">
                   <span className="text-[9px] uppercase tracking-wider text-[#707a8a] block">Current Cash</span>
-                  <span className="text-sm font-bold font-mono">$342,000</span>
+                  <span className="text-sm font-bold font-mono">₹3,42,000</span>
                   <span className="text-[8px] text-[#0ecb81] flex items-center gap-0.5"><ArrowUpRight className="w-2.5 h-2.5" /> +4.2%</span>
                 </div>
                 <div className="p-3 bg-[#181a20] rounded-xl border border-[#2b3139] space-y-1">
                   <span className="text-[9px] uppercase tracking-wider text-[#707a8a] block">Unpaid Invoices</span>
-                  <span className="text-sm font-bold font-mono">$284,500</span>
+                  <span className="text-sm font-bold font-mono">₹2,84,500</span>
                   <span className="text-[8px] text-[#fcd535]">12 invoices</span>
                 </div>
                 <div className="p-3 bg-[#181a20] rounded-xl border border-[#2b3139] space-y-1">
@@ -101,7 +101,7 @@ export default function Hero() {
                 <div className="space-y-1">
                   <span className="text-[10px] font-bold text-white block">Gemma AI Auditing Agent</span>
                   <p className="text-[9px] text-[#eaecef] leading-relaxed">
-                    "I've flagged **Apex Steel** ($47,500.00). Invoice payment history exhibits an average 12-day delay drift. Suggest triggering automatic collections automation reminder."
+                    "I've flagged **Apex Steel** (₹47,500.00). Invoice payment history exhibits an average 12-day delay drift. Suggest triggering automatic collections automation reminder."
                   </p>
                 </div>
               </div>

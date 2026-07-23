@@ -9,18 +9,18 @@ export interface SearchRecord {
 
 const mockSearchDatabase: SearchRecord[] = [
   // Invoices
-  { id: "inv-1", type: "Invoice", title: "INV-2024-089 (Apex Steel Works)", subtitle: "$47,500 Outstanding • 45 days overdue", metadata: "L3 Escalation", path: "/collections" },
-  { id: "inv-2", type: "Invoice", title: "INV-2024-094 (Vanguard Machining)", subtitle: "$28,000 Outstanding • 18 days overdue", metadata: "L1 Reminder", path: "/collections" },
-  { id: "inv-3", type: "Invoice", title: "INV-2024-074 (Delta Fabrication)", subtitle: "$22,000 Paid • Fully Settled", metadata: "Completed", path: "/collections" },
+  { id: "inv-1", type: "Invoice", title: "INV-2024-089 (Apex Steel Works)", subtitle: "₹47,500 Outstanding • 45 days overdue", metadata: "L3 Escalation", path: "/collections" },
+  { id: "inv-2", type: "Invoice", title: "INV-2024-094 (Vanguard Machining)", subtitle: "₹28,000 Outstanding • 18 days overdue", metadata: "L1 Reminder", path: "/collections" },
+  { id: "inv-3", type: "Invoice", title: "INV-2024-074 (Delta Fabrication)", subtitle: "₹22,000 Paid • Fully Settled", metadata: "Completed", path: "/collections" },
   
   // Customers
-  { id: "cust-1", type: "Customer", title: "Apex Steel Works", subtitle: "Total Solvency balance: $47,500 overdue", metadata: "Credit Score: 68/100", path: "/collections" },
-  { id: "cust-2", type: "Customer", title: "Vanguard Machining", subtitle: "Total Solvency balance: $28,000 overdue", metadata: "Credit Score: 78/100", path: "/collections" },
-  { id: "cust-3", type: "Customer", title: "Delta Fabrication", subtitle: "Total Solvency balance: $0", metadata: "Credit Score: 84/100", path: "/collections" },
+  { id: "cust-1", type: "Customer", title: "Apex Steel Works", subtitle: "Total Solvency balance: ₹47,500 overdue", metadata: "Credit Score: 68/100", path: "/collections" },
+  { id: "cust-2", type: "Customer", title: "Vanguard Machining", subtitle: "Total Solvency balance: ₹28,000 overdue", metadata: "Credit Score: 78/100", path: "/collections" },
+  { id: "cust-3", type: "Customer", title: "Delta Fabrication", subtitle: "Total Solvency balance: ₹0", metadata: "Credit Score: 84/100", path: "/collections" },
   
   // Vendors
-  { id: "vend-1", type: "Vendor", title: "Iron Ore Supply Inc.", subtitle: "Queued AP: $45,000 due tomorrow (2/10 Net 30)", metadata: "Critical Supplier", path: "/treasury" },
-  { id: "vend-2", type: "Vendor", title: "Amada Machinery Leasing", subtitle: "Queued AP: $12,000 due July 25", metadata: "Standard Lease", path: "/treasury" },
+  { id: "vend-1", type: "Vendor", title: "Iron Ore Supply Inc.", subtitle: "Queued AP: ₹45,000 due tomorrow (2/10 Net 30)", metadata: "Critical Supplier", path: "/treasury" },
+  { id: "vend-2", type: "Vendor", title: "Amada Machinery Leasing", subtitle: "Queued AP: ₹12,000 due July 25", metadata: "Standard Lease", path: "/treasury" },
   
   // Reports
   { id: "rep-1", type: "Report", title: "Q3 Board Meeting Presentation", subtitle: "Generated July 18, 2026 by Alexander Miller", metadata: "PDF Export Ready", path: "/reports" },

@@ -15,8 +15,8 @@ interface PreferenceState {
 export const usePreferenceStore = create<PreferenceState>()(
   persist(
     (set) => ({
-      language: "en-US",
-      currency: "USD",
+      language: "en-IN",
+      currency: "INR",
       dateFormat: "YYYY-MM-DD",
       timezone: "UTC",
       setLanguage: (language) => set({ language }),

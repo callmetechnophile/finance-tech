@@ -35,7 +35,7 @@ export default function CollectionsPage() {
 
   const HeaderBadge = (
     <span className="px-2 py-0.5 rounded text-[9px] font-bold bg-[#faff69]/10 text-[#faff69] border border-[#faff69]/20 uppercase tracking-wider flex items-center gap-1">
-      <Inbox className="w-3 h-3" /> 12 Active Collections • $284,500 AR
+      <Inbox className="w-3 h-3" /> 12 Active Collections • ₹2,84,500 AR
     </span>
   );
 

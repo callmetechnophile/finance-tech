@@ -28,7 +28,7 @@ export function TimelinePlaceholder() {
           action="executed stress scenario run"
           target="Supply Chain Cost Shock"
           timestamp="1 hour ago"
-          detail="Evaluated minimum cash exposure at $212,000 threshold."
+          detail="Evaluated minimum cash exposure at ₹2,12,000 threshold."
         />
         <AuditCard
           actor="NeonDB Ledger Sync"

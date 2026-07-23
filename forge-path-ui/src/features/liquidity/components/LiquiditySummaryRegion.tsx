@@ -32,14 +32,14 @@ export function LiquiditySummaryRegion() {
         />
         <MetricCard
           label="Net Working Capital"
-          value="$224,100"
+          value="₹2,24,100"
           trend={{ value: "+5.8%", direction: "up", label: "vs 30d" }}
           severity="normal"
           icon={<DollarSign className="w-4 h-4 text-white/40" aria-hidden="true" />}
         />
         <MetricCard
           label="Operating Cash Reserve"
-          value="$342,000"
+          value="₹3,42,000"
           trend={{ value: "68 Days", direction: "up", label: "runway" }}
           severity="positive"
           icon={<ArrowUpRight className="w-4 h-4 text-green-400" aria-hidden="true" />}

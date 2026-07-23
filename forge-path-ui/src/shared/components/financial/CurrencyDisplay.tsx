@@ -1,10 +1,12 @@
 "use client";
 import { cn } from "@/shared/utils/cn";
+import { useWorkspaceStore } from "@/shared/stores/workspace.store";
+import { formatCurrency, formatCompact } from "@/shared/utils/currency";
+import type { SupportedCurrency } from "@/shared/utils/currency";
 
 interface CurrencyDisplayProps {
   value: number;
-  currency?: string;
-  locale?: string;
+  currency?: SupportedCurrency | string;
   size?: "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
   compact?: boolean;
   className?: string;
@@ -23,27 +25,20 @@ const sizeMap: Record<string, string> = {
 
 export function CurrencyDisplay({
   value,
-  currency = "USD",
-  locale = "en-US",
+  currency,
   size = "md",
   compact = false,
   className,
   showSign = false,
   colorCode = false,
 }: CurrencyDisplayProps) {
+  // Fall back to workspace currency when no prop given
+  const workspaceCurrency = useWorkspaceStore((s) => s.currency);
+  const activeCurrency = (currency ?? workspaceCurrency) as SupportedCurrency;
+
   const formatted = compact
-    ? new Intl.NumberFormat(locale, {
-        style: "currency",
-        currency,
-        notation: "compact",
-        maximumFractionDigits: 1,
-      }).format(value)
-    : new Intl.NumberFormat(locale, {
-        style: "currency",
-        currency,
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 0,
-      }).format(value);
+    ? formatCompact(value, activeCurrency)
+    : formatCurrency(value, activeCurrency);
 
   const color = colorCode
     ? value > 0
@@ -56,7 +51,7 @@ export function CurrencyDisplay({
   return (
     <span
       className={cn("font-semibold tabular-nums", sizeMap[size], color, className)}
-      aria-label={`${currency} ${value}`}
+      aria-label={`${activeCurrency} ${value}`}
     >
       {showSign && value > 0 ? "+" : ""}
       {formatted}

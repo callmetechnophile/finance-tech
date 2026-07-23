@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import { Bot, Sparkles, ArrowRight } from "lucide-react";
@@ -6,7 +6,7 @@ import { Panel } from "@/shared/components/layout/Panel";
 
 export function AIPanelPlaceholder() {
   const treasuryPrompts = [
-    "Should we execute a $42,000 yield sweep to Neon Reserve tonight?",
+    "Should we execute a ₹42,000 yield sweep to Neon Reserve tonight?",
     "Calculate early payment discount ROI for CNC Machine contract.",
     "Recommend payout schedule to maximize liquidity reserve buffer.",
   ];
@@ -28,7 +28,7 @@ export function AIPanelPlaceholder() {
             <Sparkles className="w-3.5 h-3.5" /> Treasury Yield Notice
           </div>
           <p className="text-white/70 leading-relaxed">
-            Idle cash buffer of **$42,000** detected in Chase Operating account. Transferring to Neon Yield Reserve at **4.8% APY** generates **$168/month** in additional interest income.
+            Idle cash buffer of **₹42,000** detected in Chase Operating account. Transferring to Neon Yield Reserve at **4.8% APY** generates **₹168/month** in additional interest income.
           </p>
         </div>
 

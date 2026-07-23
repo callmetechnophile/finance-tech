@@ -9,14 +9,14 @@ export function formatDate(dateString: string | Date, options?: Intl.DateTimeFor
     ...options,
   };
   
-  return new Intl.DateTimeFormat("en-US", defaultOptions).format(date);
+  return new Intl.DateTimeFormat("en-IN", defaultOptions).format(date);
 }
 
 export function formatTime(dateString: string | Date): string {
   const date = new Date(dateString);
   if (isNaN(date.getTime())) return "--:--";
   
-  return new Intl.DateTimeFormat("en-US", {
+  return new Intl.DateTimeFormat("en-IN", {
     hour: "2-digit",
     minute: "2-digit",
     second: "2-digit",

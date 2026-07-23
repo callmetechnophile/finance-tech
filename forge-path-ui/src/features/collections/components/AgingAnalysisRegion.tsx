@@ -7,10 +7,10 @@ import { Section } from "@/shared/components/layout/Section";
 
 export function AgingAnalysisRegion() {
   const agingBuckets = [
-    { label: "Current (0-30 Days)", amount: "$162,000", pct: 57, color: "bg-green-400", count: "7 Invoices" },
-    { label: "31-60 Days Overdue", amount: "$65,000", pct: 23, color: "bg-[#faff69]", count: "3 Invoices" },
-    { label: "61-90 Days Overdue", amount: "$47,500", pct: 17, color: "bg-amber-400", count: "1 Invoice (Apex)" },
-    { label: "90+ Days Overdue", amount: "$10,000", pct: 3, color: "bg-red-400", count: "1 Invoice" },
+    { label: "Current (0-30 Days)", amount: "₹1,62,000", pct: 57, color: "bg-green-400", count: "7 Invoices" },
+    { label: "31-60 Days Overdue", amount: "₹65,000", pct: 23, color: "bg-[#faff69]", count: "3 Invoices" },
+    { label: "61-90 Days Overdue", amount: "₹47,500", pct: 17, color: "bg-amber-400", count: "1 Invoice (Apex)" },
+    { label: "90+ Days Overdue", amount: "₹10,000", pct: 3, color: "bg-red-400", count: "1 Invoice" },
   ];
 
   return (
@@ -18,7 +18,7 @@ export function AgingAnalysisRegion() {
       <Panel className="bg-[#111] border-[#222] space-y-4" padded>
         <div className="flex justify-between items-center border-b border-[#222] pb-2">
           <h3 className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
-            <Clock className="w-3.5 h-3.5 text-[#faff69]" /> Aging Distribution (Total: $284,500)
+            <Clock className="w-3.5 h-3.5 text-[#faff69]" /> Aging Distribution (Total: ₹2,84,500)
           </h3>
           <span className="text-[10px] text-white/40 font-mono">ClickHouse Real-time Audit</span>
         </div>

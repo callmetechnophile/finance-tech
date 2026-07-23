@@ -18,7 +18,7 @@ import {
   Bot,
   UserCheck,
   Calendar,
-  DollarSign,
+  IndianRupee,
   FileText,
   UserX,
   RefreshCw,
@@ -43,15 +43,7 @@ import { RiskCard } from "@/shared/components/cards/RiskCard";
 import { InsightCard } from "@/shared/components/cards/InsightCard";
 import { ApprovalCard } from "@/shared/components/enterprise/ApprovalCard";
 import { AuditCard } from "@/shared/components/enterprise/AuditCard";
-
-// Helper for currency formatting
-const formatCurrency = (val: number) => {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    maximumFractionDigits: 0,
-  }).format(val);
-};
+import { formatCurrency } from "@/shared/utils/currency";
 
 // ─── 1. QUICK ACTIONS WIDGET ────────────────────────────────────────────────
 export function QuickActionsWidget() {
@@ -145,7 +137,7 @@ export function FinancialAnalyticsPanel({ state }: { state: string }) {
           <div className="space-y-3">
             <div>
               <span className="text-[10px] text-white/50 font-bold uppercase tracking-wider block mb-2">
-                Accounts Receivable ({hasData ? "$284,500 Total" : "--- Total"})
+                Accounts Receivable ({hasData ? "₹2,84,500 Total" : "--- Total"})
               </span>
               {hasData ? (
                 <div className="space-y-2">
@@ -168,7 +160,7 @@ export function FinancialAnalyticsPanel({ state }: { state: string }) {
 
             <div className="border-t border-[#222] pt-3">
               <span className="text-[10px] text-white/50 font-bold uppercase tracking-wider block mb-2">
-                Accounts Payable ({hasData ? "$118,400 Total" : "--- Total"})
+                Accounts Payable ({hasData ? "₹1,18,400 Total" : "--- Total"})
               </span>
               {hasData ? (
                 <div className="space-y-2">
@@ -201,7 +193,7 @@ export function FinancialAnalyticsPanel({ state }: { state: string }) {
             <div className="grid grid-cols-2 gap-3">
               <div className="p-3 rounded-lg bg-[#1a1a1a] border border-[#222] space-y-1">
                 <span className="text-[9px] text-white/40 uppercase tracking-widest block">Monthly Collections</span>
-                <span className="text-sm font-bold text-green-400 font-mono">{hasData ? "$184,200" : "---"}</span>
+                <span className="text-sm font-bold text-green-400 font-mono">{hasData ? "₹1,84,200" : "---"}</span>
                 <span className="text-[9px] text-white/30 block">Recovery Rate: {hasData ? "92.4%" : "---"}</span>
               </div>
               <div className="p-3 rounded-lg bg-[#1a1a1a] border border-[#222] space-y-1">
@@ -629,9 +621,9 @@ export function LiquidityCenterPanel({ state }: { state: string }) {
           </h3>
           <div className="space-y-2">
             {[
-              { period: "7-Day Forecast", bal: hasData ? "$320,000" : "---", run: hasData ? "Buffer: Optimal" : "Buffer: ---" },
-              { period: "30-Day Forecast", bal: hasData ? "$285,400" : "---", run: hasData ? "Buffer: Stable" : "Buffer: ---" },
-              { period: "90-Day Forecast", bal: hasData ? "$212,500" : "---", run: hasData ? "Buffer: Restricted" : "Buffer: ---", warning: hasData },
+              { period: "7-Day Forecast", bal: hasData ? "₹3,20,000" : "---", run: hasData ? "Buffer: Optimal" : "Buffer: ---" },
+              { period: "30-Day Forecast", bal: hasData ? "₹2,85,400" : "---", run: hasData ? "Buffer: Stable" : "Buffer: ---" },
+              { period: "90-Day Forecast", bal: hasData ? "₹2,12,500" : "---", run: hasData ? "Buffer: Restricted" : "Buffer: ---", warning: hasData },
             ].map((f) => (
               <div key={f.period} className="flex justify-between items-center text-xs border-b border-[#222] pb-1.5 last:border-b-0">
                 <div>
@@ -682,7 +674,7 @@ export function LiquidityCenterPanel({ state }: { state: string }) {
             </p>
             <div className="flex justify-between text-[10px]">
               <span className={cn("font-semibold", hasData ? "text-amber-400" : "text-white/30")}>
-                Risk Exposure: {hasData ? "$18,400" : "---"}
+                Risk Exposure: {hasData ? "₹18,400" : "---"}
               </span>
               {hasData && (
                 <button
@@ -766,7 +758,7 @@ export function ForecastCenterPanel({ state }: { state: string }) {
               </div>
               <div className="p-3 bg-[#1a1a1a] rounded-lg border border-[#222] space-y-1">
                 <span className="text-[9px] text-white/40 uppercase block">Projected Cash Balance</span>
-                <span className="text-lg font-bold text-white font-mono">{hasData ? "$362,000" : "---"}</span>
+                <span className="text-lg font-bold text-white font-mono">{hasData ? "₹3,62,000" : "---"}</span>
                 <span className="text-[9px] text-green-400 block">{hasData ? "+6.4% expected gain" : "Expected gain: ---"}</span>
               </div>
             </div>
@@ -806,7 +798,7 @@ export function AICopilotPanel() {
 
   const suggestedQuestions = [
     "What is the probability of Apex Steel paying invoice INV-089 this week?",
-    "Can we afford to release the $45,000 maintenance payout tomorrow?",
+    "Can we afford to release the ₹45,000 maintenance payout tomorrow?",
     "Show me scenario stress-test logs for sales drops of 30%.",
   ];
 
@@ -827,7 +819,7 @@ export function AICopilotPanel() {
           <span className="text-[9px] text-[#faff69] font-bold uppercase tracking-wider block">Real-time Solvency Digest</span>
           <p className="text-white/70 leading-relaxed font-medium">
             {hasData 
-              ? "I have audited your ledger. Receivables delay index has risen by +4.2% this week. Sweeping $42,000 excess buffer into Neon Sweep account is recommended immediately to capture the 4.8% APY overnight yield."
+              ? "I have audited your ledger. Receivables delay index has risen by +4.2% this week. Sweeping ₹42,000 excess buffer into Neon Sweep account is recommended immediately to capture the 4.8% APY overnight yield."
               : "No financial documents have been processed yet."
             }
           </p>
@@ -840,7 +832,7 @@ export function AICopilotPanel() {
             <div className="space-y-1">
               {[
                 { act: "Trigger L4 escalation to Apex CEO", severity: "critical" },
-                { act: "Sweep $42k excess into Neon Sweep", severity: "optimal" },
+                { act: "Sweep ₹42k excess into Neon Sweep", severity: "optimal" },
               ].map((a) => (
                 <button
                   key={a.act}
@@ -908,7 +900,7 @@ export function AlertsApprovalsPanel() {
               description="Authorize publication of the board report."
               requestedBy="Sarah Jenkins"
               requestedAt="Today, 11:20"
-              amount="$342k baseline"
+              amount="₹3,42,000 baseline"
               status="pending"
               onApprove={() => alert("Board runway report publication approved.")}
               onReject={() => alert("Report publication rejected.")}

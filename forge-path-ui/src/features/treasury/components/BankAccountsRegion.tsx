@@ -10,7 +10,7 @@ export function BankAccountsRegion() {
     {
       name: "Chase Operating Checking",
       accountNo: "...0192",
-      balance: "$242,000",
+      balance: "₹2,42,000",
       type: "Primary Operating",
       status: "Synced (1 min ago)",
       apy: "0.5% APY",
@@ -18,7 +18,7 @@ export function BankAccountsRegion() {
     {
       name: "Neon Treasury Yield Reserve",
       accountNo: "...8841",
-      balance: "$100,000",
+      balance: "₹1,00,000",
       type: "Yield Reserve",
       status: "Synced (2 min ago)",
       apy: "4.8% APY",
@@ -26,8 +26,8 @@ export function BankAccountsRegion() {
     {
       name: "SVB Revolving Credit Facility",
       accountNo: "...5512",
-      balance: "$250,000 Limit",
-      type: "Credit Line ($0 Drawn)",
+      balance: "₹2,50,000 Limit",
+      type: "Credit Line (₹0 Drawn)",
       status: "Active",
       apy: "Prime + 1.2%",
     },

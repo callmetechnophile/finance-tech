@@ -47,7 +47,7 @@ export const initialNotifications: NotificationItem[] = [
   {
     id: "alert-2",
     title: "Supplier Payment Authorization",
-    message: "Approve pending payout of $45,000 to Iron Ore Supply Inc.",
+    message: "Approve pending payout of ₹45,000 to Iron Ore Supply Inc.",
     category: "Approvals",
     severity: "High",
     isRead: false,

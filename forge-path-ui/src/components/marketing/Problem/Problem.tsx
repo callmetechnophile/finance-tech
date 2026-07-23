@@ -1,12 +1,12 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import { AlertTriangle } from "lucide-react";
 
 export default function Problem() {
   const problemCards = [
-    { name: "Raw Invoice PDF", value: "$47,500.00", status: "Stuck in Inbox" },
-    { name: "Paper Receipt", value: "$1,280.45", status: "Uncategorized" },
+    { name: "Raw Invoice PDF", value: "₹47,500.00", status: "Stuck in Inbox" },
+    { name: "Paper Receipt", value: "₹1,280.45", status: "Uncategorized" },
     { name: "GST Tax File", value: "Q3 Return", status: "Pending Audit" },
     { name: "Purchase Order", value: "PO-99211", status: "Awaiting Match" },
     { name: "Client Email", value: "Payment delay note", status: "Unread" },
