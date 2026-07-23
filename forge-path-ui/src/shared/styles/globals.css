@@ -78,101 +78,154 @@ body {
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
-   CLERK COMPONENT HIGH-CONTRAST DARK THEME OVERRIDES (FULLY OPAQUE)
+   CLERK COMPONENT HIGH-CONTRAST DARK THEME OVERRIDES (ALL TEXT WHITE)
    ───────────────────────────────────────────────────────────────────────────── */
-.cl-card, 
-.cl-main,
-.cl-rootBox {
+[class*="cl-"] {
   color: #ffffff !important;
-  opacity: 1 !important;
 }
 
-.cl-headerTitle {
+[class*="cl-"] p,
+[class*="cl-"] span,
+[class*="cl-"] div,
+[class*="cl-"] label,
+[class*="cl-"] h1,
+[class*="cl-"] h2,
+[class*="cl-"] h3,
+[class*="cl-"] h4,
+[class*="cl-"] button,
+[class*="cl-"] a,
+[class*="cl-"] input,
+[class*="cl-"] li,
+[class*="cl-"] svg {
+  color: #ffffff !important;
+}
+
+.cl-card, 
+.cl-main,
+.cl-rootBox,
+[class*="cl-card"],
+[class*="cl-main"],
+[class*="cl-rootBox"] {
+  color: #ffffff !important;
+  opacity: 1 !important;
+  background-color: #181a20 !important;
+}
+
+.cl-headerTitle,
+[class*="cl-headerTitle"] {
   color: #ffffff !important;
   font-weight: 700 !important;
 }
 
-.cl-headerSubtitle {
-  color: #848e9c !important;
+.cl-headerSubtitle,
+[class*="cl-headerSubtitle"] {
+  color: #d4d4d8 !important;
 }
 
-.cl-formFieldLabel {
-  color: #848e9c !important;
-  text-transform: uppercase !important;
-  font-size: 10px !important;
-  letter-spacing: 0.05em !important;
-}
-
-.cl-socialButtonsBlockButton {
-  border: 1px solid #2b3139 !important;
-  background-color: #111216 !important;
-  color: #ffffff !important;
-  border-radius: 8px !important;
-}
-
-.cl-socialButtonsBlockButton:hover {
-  background-color: #1e2329 !important;
-}
-
-.cl-socialButtonsBlockButtonText {
+.cl-formFieldLabel,
+[class*="cl-formFieldLabel"] {
   color: #ffffff !important;
   font-weight: 600 !important;
 }
 
-.cl-dividerText {
-  color: #848e9c !important;
+.cl-socialButtonsBlockButton,
+[class*="cl-socialButtonsBlockButton"] {
+  border: 1px solid #2b3139 !important;
+  background-color: #111216 !important;
+  color: #ffffff !important;
+  border-radius: 8px !important;
 }
 
-.cl-dividerLine {
+.cl-socialButtonsBlockButton:hover,
+[class*="cl-socialButtonsBlockButton"]:hover {
+  background-color: #1e2329 !important;
+}
+
+.cl-socialButtonsBlockButtonText,
+[class*="cl-socialButtonsBlockButtonText"] {
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}
+
+.cl-dividerText,
+[class*="cl-dividerText"] {
+  color: #d4d4d8 !important;
+}
+
+.cl-dividerLine,
+[class*="cl-dividerLine"] {
   background-color: #2b3139 !important;
 }
 
-.cl-footerActionText {
-  color: #848e9c !important;
+.cl-footerActionText,
+[class*="cl-footerActionText"] {
+  color: #d4d4d8 !important;
 }
 
-.cl-footerActionLink {
+.cl-footerActionLink,
+[class*="cl-footerActionLink"] {
   color: #fcd535 !important;
   font-weight: bold !important;
 }
 
-.cl-footerActionLink:hover {
+.cl-footerActionLink:hover,
+[class*="cl-footerActionLink"]:hover {
   text-decoration: underline !important;
 }
 
-.cl-identityPreviewText {
+.cl-identityPreviewText,
+[class*="cl-identityPreviewText"] {
   color: #ffffff !important;
 }
 
-.cl-identityPreviewEditButton {
+.cl-identityPreviewEditButton,
+[class*="cl-identityPreviewEditButton"] {
   color: #fcd535 !important;
 }
 
-.cl-formFieldInputShowPasswordButton {
-  color: #848e9c !important;
+.cl-formFieldInputShowPasswordButton,
+[class*="cl-formFieldInputShowPasswordButton"] {
+  color: #d4d4d8 !important;
 }
 
-.cl-formFieldInput {
+.cl-formFieldInput,
+[class*="cl-formFieldInput"] {
   background-color: #111216 !important;
   border: 1px solid #2b3139 !important;
   color: #ffffff !important;
   border-radius: 8px !important;
 }
 
-.cl-formFieldInput:focus {
+.cl-formFieldInput:focus,
+[class*="cl-formFieldInput"]:focus {
   border-color: #fcd535 !important;
 }
 
-.cl-userButtonOuterIdentifier {
+.cl-userButtonOuterIdentifier,
+[class*="cl-userButtonOuterIdentifier"] {
   color: #ffffff !important;
+}
+
+/* Primary Button text: black text on yellow background for visibility */
+.cl-formButtonPrimary,
+[class*="cl-formButtonPrimary"] {
+  background-color: #fcd535 !important;
+  color: #000000 !important;
+  font-weight: 700 !important;
+}
+
+.cl-formButtonPrimary *,
+[class*="cl-formButtonPrimary"] * {
+  color: #000000 !important;
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
    CLERK MODAL BACKDROP & CARD STYLING (FULLY OPAQUE)
    ───────────────────────────────────────────────────────────────────────────── */
-.cl-modalBackdrop {
+.cl-modalBackdrop,
+[class*="cl-modalBackdrop"] {
   backdrop-filter: none !important;
-  background: rgba(0, 0, 0, 0.65) !important;
+  background: rgba(0, 0, 0, 0.75) !important;
 }
 
 .cl-card,
@@ -184,10 +237,11 @@ body {
   border-radius: 16px !important;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55) !important;
   opacity: 1 !important;
+  color: #ffffff !important;
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
-   CLERK USER BUTTON POPOVER DROPDOWN OVERRIDES (FULLY OPAQUE)
+   CLERK USER BUTTON POPOVER DROPDOWN OVERRIDES (WHITE TEXT)
    ───────────────────────────────────────────────────────────────────────────── */
 [class*="cl-userButtonPopoverCard"],
 [class*="cl-popoverCard"],
@@ -199,6 +253,7 @@ body {
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55) !important;
   opacity: 1 !important;
   backdrop-filter: none !important;
+  color: #ffffff !important;
 }
 
 [class*="cl-userButtonPopoverContainer"],
@@ -207,16 +262,32 @@ body {
   background: #181a20 !important;
   opacity: 1 !important;
   backdrop-filter: none !important;
+  color: #ffffff !important;
 }
 
 [class*="cl-userButtonPopoverActionButton"],
 .cl-userButtonPopoverActionButton {
   background-color: transparent !important;
+  color: #ffffff !important;
+}
+
+[class*="cl-userButtonPopoverActionButtonText"],
+.cl-userButtonPopoverActionButtonText,
+[class*="cl-userButtonPopoverActionButtonIcon"],
+.cl-userButtonPopoverActionButtonIcon,
+[class*="cl-userPreviewMainIdentifier"],
+.cl-userPreviewMainIdentifier {
+  color: #ffffff !important;
+}
+
+[class*="cl-userPreviewSecondaryIdentifier"],
+.cl-userPreviewSecondaryIdentifier {
+  color: #d4d4d8 !important;
 }
 
 [class*="cl-userButtonPopoverActionButton"]:hover,
 .cl-userButtonPopoverActionButton:hover {
-  background-color: #1e2329 !important;
+  background-color: #2b3139 !important;
 }
 
 [class*="cl-userButtonPopoverFooter"],
@@ -224,4 +295,5 @@ body {
   background-color: #111216 !important;
   border-top: 1px solid #2b3139 !important;
   opacity: 1 !important;
+  color: #d4d4d8 !important;
 }
