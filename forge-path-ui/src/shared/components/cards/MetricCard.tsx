@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import { TrendingUp, TrendingDown, Minus } from "lucide-react";
 import { cn } from "@/shared/utils/cn";
 
+import { useDocumentStatusStore } from "@/shared/stores/document-status.store";
+
 type TrendDirection = "up" | "down" | "flat";
 type MetricSeverity = "normal" | "warning" | "critical" | "positive";
 
@@ -39,14 +41,18 @@ const TrendIcon = ({ direction }: { direction: TrendDirection }) => {
 
 export function MetricCard({
   label,
-  value,
-  trend,
+  value: rawValue,
+  trend: rawTrend,
   severity = "normal",
   icon,
   loading = false,
   className,
   onClick,
 }: MetricCardProps) {
+  const { uploadedCount } = useDocumentStatusStore();
+  const hasData = uploadedCount > 0;
+  const value = hasData ? rawValue : "---";
+  const trend = hasData ? rawTrend : undefined;
   return (
     <motion.div
       whileHover={onClick ? { scale: 1.01 } : undefined}

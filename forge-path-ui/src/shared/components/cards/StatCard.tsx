@@ -2,6 +2,8 @@
 import React from "react";
 import { cn } from "@/shared/utils/cn";
 
+import { useDocumentStatusStore } from "@/shared/stores/document-status.store";
+
 interface StatCardProps {
   label: string;
   value: string | number;
@@ -13,12 +15,16 @@ interface StatCardProps {
 
 export function StatCard({
   label,
-  value,
+  value: rawValue,
   icon,
   accentColor,
   className,
-  description,
+  description: rawDescription,
 }: StatCardProps) {
+  const { uploadedCount } = useDocumentStatusStore();
+  const hasData = uploadedCount > 0;
+  const value = hasData ? rawValue : "---";
+  const description = hasData ? rawDescription : undefined;
   return (
     <div
       className={cn(

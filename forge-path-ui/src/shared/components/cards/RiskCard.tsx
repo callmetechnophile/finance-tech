@@ -3,6 +3,8 @@ import React from "react";
 import { AlertTriangle } from "lucide-react";
 import { cn } from "@/shared/utils/cn";
 
+import { useDocumentStatusStore } from "@/shared/stores/document-status.store";
+
 type RiskLevel = "critical" | "high" | "medium" | "low" | "none";
 
 interface RiskCardProps {
@@ -24,12 +26,17 @@ const riskConfig: Record<RiskLevel, { color: string; bg: string; label: string }
 
 export function RiskCard({
   title,
-  level,
-  score,
-  description,
+  level: rawLevel,
+  score: rawScore,
+  description: rawDescription,
   className,
   onClick,
 }: RiskCardProps) {
+  const { uploadedCount } = useDocumentStatusStore();
+  const hasData = uploadedCount > 0;
+  const level = hasData ? rawLevel : "none";
+  const score = hasData ? rawScore : undefined;
+  const description = hasData ? rawDescription : undefined;
   const config = riskConfig[level];
   return (
     <div

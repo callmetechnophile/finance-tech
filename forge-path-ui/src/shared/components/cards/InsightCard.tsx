@@ -4,6 +4,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, Sparkles } from "lucide-react";
 import { cn } from "@/shared/utils/cn";
 
+import { useDocumentStatusStore } from "@/shared/stores/document-status.store";
+
 interface InsightCardProps {
   title: string;
   summary: string;
@@ -15,14 +17,21 @@ interface InsightCardProps {
 }
 
 export function InsightCard({
-  title,
-  summary,
-  detail,
-  confidence,
+  title: rawTitle,
+  summary: rawSummary,
+  detail: rawDetail,
+  confidence: rawConfidence,
   icon,
   className,
-  tags,
+  tags: rawTags,
 }: InsightCardProps) {
+  const { uploadedCount } = useDocumentStatusStore();
+  const hasData = uploadedCount > 0;
+  const title = hasData ? rawTitle : "AI Financial Insight";
+  const summary = hasData ? rawSummary : "No financial documents have been processed yet.";
+  const detail = hasData ? rawDetail : undefined;
+  const confidence = hasData ? rawConfidence : undefined;
+  const tags = hasData ? rawTags : undefined;
   const [expanded, setExpanded] = useState(false);
 
   return (

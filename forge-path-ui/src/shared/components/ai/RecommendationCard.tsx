@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { cn } from "@/shared/utils/cn";
 
+import { useDocumentStatusStore } from "@/shared/stores/document-status.store";
+
 type RecommendationPriority = "critical" | "high" | "medium" | "low";
 
 interface RecommendationCardProps {
@@ -25,14 +27,21 @@ const priorityConfig: Record<RecommendationPriority, { dot: string; border: stri
   };
 
 export function RecommendationCard({
-  title,
-  description,
+  title: rawTitle,
+  description: rawDescription,
   priority,
-  impact,
-  action,
-  confidence,
+  impact: rawImpact,
+  action: rawAction,
+  confidence: rawConfidence,
   className,
 }: RecommendationCardProps) {
+  const { uploadedCount } = useDocumentStatusStore();
+  const hasData = uploadedCount > 0;
+  const title = hasData ? rawTitle : "AI Guidance Playbook";
+  const description = hasData ? rawDescription : "No financial documents have been processed yet.";
+  const impact = hasData ? rawImpact : undefined;
+  const action = hasData ? rawAction : undefined;
+  const confidence = hasData ? rawConfidence : undefined;
   const cfg = priorityConfig[priority];
 
   return (

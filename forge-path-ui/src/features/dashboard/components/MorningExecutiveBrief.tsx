@@ -22,6 +22,7 @@ import { ErrorState } from "@/shared/components/feedback/ErrorState";
 import { MetricCard } from "@/shared/components/cards/MetricCard";
 import { RecommendationCard } from "@/shared/components/ai/RecommendationCard";
 import { useSessionStore } from "@/shared/stores/session.store";
+import { useDocumentStatusStore } from "@/shared/stores/document-status.store";
 
 interface MorningExecutiveBriefProps {
   state: "loaded" | "loading" | "empty" | "error";
@@ -53,6 +54,8 @@ export function MorningExecutiveBrief({ state, onRetry }: MorningExecutiveBriefP
 
   // Derive identity from live session — never cached or hardcoded
   const { user, isAuthenticated } = useSessionStore();
+  const { uploadedCount } = useDocumentStatusStore();
+  const hasData = uploadedCount > 0;
   const firstName = isAuthenticated && user?.name ? user.name.split(" ")[0] : null;
   const organization = isAuthenticated && user?.organization ? user.organization : null;
 
@@ -210,23 +213,23 @@ export function MorningExecutiveBrief({ state, onRetry }: MorningExecutiveBriefP
       >
         <MetricCard
           label="Total Available Cash Position"
-          value="$342,000"
-          trend={{ value: "+4.2%", direction: "up", label: "vs 7d ago" }}
+          value={hasData ? "$342,000" : "---"}
+          trend={hasData ? { value: "+4.2%", direction: "up", label: "vs 7d ago" } : { value: "---", direction: "flat" }}
           severity="normal"
           icon={<DollarSign className="w-4 h-4 text-[#faff69]" aria-hidden="true" />}
         />
         <MetricCard
           label="Estimated Cash Runway"
-          value="68 Days"
-          trend={{ value: "Stable buffer", direction: "flat" }}
+          value={hasData ? "68 Days" : "---"}
+          trend={hasData ? { value: "Stable buffer", direction: "flat" } : { value: "---", direction: "flat" }}
           severity="normal"
           icon={<Clock className="w-4 h-4 text-white/40" aria-hidden="true" />}
         />
         <MetricCard
           label="Business Solvency Rating"
-          value="Optimal (84/100)"
-          trend={{ value: "Low Exposure", direction: "up" }}
-          severity="positive"
+          value={hasData ? "Optimal (84/100)" : "---"}
+          trend={hasData ? { value: "Low Exposure", direction: "up" } : { value: "---", direction: "flat" }}
+          severity={hasData ? "positive" : "normal"}
           icon={<Activity className="w-4 h-4 text-green-400" aria-hidden="true" />}
         />
       </motion.div>
@@ -256,16 +259,22 @@ export function MorningExecutiveBrief({ state, onRetry }: MorningExecutiveBriefP
                   <h3 className="text-xs font-semibold text-white/95 mt-0.5">
                     Corporate Cash Runway &amp; Solvency Report
                   </h3>
-                  <p className="text-xs text-white/70 mt-2 leading-relaxed">
-                    Your business health is{" "}
-                    <strong className="text-white/90">stable</strong> with $342,000
-                    in liquid accounts. Receivables display a backlog of{" "}
-                    <strong className="text-white/90">$284,500</strong>, where{" "}
-                    <strong className="text-amber-400">Apex Steel Works</strong> invoices
-                    have exceeded delinquent targets by 14 days. Outflow projections
-                    identify a scheduled contract wire for machine maintenance ($45,000)
-                    on July 24, which will compress short-term runways slightly, but cash
-                    reserves will remain within baseline buffer targets.
+                  <p className="text-xs text-white/70 mt-2 leading-relaxed font-medium">
+                    {hasData ? (
+                      <>
+                        Your business health is{" "}
+                        <strong className="text-white/90">stable</strong> with $342,000
+                        in liquid accounts. Receivables display a backlog of{" "}
+                        <strong className="text-white/90">$284,500</strong>, where{" "}
+                        <strong className="text-amber-400">Apex Steel Works</strong> invoices
+                        have exceeded delinquent targets by 14 days. Outflow projections
+                        identify a scheduled contract wire for machine maintenance ($45,000)
+                        on July 24, which will compress short-term runways slightly, but cash
+                        reserves will remain within baseline buffer targets.
+                      </>
+                    ) : (
+                      "No financial documents have been processed yet."
+                    )}
                   </p>
                 </div>
               </div>
@@ -275,62 +284,66 @@ export function MorningExecutiveBrief({ state, onRetry }: MorningExecutiveBriefP
           {/* Critical Alerts Panel */}
           <motion.div {...motionItemProps}>
             <Panel
-              className="bg-[#141414] border border-red-500/10 hover:border-red-500/20 transition-colors duration-200"
+              className="bg-[#141414] border border-[#222] transition-colors duration-200"
               padded={true}
               role="region"
               aria-label="Critical alerts requiring action"
             >
-              <h3 className="text-[10px] font-bold text-red-400 uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
-                <AlertTriangle className="w-3.5 h-3.5 text-red-500" aria-hidden="true" />
-                Action Required: 2 Critical Exceptions
+              <h3 className="text-[10px] font-bold text-white/40 uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
+                <AlertTriangle className="w-3.5 h-3.5 text-white/40" aria-hidden="true" />
+                Action Required: {hasData ? "2 Critical Exceptions" : "0 Exceptions"}
               </h3>
-              <ul className="space-y-2 list-none" aria-label="Critical alert list">
-                <li>
-                  <div
-                    className="flex items-start gap-2.5 p-2 rounded bg-red-500/[0.02] border border-red-500/10 hover:border-red-500/30 hover:bg-red-500/[0.04] transition-all duration-150 cursor-default focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-red-400"
-                    tabIndex={0}
-                    role="listitem"
-                    aria-label="Delinquency warning: Apex Steel Works invoice overdue"
-                    onKeyDown={(e) =>
-                      handleAlertKeyDown(e, () =>
-                        alert("View INV-2024-089 in Collections workspace.")
-                      )
-                    }
-                  >
+              {hasData ? (
+                <ul className="space-y-2 list-none" aria-label="Critical alert list">
+                  <li>
                     <div
-                      className="w-1.5 h-1.5 rounded-full bg-red-500 mt-1.5 shrink-0"
-                      aria-hidden="true"
-                    />
-                    <p className="min-w-0 text-xs text-white/70">
-                      <span className="text-white/80 font-medium">Delinquency warning:</span>{" "}
-                      Apex Steel Works ($47,500 · INV-2024-089) is 45 days overdue. Level 4
-                      escalation triggers are active.
-                    </p>
-                  </div>
-                </li>
-                <li>
-                  <div
-                    className="flex items-start gap-2.5 p-2 rounded bg-amber-500/[0.02] border border-amber-500/10 hover:border-amber-500/30 hover:bg-amber-500/[0.04] transition-all duration-150 cursor-default focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-amber-400"
-                    tabIndex={0}
-                    role="listitem"
-                    aria-label="Upcoming wire outflow: $45,000 due in 5 days"
-                    onKeyDown={(e) =>
-                      handleAlertKeyDown(e, () =>
-                        alert("View scheduled payout in Treasury workspace.")
-                      )
-                    }
-                  >
+                      className="flex items-start gap-2.5 p-2 rounded bg-red-500/[0.02] border border-red-500/10 hover:border-red-500/30 hover:bg-red-500/[0.04] transition-all duration-150 cursor-default focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-red-400"
+                      tabIndex={0}
+                      role="listitem"
+                      aria-label="Delinquency warning: Apex Steel Works invoice overdue"
+                      onKeyDown={(e) =>
+                        handleAlertKeyDown(e, () =>
+                          alert("View INV-2024-089 in Collections workspace.")
+                        )
+                      }
+                    >
+                      <div
+                        className="w-1.5 h-1.5 rounded-full bg-red-500 mt-1.5 shrink-0"
+                        aria-hidden="true"
+                      />
+                      <p className="min-w-0 text-xs text-white/70">
+                        <span className="text-white/80 font-medium">Delinquency warning:</span>{" "}
+                        Apex Steel Works ($47,500 · INV-2024-089) is 45 days overdue. Level 4
+                        escalation triggers are active.
+                      </p>
+                    </div>
+                  </li>
+                  <li>
                     <div
-                      className="w-1.5 h-1.5 rounded-full bg-amber-500 mt-1.5 shrink-0"
-                      aria-hidden="true"
-                    />
-                    <p className="min-w-0 text-xs text-white/70">
-                      <span className="text-white/80 font-medium">Upcoming wire outflow:</span>{" "}
-                      $45,000 scheduled mechanical service agreement payment due in 5 days.
-                    </p>
-                  </div>
-                </li>
-              </ul>
+                      className="flex items-start gap-2.5 p-2 rounded bg-amber-500/[0.02] border border-amber-500/10 hover:border-amber-500/30 hover:bg-amber-500/[0.04] transition-all duration-150 cursor-default focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-amber-400"
+                      tabIndex={0}
+                      role="listitem"
+                      aria-label="Upcoming wire outflow: $45,000 due in 5 days"
+                      onKeyDown={(e) =>
+                        handleAlertKeyDown(e, () =>
+                          alert("View scheduled payout in Treasury workspace.")
+                        )
+                      }
+                    >
+                      <div
+                        className="w-1.5 h-1.5 rounded-full bg-amber-500 mt-1.5 shrink-0"
+                        aria-hidden="true"
+                      />
+                      <p className="min-w-0 text-xs text-white/70">
+                        <span className="text-white/80 font-medium">Upcoming wire outflow:</span>{" "}
+                        $45,000 scheduled mechanical service agreement payment due in 5 days.
+                      </p>
+                    </div>
+                  </li>
+                </ul>
+              ) : (
+                <div className="text-xs text-white/40 py-2">No active warnings or critical alerts.</div>
+              )}
             </Panel>
           </motion.div>
         </div>
@@ -343,33 +356,41 @@ export function MorningExecutiveBrief({ state, onRetry }: MorningExecutiveBriefP
         >
           <div className="flex flex-col gap-2">
             <h3 className="text-[10px] font-bold text-white/40 uppercase tracking-wider flex items-center gap-1">
-              <Sparkles className="w-3 h-3 text-[#faff69]" aria-hidden="true" />
+              <Sparkles className="w-3 h-3 text-white/40" aria-hidden="true" />
               AI Guidance Playbook
             </h3>
-            <RecommendationCard
-              title="Escalate Apex Steel Delinquency"
-              description="Automate payment reminders and flag accounting profiles directly to CEO/CFO signature review layers."
-              priority="critical"
-              impact="Recovers +$47.5k ledger buffer"
-              action={{
-                label: "Escalate Now",
-                onClick: () => {
-                  alert("Triggering collection protocol for invoice INV-2024-089.");
-                },
-              }}
-              confidence={94}
-            />
-            <RecommendationCard
-              title="Optimize High-Yield Treasury Sweep"
-              description="Sweep excess balance exceeding $300k reserve buffer into overnight cash assets to earn 4.8% APY."
-              priority="medium"
-              impact="Generates estimated $140 monthly yield"
-              action={{
-                label: "Open Treasury",
-                onClick: () => {},
-              }}
-              confidence={82}
-            />
+            {hasData ? (
+              <>
+                <RecommendationCard
+                  title="Escalate Apex Steel Delinquency"
+                  description="Automate payment reminders and flag accounting profiles directly to CEO/CFO signature review layers."
+                  priority="critical"
+                  impact="Recovers +$47.5k ledger buffer"
+                  action={{
+                    label: "Escalate Now",
+                    onClick: () => {
+                      alert("Triggering collection protocol for invoice INV-2024-089.");
+                    },
+                  }}
+                  confidence={94}
+                />
+                <RecommendationCard
+                  title="Optimize High-Yield Treasury Sweep"
+                  description="Sweep excess balance exceeding $300k reserve buffer into overnight cash assets to earn 4.8% APY."
+                  priority="medium"
+                  impact="Generates estimated $140 monthly yield"
+                  action={{
+                    label: "Open Treasury",
+                    onClick: () => {},
+                  }}
+                  confidence={82}
+                />
+              </>
+            ) : (
+              <div className="p-4 rounded-xl border border-dashed border-[#222] text-center text-xs text-[#848e9c] bg-[#111]/30">
+                No financial documents have been processed yet.
+              </div>
+            )}
           </div>
         </motion.div>
       </div>

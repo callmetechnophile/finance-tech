@@ -96,6 +96,12 @@ export function useUploadQueue(): UseUploadQueueReturn {
                 completedAt: new Date().toISOString(),
               };
 
+          if (!hasError) {
+            import("@/shared/stores/document-status.store").then(({ useDocumentStatusStore }) => {
+              useDocumentStatusStore.getState().incrementUploadedCount();
+            });
+          }
+
           return prev.map((f) => (f.id === id ? updated : f));
         }
 

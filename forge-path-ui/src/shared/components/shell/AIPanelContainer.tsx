@@ -2,6 +2,7 @@
 
 import { ReactNode, useRef } from "react";
 import { useLayoutStore } from "@/shared/stores/layout.store";
+import { useDocumentStatusStore } from "@/shared/stores/document-status.store";
 
 interface AIPanelContainerProps {
   children?: ReactNode;
@@ -9,6 +10,8 @@ interface AIPanelContainerProps {
 
 export default function AIPanelContainer({ children }: AIPanelContainerProps) {
   const { aiPanelWidth, isAiPanelCollapsed, aiPanelMode, setAiPanelWidth, setAiPanelCollapsed } = useLayoutStore();
+  const { uploadedCount } = useDocumentStatusStore();
+  const hasData = uploadedCount > 0;
   const isResizingRef = useRef(false);
 
   const startResizing = (e: React.MouseEvent) => {
@@ -56,11 +59,14 @@ export default function AIPanelContainer({ children }: AIPanelContainerProps) {
           </div>
           {!isAiPanelCollapsed && (
             <p className="text-[10px] text-[#cccccc] leading-relaxed">
-              Virtual CFO panel active. The assistant will sync its context mapping automatically as you navigate.
+              {hasData 
+                ? "Virtual CFO panel active. The assistant will sync its context mapping automatically as you navigate."
+                : "No context available."
+              }
             </p>
           )}
         </div>
-        {children}
+        {hasData ? children : null}
       </div>
     </aside>
   );
