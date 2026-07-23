@@ -1,18 +1,16 @@
-﻿"use client";
+"use client";
 
 import React, { useState, useEffect, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   Bot,
   Sparkles,
   AlertTriangle,
-  DollarSign,
+  IndianRupee,
   Clock,
   Activity,
   Building,
   Calendar,
-  CheckCircle2,
-  ArrowRight,
 } from "lucide-react";
 
 import { Panel } from "@/shared/components/layout/Panel";
@@ -20,16 +18,22 @@ import { Skeleton } from "@/shared/components/feedback/Skeleton";
 import { EmptyState } from "@/shared/components/feedback/EmptyState";
 import { ErrorState } from "@/shared/components/feedback/ErrorState";
 import { MetricCard } from "@/shared/components/cards/MetricCard";
-import { RecommendationCard } from "@/shared/components/ai/RecommendationCard";
 import { useSessionStore } from "@/shared/stores/session.store";
 import { useDocumentStatusStore } from "@/shared/stores/document-status.store";
 
 interface MorningExecutiveBriefProps {
-  state: "loaded" | "loading" | "empty" | "error";
+  state?: "loaded" | "loading" | "empty" | "error";
   onRetry?: () => void;
+  data?: {
+    cash_position?: string | null;
+    cash_runway?: string | null;
+    solvency_rating?: string | null;
+    briefing_digest?: string | null;
+    alerts?: Array<{ id: string; title: string; message: string; severity: "critical" | "warning" | "info" }>;
+    recommendations?: Array<{ title: string; description: string; priority: "critical" | "high" | "medium"; impact: string }>;
+  };
 }
 
-// Stagger children animation variants — disabled when prefers-reduced-motion
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -47,19 +51,17 @@ const itemVariants = {
   },
 };
 
-export function MorningExecutiveBrief({ state, onRetry }: MorningExecutiveBriefProps) {
+export function MorningExecutiveBrief({ state = "loaded", onRetry, data }: MorningExecutiveBriefProps) {
   const [mounted, setMounted] = useState(false);
-  const [currentDate, setCurrentDate] = useState("Sunday, July 19, 2026");
+  const [currentDate, setCurrentDate] = useState("");
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
-  // Derive identity from live session — never cached or hardcoded
   const { user, isAuthenticated } = useSessionStore();
   const { uploadedCount } = useDocumentStatusStore();
-  const hasData = uploadedCount > 0;
+  const hasData = uploadedCount > 0 && !!data?.cash_position;
   const firstName = isAuthenticated && user?.name ? user.name.split(" ")[0] : null;
   const organization = isAuthenticated && user?.organization ? user.organization : null;
 
-  // Time-aware greeting
   const hour = new Date().getHours();
   const timeGreeting = hour < 12 ? "Good Morning" : hour < 17 ? "Good Afternoon" : "Good Evening";
   const greeting = firstName ? `${timeGreeting}, ${firstName}` : "Welcome";
@@ -81,16 +83,6 @@ export function MorningExecutiveBrief({ state, onRetry }: MorningExecutiveBriefP
     return () => mediaQuery.removeEventListener("change", handler);
   }, []);
 
-  const handleAlertKeyDown = useCallback(
-    (e: React.KeyboardEvent<HTMLDivElement>, action: () => void) => {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        action();
-      }
-    },
-    []
-  );
-
   const motionProps = prefersReducedMotion
     ? {}
     : { variants: containerVariants, initial: "hidden", animate: "visible" };
@@ -100,7 +92,7 @@ export function MorningExecutiveBrief({ state, onRetry }: MorningExecutiveBriefP
   // ── Loading ──────────────────────────────────────────────────────────────
   if (state === "loading") {
     return (
-      <div className="space-y-6" role="status" aria-label="Loading executive brief" aria-live="polite">
+      <div className="space-y-6" role="status" aria-label="Loading executive brief">
         <div className="flex flex-col gap-2">
           <Skeleton height={20} width="250px" />
           <div className="flex gap-4">
@@ -108,27 +100,13 @@ export function MorningExecutiveBrief({ state, onRetry }: MorningExecutiveBriefP
             <Skeleton height={12} width="160px" />
           </div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4" aria-hidden="true">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {Array.from({ length: 3 }).map((_, i) => (
             <Panel key={i} className="min-h-[100px] justify-between">
               <Skeleton height={10} width="50%" />
               <Skeleton height={20} width="40%" />
             </Panel>
           ))}
-        </div>
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6" aria-hidden="true">
-          <div className="lg:col-span-8 space-y-4">
-            <Panel className="min-h-[120px]">
-              <Skeleton height={12} width="20%" className="mb-3" />
-              <Skeleton height={10} width="95%" lines={3} />
-            </Panel>
-          </div>
-          <div className="lg:col-span-4 space-y-4">
-            <Panel className="min-h-[120px]">
-              <Skeleton height={12} width="40%" className="mb-3" />
-              <Skeleton height={24} width="100%" lines={2} />
-            </Panel>
-          </div>
         </div>
       </div>
     );
@@ -141,7 +119,7 @@ export function MorningExecutiveBrief({ state, onRetry }: MorningExecutiveBriefP
         <EmptyState
           icon={<Bot className="w-10 h-10 text-white/30" aria-hidden="true" />}
           title="No Morning Brief Available"
-          description="Solvency telemetry could not find daily journal sync updates from yesterday."
+          description="No financial documents have been processed yet."
           size="md"
         />
       </div>
@@ -153,8 +131,8 @@ export function MorningExecutiveBrief({ state, onRetry }: MorningExecutiveBriefP
     return (
       <div className="py-8" role="alert">
         <ErrorState
-          title="Brief Telemetry Ingestion Failed"
-          message="Failed to compute real-time solvency runways due to pipeline data ingestion lag."
+          title="Unable to retrieve data."
+          message="Failed to fetch real-time solvency data from backend."
           onRetry={onRetry}
           size="md"
         />
@@ -162,7 +140,10 @@ export function MorningExecutiveBrief({ state, onRetry }: MorningExecutiveBriefP
     );
   }
 
-  // ── Loaded ───────────────────────────────────────────────────────────────
+  // ── Loaded / Ready ───────────────────────────────────────────────────────
+  const alertsList = data?.alerts ?? [];
+  const recommendationsList = data?.recommendations ?? [];
+
   return (
     <motion.div
       className="space-y-6"
@@ -176,8 +157,7 @@ export function MorningExecutiveBrief({ state, onRetry }: MorningExecutiveBriefP
       >
         <div>
           <h2 className="text-lg font-bold text-white tracking-wide flex items-center gap-2">
-            {greeting}{" "}
-            {firstName && <span role="img" aria-label="waving hand">👋</span>}
+            {greeting}
           </h2>
           <div className="flex items-center gap-3 text-xs text-white/40 mt-1 flex-wrap">
             <span className="flex items-center gap-1.5">
@@ -199,7 +179,6 @@ export function MorningExecutiveBrief({ state, onRetry }: MorningExecutiveBriefP
         </div>
         <span
           className="px-2 py-0.5 text-[9px] font-bold rounded-full bg-[#faff69]/10 text-[#faff69] border border-[#faff69]/20 tracking-wider uppercase select-none"
-          aria-label="Workspace status: Active"
         >
           Active Workspace
         </span>
@@ -213,23 +192,23 @@ export function MorningExecutiveBrief({ state, onRetry }: MorningExecutiveBriefP
       >
         <MetricCard
           label="Total Available Cash Position"
-          value={hasData ? "₹3,42,000" : "---"}
-          trend={hasData ? { value: "+4.2%", direction: "up", label: "vs 7d ago" } : { value: "---", direction: "flat" }}
+          value={hasData && data?.cash_position ? data.cash_position : "---"}
+          trend={hasData ? { value: "---", direction: "flat" } : { value: "No financial data available", direction: "flat" }}
           severity="normal"
-          icon={<DollarSign className="w-4 h-4 text-[#faff69]" aria-hidden="true" />}
+          icon={<IndianRupee className="w-4 h-4 text-[#faff69]" aria-hidden="true" />}
         />
         <MetricCard
           label="Estimated Cash Runway"
-          value={hasData ? "68 Days" : "---"}
-          trend={hasData ? { value: "Stable buffer", direction: "flat" } : { value: "---", direction: "flat" }}
+          value={hasData && data?.cash_runway ? data.cash_runway : "---"}
+          trend={{ value: "Forecast unavailable", direction: "flat" }}
           severity="normal"
           icon={<Clock className="w-4 h-4 text-white/40" aria-hidden="true" />}
         />
         <MetricCard
           label="Business Solvency Rating"
-          value={hasData ? "Optimal (84/100)" : "---"}
-          trend={hasData ? { value: "Low Exposure", direction: "up" } : { value: "---", direction: "flat" }}
-          severity={hasData ? "positive" : "normal"}
+          value={hasData && data?.solvency_rating ? data.solvency_rating : "---"}
+          trend={{ value: "No solvency model generated yet.", direction: "flat" }}
+          severity="normal"
           icon={<Activity className="w-4 h-4 text-green-400" aria-hidden="true" />}
         />
       </motion.div>
@@ -241,15 +220,12 @@ export function MorningExecutiveBrief({ state, onRetry }: MorningExecutiveBriefP
           {/* Executive Summary Panel */}
           <motion.div {...motionItemProps}>
             <Panel
-              className="bg-gradient-to-br from-[#111] via-[#161616] to-[#111] border-[#222] transition-shadow duration-200 hover:shadow-lg hover:shadow-black/30"
+              className="bg-gradient-to-br from-[#111] via-[#161616] to-[#111] border-[#222]"
               padded={true}
               aria-label="AI executive summary"
             >
               <div className="flex items-start gap-3">
-                <div
-                  className="w-7 h-7 flex items-center justify-center rounded-lg bg-[#faff69]/10 text-[#faff69] mt-0.5 flex-shrink-0"
-                  aria-hidden="true"
-                >
+                <div className="w-7 h-7 flex items-center justify-center rounded-lg bg-[#faff69]/10 text-[#faff69] mt-0.5 flex-shrink-0">
                   <Bot className="w-4 h-4" />
                 </div>
                 <div className="flex-1 min-w-0">
@@ -260,21 +236,9 @@ export function MorningExecutiveBrief({ state, onRetry }: MorningExecutiveBriefP
                     Corporate Cash Runway &amp; Solvency Report
                   </h3>
                   <p className="text-xs text-white/70 mt-2 leading-relaxed font-medium">
-                    {hasData ? (
-                      <>
-                        Your business health is{" "}
-                        <strong className="text-white/90">stable</strong> with ₹3,42,000
-                        in liquid accounts. Receivables display a backlog of{" "}
-                        <strong className="text-white/90">₹2,84,500</strong>, where{" "}
-                        <strong className="text-amber-400">Apex Steel Works</strong> invoices
-                        have exceeded delinquent targets by 14 days. Outflow projections
-                        identify a scheduled contract wire for machine maintenance (₹45,000)
-                        on July 24, which will compress short-term runways slightly, but cash
-                        reserves will remain within baseline buffer targets.
-                      </>
-                    ) : (
-                      "No financial documents have been processed yet."
-                    )}
+                    {hasData && data?.briefing_digest
+                      ? data.briefing_digest
+                      : "No financial documents have been processed yet."}
                   </p>
                 </div>
               </div>
@@ -284,65 +248,30 @@ export function MorningExecutiveBrief({ state, onRetry }: MorningExecutiveBriefP
           {/* Critical Alerts Panel */}
           <motion.div {...motionItemProps}>
             <Panel
-              className="bg-[#141414] border border-[#222] transition-colors duration-200"
+              className="bg-[#141414] border border-[#222]"
               padded={true}
               role="region"
               aria-label="Critical alerts requiring action"
             >
               <h3 className="text-[10px] font-bold text-white/40 uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
                 <AlertTriangle className="w-3.5 h-3.5 text-white/40" aria-hidden="true" />
-                Action Required: {hasData ? "2 Critical Exceptions" : "0 Exceptions"}
+                Action Required: {alertsList.length > 0 ? `${alertsList.length} Exceptions` : "0 Exceptions"}
               </h3>
-              {hasData ? (
-                <ul className="space-y-2 list-none" aria-label="Critical alert list">
-                  <li>
-                    <div
-                      className="flex items-start gap-2.5 p-2 rounded bg-red-500/[0.02] border border-red-500/10 hover:border-red-500/30 hover:bg-red-500/[0.04] transition-all duration-150 cursor-default focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-red-400"
-                      tabIndex={0}
-                      role="listitem"
-                      aria-label="Delinquency warning: Apex Steel Works invoice overdue"
-                      onKeyDown={(e) =>
-                        handleAlertKeyDown(e, () =>
-                          alert("View INV-2024-089 in Collections workspace.")
-                        )
-                      }
-                    >
-                      <div
-                        className="w-1.5 h-1.5 rounded-full bg-red-500 mt-1.5 shrink-0"
-                        aria-hidden="true"
-                      />
-                      <p className="min-w-0 text-xs text-white/70">
-                        <span className="text-white/80 font-medium">Delinquency warning:</span>{" "}
-                        Apex Steel Works (₹47,500 · INV-2024-089) is 45 days overdue. Level 4
-                        escalation triggers are active.
-                      </p>
-                    </div>
-                  </li>
-                  <li>
-                    <div
-                      className="flex items-start gap-2.5 p-2 rounded bg-amber-500/[0.02] border border-amber-500/10 hover:border-amber-500/30 hover:bg-amber-500/[0.04] transition-all duration-150 cursor-default focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-amber-400"
-                      tabIndex={0}
-                      role="listitem"
-                      aria-label="Upcoming wire outflow: ₹45,000 due in 5 days"
-                      onKeyDown={(e) =>
-                        handleAlertKeyDown(e, () =>
-                          alert("View scheduled payout in Treasury workspace.")
-                        )
-                      }
-                    >
-                      <div
-                        className="w-1.5 h-1.5 rounded-full bg-amber-500 mt-1.5 shrink-0"
-                        aria-hidden="true"
-                      />
-                      <p className="min-w-0 text-xs text-white/70">
-                        <span className="text-white/80 font-medium">Upcoming wire outflow:</span>{" "}
-                        ₹45,000 scheduled mechanical service agreement payment due in 5 days.
-                      </p>
-                    </div>
-                  </li>
+              {alertsList.length > 0 ? (
+                <ul className="space-y-2 list-none">
+                  {alertsList.map((alt) => (
+                    <li key={alt.id}>
+                      <div className="flex items-start gap-2.5 p-2 rounded bg-red-500/[0.02] border border-red-500/10">
+                        <div className="w-1.5 h-1.5 rounded-full bg-red-500 mt-1.5 shrink-0" />
+                        <p className="min-w-0 text-xs text-white/70">
+                          <span className="text-white/80 font-medium">{alt.title}:</span> {alt.message}
+                        </p>
+                      </div>
+                    </li>
+                  ))}
                 </ul>
               ) : (
-                <div className="text-xs text-white/40 py-2">No active warnings or critical alerts.</div>
+                <div className="text-xs text-white/40 py-2">No notifications.</div>
               )}
             </Panel>
           </motion.div>
@@ -359,36 +288,18 @@ export function MorningExecutiveBrief({ state, onRetry }: MorningExecutiveBriefP
               <Sparkles className="w-3 h-3 text-white/40" aria-hidden="true" />
               AI Guidance Playbook
             </h3>
-            {hasData ? (
-              <>
-                <RecommendationCard
-                  title="Escalate Apex Steel Delinquency"
-                  description="Automate payment reminders and flag accounting profiles directly to CEO/CFO signature review layers."
-                  priority="critical"
-                  impact="Recovers +₹47.5k ledger buffer"
-                  action={{
-                    label: "Escalate Now",
-                    onClick: () => {
-                      alert("Triggering collection protocol for invoice INV-2024-089.");
-                    },
-                  }}
-                  confidence={94}
-                />
-                <RecommendationCard
-                  title="Optimize High-Yield Treasury Sweep"
-                  description="Sweep excess balance exceeding ₹3,00,000 reserve buffer into overnight cash assets to earn 4.8% APY."
-                  priority="medium"
-                  impact="Generates estimated ₹140 monthly yield"
-                  action={{
-                    label: "Open Treasury",
-                    onClick: () => {},
-                  }}
-                  confidence={82}
-                />
-              </>
+            {recommendationsList.length > 0 ? (
+              <div className="space-y-2">
+                {recommendationsList.map((rec, i) => (
+                  <div key={i} className="p-3 bg-[#111] border border-[#222] rounded-xl space-y-1 text-xs">
+                    <span className="font-bold text-white">{rec.title}</span>
+                    <p className="text-white/60 text-[11px]">{rec.description}</p>
+                  </div>
+                ))}
+              </div>
             ) : (
               <div className="p-4 rounded-xl border border-dashed border-[#222] text-center text-xs text-[#848e9c] bg-[#111]/30">
-                No financial documents have been processed yet.
+                Waiting for financial context.
               </div>
             )}
           </div>

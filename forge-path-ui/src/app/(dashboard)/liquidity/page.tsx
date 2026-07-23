@@ -5,6 +5,7 @@ import { ShieldCheck, Play, Download, RefreshCw, Activity, Layers } from "lucide
 import { PageContainer } from "@/shared/components/layout/PageContainer";
 import { WorkspaceHeader } from "@/shared/components/layout/WorkspaceHeader";
 import { SplitView } from "@/shared/components/layout/SplitView";
+import { useDocumentStatusStore } from "@/shared/stores/document-status.store";
 import { LiquiditySummaryRegion } from "@/features/liquidity/components/LiquiditySummaryRegion";
 import { LiquidityForecastRegion } from "@/features/liquidity/components/LiquidityForecastRegion";
 import { CashFlowTimelineRegion } from "@/features/liquidity/components/CashFlowTimelineRegion";
@@ -33,9 +34,12 @@ export default function LiquidityPage() {
     </div>
   );
 
+  const { uploadedCount } = useDocumentStatusStore();
+  const hasData = uploadedCount > 0;
+
   const HeaderBadge = (
-    <span className="px-2 py-0.5 rounded text-[9px] font-bold bg-green-500/10 text-green-400 border border-green-500/20 uppercase tracking-wider flex items-center gap-1">
-      <Activity className="w-3 h-3" /> Liquidity Score: 84/100 Optimal
+    <span className="px-2 py-0.5 rounded text-[9px] font-bold bg-[#faff69]/10 text-[#faff69] border border-[#faff69]/20 uppercase tracking-wider flex items-center gap-1">
+      <Activity className="w-3 h-3" /> {hasData ? "Liquidity Score: 84/100" : "Liquidity Score: ---"}
     </span>
   );
 

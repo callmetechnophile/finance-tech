@@ -13,65 +13,35 @@ interface CopilotStore {
   updateLastMessage: (content: string) => void;
 }
 
-import { useDocumentStatusStore } from "@/shared/stores/document-status.store";
-
-const welcomeNormal = {
-  id: "welcome",
-  role: "assistant" as const,
-  content: "Hello! I'm **FORGE-PATH**, your AI Financial Copilot.\n\nI have full context on your cash flow, liquidity, outstanding invoices, and payment obligations. Ask me anything about your manufacturing SME's financial health.",
-  timestamp: new Date().toISOString(),
-};
-
-const welcomeEmpty = {
-  id: "welcome",
-  role: "assistant" as const,
-  content: "No context available.",
-  timestamp: new Date().toISOString(),
-};
-
-export const useCopilotStore = create<CopilotStore>((set, get) => ({
+export const useCopilotStore = create<CopilotStore>((set) => ({
   messages: [
-    typeof window !== "undefined" && useDocumentStatusStore.getState().uploadedCount > 0
-      ? welcomeNormal
-      : welcomeEmpty
+    {
+      id: "welcome",
+      role: "assistant",
+      content: "Waiting for financial context.",
+      timestamp: new Date().toISOString(),
+    },
   ],
   isStreaming: false,
   isThinking: false,
   addMessage: (msg) => set((s) => ({ messages: [...s.messages, { ...msg, id: generateId(), timestamp: new Date().toISOString() }] })),
   setStreaming: (v) => set({ isStreaming: v }),
   setThinking: (v) => set({ isThinking: v }),
-  clearMessages: () => set((s) => ({
+  clearMessages: () => set({
     messages: [
-      typeof window !== "undefined" && useDocumentStatusStore.getState().uploadedCount > 0
-        ? welcomeNormal
-        : welcomeEmpty
+      {
+        id: "welcome",
+        role: "assistant",
+        content: "Waiting for financial context.",
+        timestamp: new Date().toISOString(),
+      },
     ],
     isStreaming: false,
-    isThinking: false
-  })),
+    isThinking: false,
+  }),
   updateLastMessage: (content) => set((s) => {
     const msgs = [...s.messages];
     if (msgs.length > 0) msgs[msgs.length - 1] = { ...msgs[msgs.length - 1], content };
     return { messages: msgs };
   }),
 }));
-
-if (typeof window !== "undefined") {
-  useDocumentStatusStore.subscribe((state) => {
-    const msgs = useCopilotStore.getState().messages;
-    const hasWelcome = msgs.some((m) => m.id === "welcome");
-    if (state.uploadedCount > 0) {
-      if (hasWelcome) {
-        useCopilotStore.setState({
-          messages: msgs.map((m) => m.id === "welcome" ? { ...m, content: welcomeNormal.content } : m)
-        });
-      }
-    } else {
-      if (hasWelcome) {
-        useCopilotStore.setState({
-          messages: msgs.map((m) => m.id === "welcome" ? { ...m, content: welcomeEmpty.content } : m)
-        });
-      }
-    }
-  });
-}

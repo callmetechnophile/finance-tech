@@ -5,6 +5,7 @@ import { Landmark, DollarSign, Download, Send, ShieldCheck, Clock } from "lucide
 import { PageContainer } from "@/shared/components/layout/PageContainer";
 import { WorkspaceHeader } from "@/shared/components/layout/WorkspaceHeader";
 import { SplitView } from "@/shared/components/layout/SplitView";
+import { useDocumentStatusStore } from "@/shared/stores/document-status.store";
 import { TreasuryOverviewRegion } from "@/features/treasury/components/TreasuryOverviewRegion";
 import { PaymentQueueRegion } from "@/features/treasury/components/PaymentQueueRegion";
 import { BankAccountsRegion } from "@/features/treasury/components/BankAccountsRegion";
@@ -33,9 +34,12 @@ export default function TreasuryPage() {
     </div>
   );
 
+  const { uploadedCount } = useDocumentStatusStore();
+  const hasData = uploadedCount > 0;
+
   const HeaderBadge = (
     <span className="px-2 py-0.5 rounded text-[9px] font-bold bg-[#faff69]/10 text-[#faff69] border border-[#faff69]/20 uppercase tracking-wider flex items-center gap-1">
-      <Landmark className="w-3 h-3" /> 3 Accounts Connected • ₹3,42,000 Total Liquid
+      <Landmark className="w-3 h-3" /> {hasData ? "3 Accounts Connected" : "0 Bank Accounts Connected"}
     </span>
   );
 

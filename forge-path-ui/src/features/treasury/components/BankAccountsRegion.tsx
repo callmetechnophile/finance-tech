@@ -1,37 +1,14 @@
 "use client";
 
 import React from "react";
-import { Landmark, ArrowUpRight, ShieldCheck, RefreshCw } from "lucide-react";
+import { Landmark, Plus } from "lucide-react";
 import { Panel } from "@/shared/components/layout/Panel";
 import { Section } from "@/shared/components/layout/Section";
+import { useDocumentStatusStore } from "@/shared/stores/document-status.store";
 
 export function BankAccountsRegion() {
-  const accounts = [
-    {
-      name: "Chase Operating Checking",
-      accountNo: "...0192",
-      balance: "₹2,42,000",
-      type: "Primary Operating",
-      status: "Synced (1 min ago)",
-      apy: "0.5% APY",
-    },
-    {
-      name: "Neon Treasury Yield Reserve",
-      accountNo: "...8841",
-      balance: "₹1,00,000",
-      type: "Yield Reserve",
-      status: "Synced (2 min ago)",
-      apy: "4.8% APY",
-    },
-    {
-      name: "SVB Revolving Credit Facility",
-      accountNo: "...5512",
-      balance: "₹2,50,000 Limit",
-      type: "Credit Line (₹0 Drawn)",
-      status: "Active",
-      apy: "Prime + 1.2%",
-    },
-  ];
+  const { uploadedCount } = useDocumentStatusStore();
+  const hasData = uploadedCount > 0;
 
   return (
     <Section title="Connected Banking Infrastructure &amp; Accounts" compact>
@@ -40,29 +17,24 @@ export function BankAccountsRegion() {
           <h3 className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
             <Landmark className="w-3.5 h-3.5 text-[#faff69]" /> Bank Accounts Telemetry
           </h3>
-          <span className="text-[10px] text-white/40 font-mono">3 Accounts Connected</span>
+          <span className="text-[10px] text-white/40 font-mono">{hasData ? "Active Integrations" : "0 Accounts Connected"}</span>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-          {accounts.map((acc) => (
-            <div key={acc.accountNo} className="p-3 rounded-lg bg-[#1a1a1a] border border-[#222] space-y-2 text-xs">
-              <div className="flex justify-between items-start">
-                <div>
-                  <h4 className="font-bold text-white text-xs">{acc.name}</h4>
-                  <span className="text-[9px] text-white/40 font-mono">{acc.accountNo} · {acc.type}</span>
-                </div>
-                <span className="px-1.5 py-0.5 rounded text-[8px] font-bold bg-green-500/10 text-green-400 border border-green-500/20">
-                  {acc.apy}
-                </span>
-              </div>
-
-              <div className="border-t border-[#222] pt-2 flex justify-between items-center">
-                <span className="text-base font-bold text-white font-mono">{acc.balance}</span>
-                <span className="text-[9px] text-white/30">{acc.status}</span>
-              </div>
-            </div>
-          ))}
-        </div>
+        {hasData ? (
+          <div className="py-4 text-xs text-white/60 text-center">
+            Active banking connection established.
+          </div>
+        ) : (
+          <div className="py-8 text-center space-y-3">
+            <p className="text-xs text-white/40">No banking integrations configured.</p>
+            <button
+              onClick={() => alert("Bank Integration Dialog — Link Bank Account")}
+              className="px-3 py-1.5 bg-[#faff69] hover:bg-[#e6eb5f] text-black text-xs font-bold rounded uppercase tracking-wider transition-colors inline-flex items-center gap-1 cursor-pointer"
+            >
+              <Plus className="w-3.5 h-3.5" /> Connect Bank
+            </button>
+          </div>
+        )}
       </Panel>
     </Section>
   );

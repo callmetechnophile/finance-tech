@@ -5,6 +5,7 @@ import { Inbox, Send, Download, Layers, ShieldCheck, Users } from "lucide-react"
 import { PageContainer } from "@/shared/components/layout/PageContainer";
 import { WorkspaceHeader } from "@/shared/components/layout/WorkspaceHeader";
 import { SplitView } from "@/shared/components/layout/SplitView";
+import { useDocumentStatusStore } from "@/shared/stores/document-status.store";
 import { CustomerPortfolioRegion } from "@/features/collections/components/CustomerPortfolioRegion";
 import { AgingAnalysisRegion } from "@/features/collections/components/AgingAnalysisRegion";
 import { CollectionPipelineRegion } from "@/features/collections/components/CollectionPipelineRegion";
@@ -33,9 +34,12 @@ export default function CollectionsPage() {
     </div>
   );
 
+  const { uploadedCount } = useDocumentStatusStore();
+  const hasData = uploadedCount > 0;
+
   const HeaderBadge = (
     <span className="px-2 py-0.5 rounded text-[9px] font-bold bg-[#faff69]/10 text-[#faff69] border border-[#faff69]/20 uppercase tracking-wider flex items-center gap-1">
-      <Inbox className="w-3 h-3" /> 12 Active Collections • ₹2,84,500 AR
+      <Inbox className="w-3 h-3" /> {hasData ? "Active Collections" : "0 Active Collections"}
     </span>
   );
 

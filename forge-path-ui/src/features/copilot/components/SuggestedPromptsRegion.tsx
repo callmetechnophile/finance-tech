@@ -9,10 +9,10 @@ interface SuggestedPromptsRegionProps {
 
 export function SuggestedPromptsRegion({ onSelectPrompt }: SuggestedPromptsRegionProps) {
   const prompts = [
-    "Project 90-day cash gap predictions under 15% sales drop",
-    "Should we execute the ₹45k CNC wire payout on July 24?",
-    "Evaluate early payment discount ROI for Apex Steel",
-    "Summarize top accounts receivable delinquency exposures",
+    "How to upload invoices & bank statements for analysis?",
+    "How does Gemma AI calculate solvency and cash runway?",
+    "Explain accounts receivable collection workflows",
+    "How to configure treasury yield sweep rules?",
   ];
 
   return (

@@ -1,9 +1,10 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
-import { Bot, User, Send, Paperclip, Sparkles, Copy, ThumbsUp, RefreshCw } from "lucide-react";
+import { Bot, User, Send, Paperclip, Copy, ThumbsUp } from "lucide-react";
 import { Panel } from "@/shared/components/layout/Panel";
 import { useSessionStore } from "@/shared/stores/session.store";
+import { useDocumentStatusStore } from "@/shared/stores/document-status.store";
 
 export interface ChatMessage {
   id: string;
@@ -23,22 +24,21 @@ export function ChatWorkspaceRegion({
 }: ChatWorkspaceRegionProps) {
   const [input, setInput] = useState("");
   const { user, isAuthenticated } = useSessionStore();
+  const { uploadedCount } = useDocumentStatusStore();
+  const hasData = uploadedCount > 0;
 
-  // Build session-aware default greeting — never hardcoded
   const defaultMessages = useMemo<ChatMessage[]>(() => {
-    const name = isAuthenticated && user?.name ? user.name.split(" ")[0] : null;
-    const greeting = name
-      ? `Hello ${name}! I'm FORGE-PATH **AI Financial Copilot**.\n\nI'm ready to assist you with cash flow analysis, forecasting, and financial strategy. What would you like to explore today?`
-      : `Hello! I'm FORGE-PATH **AI Financial Copilot**.\n\nPlease sign in to access your personalized financial insights and workspace data.`;
     return [
       {
         id: "m1",
         role: "assistant" as const,
-        content: greeting,
+        content: hasData
+          ? "Hello! I'm FORGE-PATH **AI Financial Copilot**. I have full context on your cash flow and active documents."
+          : "Waiting for financial context. Upload an invoice, bank statement, or ledger to enable AI insights.",
         timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
       },
     ];
-  }, [isAuthenticated, user?.name]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [hasData]);
 
   const [messages, setMessages] = useState<ChatMessage[]>(
     initialMessages || defaultMessages
@@ -55,17 +55,17 @@ export function ChatWorkspaceRegion({
       timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
     };
 
-    const updated = [...messages, userMsg];
-    setMessages(updated);
+    setMessages((prev) => [...prev, userMsg]);
     onSendMessage?.(input);
     setInput("");
 
-    // Simulate assistant reply
     setTimeout(() => {
       const assistantMsg: ChatMessage = {
         id: `m-resp-${Date.now()}`,
         role: "assistant",
-        content: `I've analyzed your query regarding: "${input}".\n\n**Financial Assessment**: NeonDB transaction tables show healthy liquidity margin. All parameters remain within approved CFO risk bounds.`,
+        content: hasData
+          ? `I've analyzed your query regarding: "${input}". Live ledger parameters remain within approved risk bounds.`
+          : "Waiting for financial context. Please upload a financial document first.",
         timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
       };
       setMessages((prev) => [...prev, assistantMsg]);
@@ -74,20 +74,18 @@ export function ChatWorkspaceRegion({
 
   return (
     <Panel className="bg-[#111] border-[#222] flex flex-col h-full overflow-hidden" padded={false}>
-      {/* Header Bar */}
       <div className="p-3 border-b border-[#222] flex items-center justify-between bg-[#141414] shrink-0">
         <div className="flex items-center gap-2">
-          <Bot className="w-4 h-4 text-[#faff69] animate-pulse" />
+          <Bot className="w-4 h-4 text-[#faff69]" />
           <span className="text-xs font-bold text-white uppercase tracking-wider">
-            Gemma 4 Virtual CFO Workspace
+            Gemma Analyst Workspace
           </span>
         </div>
         <span className="px-2 py-0.5 text-[8px] font-bold rounded bg-[#faff69]/10 text-[#faff69] border border-[#faff69]/20 uppercase tracking-widest font-mono">
-          NVIDIA NIM • 145ms
+          Gemma 2B Engine
         </span>
       </div>
 
-      {/* Message Stream */}
       <div className="flex-1 overflow-y-auto p-4 space-y-4 text-xs">
         {messages.map((m) => (
           <div
@@ -141,11 +139,13 @@ export function ChatWorkspaceRegion({
         ))}
       </div>
 
-      {/* Input Control Form */}
       <form onSubmit={handleSend} className="p-3 border-t border-[#222] bg-[#141414] shrink-0 flex items-center gap-2">
         <button
           type="button"
-          onClick={() => alert("Attached file: Apex_Steel_Invoice_89.pdf to conversation context.")}
+          onClick={() => {
+            const fileInput = document.getElementById("global-file-upload");
+            if (fileInput) fileInput.click();
+          }}
           className="p-2 rounded-lg bg-[#1a1a1a] hover:bg-[#222] text-white/50 hover:text-white border border-[#2a2a2a] transition-colors cursor-pointer"
           title="Attach File"
         >
@@ -156,7 +156,7 @@ export function ChatWorkspaceRegion({
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Ask Gemma about cash flow forecasts, runway, invoice delays, yield sweeps..."
+          placeholder="Ask Gemma about cash flow forecasts, runway, invoice delays..."
           className="flex-1 bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg px-3 py-2 text-xs text-white placeholder-white/30 focus:outline-none focus:border-[#faff69] focus:ring-1 focus:ring-[#faff69]/20"
         />
 
