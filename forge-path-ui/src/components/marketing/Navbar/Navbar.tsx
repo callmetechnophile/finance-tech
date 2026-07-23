@@ -6,9 +6,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { ArrowRight, Menu, X, Briefcase, Check } from "lucide-react";
-import { SignInButton, SignUpButton, Show, UserButton } from "@clerk/nextjs";
+import { UserButton } from "@clerk/nextjs";
+import { useSessionStore } from "@/shared/stores/session.store";
 
 export default function Navbar() {
+  const { isAuthenticated, user } = useSessionStore();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -135,27 +137,51 @@ export default function Navbar() {
         <div className="flex items-center justify-end">
           {/* Desktop CTAs */}
           <div className="hidden md:flex items-center gap-3">
-            <Show when="signed-out">
-              <SignInButton mode="modal">
-                <button className="text-[11px] font-bold text-[#848e9c] hover:text-white uppercase tracking-wider transition-colors px-3 py-2 bg-transparent border-none cursor-pointer">
+            {!isAuthenticated ? (
+              <>
+                <Link
+                  href="/login"
+                  className="text-[11px] font-bold text-[#848e9c] hover:text-white uppercase tracking-wider transition-colors px-3 py-2 no-underline cursor-pointer"
+                >
                   Sign In
-                </button>
-              </SignInButton>
-              <SignUpButton mode="modal">
-                <button className="text-[11px] font-bold text-[#848e9c] hover:text-white uppercase tracking-wider transition-colors px-3 py-2 bg-transparent border-none cursor-pointer">
+                </Link>
+                <Link
+                  href="/sign-up"
+                  className="text-[11px] font-bold text-[#848e9c] hover:text-white uppercase tracking-wider transition-colors px-3 py-2 no-underline cursor-pointer"
+                >
                   Sign Up
+                </Link>
+                <button
+                  onClick={() => setIsModalOpen(true)}
+                  className="inline-flex items-center gap-1.5 h-8 px-4 rounded-md bg-[#fcd535] hover:bg-[#f0b90b] text-[#181a20] text-[11px] font-extrabold uppercase tracking-wider transition-all duration-150 shadow-md shadow-[#fcd535]/20 cursor-pointer border-none"
+                >
+                  Enterprise Contact <Briefcase className="w-3.5 h-3.5" />
                 </button>
-              </SignUpButton>
-            </Show>
-            <Show when="signed-in">
-              <UserButton />
-            </Show>
-            <button
-              onClick={() => setIsModalOpen(true)}
-              className="inline-flex items-center gap-1.5 h-8 px-4 rounded-md bg-[#fcd535] hover:bg-[#f0b90b] text-[#181a20] text-[11px] font-extrabold uppercase tracking-wider transition-all duration-150 shadow-md shadow-[#fcd535]/20 cursor-pointer border-none"
-            >
-              Enterprise Contact <Briefcase className="w-3.5 h-3.5" />
-            </button>
+              </>
+            ) : (
+              <>
+                <div className="flex items-center gap-2">
+                  <UserButton />
+                  {user && user.email.endsWith("@forge-path.internal") && (
+                    <button
+                      onClick={() => {
+                        useSessionStore.getState().clearSession();
+                        window.location.href = "/";
+                      }}
+                      className="text-[11px] font-bold text-[#848e9c] hover:text-white uppercase tracking-wider transition-colors px-3 py-2 bg-transparent border-none cursor-pointer"
+                    >
+                      Sign Out
+                    </button>
+                  )}
+                </div>
+                <Link
+                  href="/dashboard"
+                  className="inline-flex items-center gap-1.5 h-8 px-4 rounded-md bg-[#fcd535] hover:bg-[#f0b90b] text-[#181a20] text-[11px] font-extrabold uppercase tracking-wider transition-all duration-150 shadow-md shadow-[#fcd535]/20 cursor-pointer no-underline border-none"
+                >
+                  Launch Workspace <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Mobile Hamburger */}
@@ -187,33 +213,61 @@ export default function Navbar() {
               {link.label}
             </Link>
           ))}
-          <div className="flex items-center gap-3 pt-2">
-            <Show when="signed-out">
-              <SignInButton mode="modal">
-                <button className="flex-1 text-center text-[11px] font-bold text-[#848e9c] hover:text-white uppercase tracking-wider py-2 border border-[#2b3139] rounded-md transition-colors bg-transparent cursor-pointer">
-                  Sign In
+          <div className="flex flex-col gap-3 pt-2">
+            {!isAuthenticated ? (
+              <>
+                <div className="flex gap-2">
+                  <Link
+                    href="/login"
+                    onClick={() => setMobileOpen(false)}
+                    className="flex-1 text-center text-[11px] font-bold text-[#848e9c] hover:text-white uppercase tracking-wider py-2 border border-[#2b3139] rounded-md transition-colors bg-transparent no-underline cursor-pointer"
+                  >
+                    Sign In
+                  </Link>
+                  <Link
+                    href="/sign-up"
+                    onClick={() => setMobileOpen(false)}
+                    className="flex-1 text-center text-[11px] font-bold text-[#848e9c] hover:text-white uppercase tracking-wider py-2 border border-[#2b3139] rounded-md transition-colors bg-transparent no-underline cursor-pointer"
+                  >
+                    Sign Up
+                  </Link>
+                </div>
+                <button
+                  onClick={() => {
+                    setMobileOpen(false);
+                    setIsModalOpen(true);
+                  }}
+                  className="flex-grow inline-flex items-center justify-center gap-1.5 h-9 rounded-md bg-[#fcd535] hover:bg-[#f0b90b] text-[#181a20] text-[11px] font-extrabold uppercase tracking-wider transition-all border-none cursor-pointer"
+                >
+                  Contact <Briefcase className="w-3.5 h-3.5" />
                 </button>
-              </SignInButton>
-              <SignUpButton mode="modal">
-                <button className="flex-1 text-center text-[11px] font-bold text-[#848e9c] hover:text-white uppercase tracking-wider py-2 border border-[#2b3139] rounded-md transition-colors bg-transparent cursor-pointer">
-                  Sign Up
-                </button>
-              </SignUpButton>
-            </Show>
-            <Show when="signed-in">
-              <div className="flex-grow flex justify-center py-2">
-                <UserButton />
-              </div>
-            </Show>
-            <button
-              onClick={() => {
-                setMobileOpen(false);
-                setIsModalOpen(true);
-              }}
-              className="flex-grow inline-flex items-center justify-center gap-1.5 h-9 rounded-md bg-[#fcd535] hover:bg-[#f0b90b] text-[#181a20] text-[11px] font-extrabold uppercase tracking-wider transition-all border-none cursor-pointer"
-            >
-              Contact <Briefcase className="w-3.5 h-3.5" />
-            </button>
+              </>
+            ) : (
+              <>
+                <div className="flex items-center justify-between py-2 border-b border-[#2b3139]/30">
+                  <UserButton />
+                  {user && user.email.endsWith("@forge-path.internal") && (
+                    <button
+                      onClick={() => {
+                        setMobileOpen(false);
+                        useSessionStore.getState().clearSession();
+                        window.location.href = "/";
+                      }}
+                      className="text-[11px] font-bold text-[#848e9c] hover:text-white uppercase tracking-wider transition-colors bg-transparent border-none cursor-pointer"
+                    >
+                      Sign Out
+                    </button>
+                  )}
+                </div>
+                <Link
+                  href="/dashboard"
+                  onClick={() => setMobileOpen(false)}
+                  className="flex-grow inline-flex items-center justify-center gap-1.5 h-9 rounded-md bg-[#fcd535] hover:bg-[#f0b90b] text-[#181a20] text-[11px] font-extrabold uppercase tracking-wider transition-all no-underline border-none cursor-pointer"
+                >
+                  Launch Workspace <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </>
+            )}
           </div>
         </motion.div>
       )}
