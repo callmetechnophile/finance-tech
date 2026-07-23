@@ -163,3 +163,19 @@ body {
 .cl-userButtonOuterIdentifier {
   color: #ffffff !important;
 }
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   CLERK MODAL BACKDROP BLUR & CARD STYLING
+   ───────────────────────────────────────────────────────────────────────────── */
+.cl-modalBackdrop {
+  backdrop-filter: blur(12px) !important;
+  background-color: rgba(10, 12, 16, 0.75) !important;
+}
+
+.cl-card {
+  background-color: rgba(18, 20, 24, 0.95) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1px solid #2b3139 !important;
+  border-radius: 20px !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.75) !important;
+}
