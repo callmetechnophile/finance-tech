@@ -1,9 +1,13 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { SignIn } from "@clerk/nextjs";
+import PhoneSignUp from "@/components/auth/PhoneSignUp";
+import { Mail, Phone } from "lucide-react";
 
 const LoginPage: React.FC = () => {
+  const [activeTab, setActiveTab] = useState<"email" | "phone">("email");
+
   useEffect(() => {
     let containerEl: HTMLElement | null = null;
     let svgEl: SVGElement | null = null;
@@ -156,7 +160,7 @@ const LoginPage: React.FC = () => {
         containerEl.removeEventListener("mouseleave", handleMouseLeave);
       }
     };
-  }, []);
+  }, [activeTab]);
 
   return (
     <main className="min-h-screen bg-[#0b0e11] flex items-center justify-center px-4 relative overflow-hidden">
@@ -229,8 +233,45 @@ const LoginPage: React.FC = () => {
         }
       `}</style>
 
-      <div className="relative z-10">
-        <SignIn path="/login" />
+      <div className="relative z-10 w-full max-w-[450px]">
+        <div className="p-6 rounded-2xl bg-[#0e1218]/90 border border-[#2b3139] shadow-2xl backdrop-blur-md">
+          {/* Tab Selector */}
+          <div className="flex bg-[#0b0e11] p-1 rounded-xl border border-[#1f2d44] mb-6">
+            <button
+              onClick={() => setActiveTab("email")}
+              className={`flex-1 py-2 px-3 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                activeTab === "email"
+                  ? "bg-[#1e2329] text-white shadow-sm border border-[#2b3139]"
+                  : "text-[#848e9c] hover:text-white bg-transparent border border-transparent"
+              }`}
+            >
+              <Mail className="w-3.5 h-3.5" />
+              Corporate Email
+            </button>
+            <button
+              onClick={() => setActiveTab("phone")}
+              className={`flex-1 py-2 px-3 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                activeTab === "phone"
+                  ? "bg-[#fcd535] text-black shadow-sm"
+                  : "text-[#848e9c] hover:text-white bg-transparent border border-transparent"
+              }`}
+            >
+              <Phone className="w-3.5 h-3.5" />
+              Phone SMS OTP
+            </button>
+          </div>
+
+          {/* Render Active Tab */}
+          <div className="transition-all duration-300">
+            {activeTab === "email" ? (
+              <div className="flex justify-center cl-override-wrapper">
+                <SignIn path="/login" />
+              </div>
+            ) : (
+              <PhoneSignUp />
+            )}
+          </div>
+        </div>
       </div>
     </main>
   );
