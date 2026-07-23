@@ -6,6 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { ArrowRight, Menu, X, Briefcase, Check } from "lucide-react";
+import { SignInButton, SignUpButton, Show, UserButton } from "@clerk/nextjs";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -134,12 +135,21 @@ export default function Navbar() {
         <div className="flex items-center justify-end">
           {/* Desktop CTAs */}
           <div className="hidden md:flex items-center gap-3">
-            <Link
-              href="/login"
-              className="text-[11px] font-bold text-[#848e9c] hover:text-white uppercase tracking-wider transition-colors px-3 py-2"
-            >
-              Sign In
-            </Link>
+            <Show when="signed-out">
+              <SignInButton mode="modal">
+                <button className="text-[11px] font-bold text-[#848e9c] hover:text-white uppercase tracking-wider transition-colors px-3 py-2 bg-transparent border-none cursor-pointer">
+                  Sign In
+                </button>
+              </SignInButton>
+              <SignUpButton mode="modal">
+                <button className="text-[11px] font-bold text-[#848e9c] hover:text-white uppercase tracking-wider transition-colors px-3 py-2 bg-transparent border-none cursor-pointer">
+                  Sign Up
+                </button>
+              </SignUpButton>
+            </Show>
+            <Show when="signed-in">
+              <UserButton />
+            </Show>
             <button
               onClick={() => setIsModalOpen(true)}
               className="inline-flex items-center gap-1.5 h-8 px-4 rounded-md bg-[#fcd535] hover:bg-[#f0b90b] text-[#181a20] text-[11px] font-extrabold uppercase tracking-wider transition-all duration-150 shadow-md shadow-[#fcd535]/20 cursor-pointer border-none"
@@ -178,19 +188,29 @@ export default function Navbar() {
             </Link>
           ))}
           <div className="flex items-center gap-3 pt-2">
-            <Link
-              href="/login"
-              className="flex-1 text-center text-[11px] font-bold text-[#848e9c] hover:text-white uppercase tracking-wider py-2 border border-[#2b3139] rounded-md transition-colors"
-              onClick={() => setMobileOpen(false)}
-            >
-              Sign In
-            </Link>
+            <Show when="signed-out">
+              <SignInButton mode="modal">
+                <button className="flex-1 text-center text-[11px] font-bold text-[#848e9c] hover:text-white uppercase tracking-wider py-2 border border-[#2b3139] rounded-md transition-colors bg-transparent cursor-pointer">
+                  Sign In
+                </button>
+              </SignInButton>
+              <SignUpButton mode="modal">
+                <button className="flex-1 text-center text-[11px] font-bold text-[#848e9c] hover:text-white uppercase tracking-wider py-2 border border-[#2b3139] rounded-md transition-colors bg-transparent cursor-pointer">
+                  Sign Up
+                </button>
+              </SignUpButton>
+            </Show>
+            <Show when="signed-in">
+              <div className="flex-grow flex justify-center py-2">
+                <UserButton />
+              </div>
+            </Show>
             <button
               onClick={() => {
                 setMobileOpen(false);
                 setIsModalOpen(true);
               }}
-              className="flex-1 inline-flex items-center justify-center gap-1.5 h-9 rounded-md bg-[#fcd535] hover:bg-[#f0b90b] text-[#181a20] text-[11px] font-extrabold uppercase tracking-wider transition-all border-none"
+              className="flex-grow inline-flex items-center justify-center gap-1.5 h-9 rounded-md bg-[#fcd535] hover:bg-[#f0b90b] text-[#181a20] text-[11px] font-extrabold uppercase tracking-wider transition-all border-none cursor-pointer"
             >
               Contact <Briefcase className="w-3.5 h-3.5" />
             </button>
