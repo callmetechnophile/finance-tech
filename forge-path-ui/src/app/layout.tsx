@@ -47,6 +47,25 @@ export default function RootLayout({ children }: RootLayoutProps) {
                 borderColor: "#2B3139",
                 color: "#FFFFFF",
               },
+              userButtonPopoverActionButtonText: {
+                color: "#FFFFFF",
+              },
+              userButtonPopoverActionButtonIcon: {
+                color: "#A1A1AA",
+              },
+              userButtonPopoverMain: {
+                color: "#FFFFFF",
+              },
+              userButtonPopoverActionButton: {
+                color: "#FFFFFF",
+              },
+              userPreviewMainIdentifier: {
+                color: "#FFFFFF",
+                fontWeight: "600",
+              },
+              userPreviewSecondaryIdentifier: {
+                color: "#A1A1AA",
+              },
               card: {
                 backgroundColor: "#181A20",
                 border: "1px solid #2B3139",
@@ -54,6 +73,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
                 boxShadow: "0 20px 60px rgba(0,0,0,0.55)",
                 opacity: "1",
                 backdropFilter: "none",
+                color: "#FFFFFF",
               },
               cardBox: {
                 backgroundColor: "#181A20",
@@ -62,16 +82,22 @@ export default function RootLayout({ children }: RootLayoutProps) {
                 boxShadow: "0 20px 60px rgba(0,0,0,0.55)",
                 opacity: "1",
                 backdropFilter: "none",
+                color: "#FFFFFF",
               },
               rootBox: {
                 opacity: "1",
+                color: "#FFFFFF",
               },
               main: {
                 backgroundColor: "#181A20",
+                color: "#FFFFFF",
               },
               modalBackdrop: {
                 background: "rgba(0,0,0,0.65)",
                 backdropFilter: "none",
+              },
+              userButtonOuterIdentifier: {
+                color: "#FFFFFF",
               },
               userButtonPopoverCard: {
                 backgroundColor: "#181A20",
@@ -79,14 +105,17 @@ export default function RootLayout({ children }: RootLayoutProps) {
                 borderRadius: "16px",
                 boxShadow: "0 20px 60px rgba(0,0,0,0.55)",
                 backdropFilter: "none",
+                color: "#FFFFFF",
               },
               userButtonPopoverContainer: {
                 backgroundColor: "#181A20",
                 backdropFilter: "none",
+                color: "#FFFFFF",
               },
               userButtonPopoverFooter: {
                 backgroundColor: "#111216",
                 borderTop: "1px solid #2B3139",
+                color: "#A1A1AA",
               },
               userProfileKeepCard: {
                 backgroundColor: "#181A20",
