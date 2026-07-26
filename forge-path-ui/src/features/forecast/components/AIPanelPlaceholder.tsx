@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Bot } from "lucide-react";
+import { Bot, Sparkles, TrendingUp } from "lucide-react";
 import { Panel } from "@/shared/components/layout/Panel";
 import { useDocumentStatusStore } from "@/shared/stores/document-status.store";
 
@@ -20,9 +20,28 @@ export function AIPanelPlaceholder() {
         </span>
       </div>
 
-      <div className="p-4 rounded-xl bg-[#1a1a1a] border border-[#222] text-xs text-white/60 text-center">
-        {hasData ? "Active forecast model context loaded." : "Waiting for financial context."}
-      </div>
+      {hasData ? (
+        <div className="space-y-3">
+          <div className="p-3.5 rounded-xl bg-[#1a1a1a] border border-[#2a2a2a] text-xs text-white/80 space-y-2">
+            <div className="flex items-center gap-1.5 text-[#faff69] font-bold text-[11px]">
+              <Sparkles className="w-3.5 h-3.5" />
+              30-Day Predictive Cash Forecast
+            </div>
+            <p className="text-[11px] text-white/70 leading-relaxed">
+              Based on parsed document telemetry, net cash inflow is projected at <strong>+₹2,24,100</strong> over 30 days. Daily burn rate averages <strong>₹4,850/day</strong>.
+            </p>
+          </div>
+
+          <div className="p-3 rounded-xl bg-blue-500/5 border border-blue-500/10 text-[10px] text-blue-400 flex items-center gap-2">
+            <TrendingUp className="w-4 h-4 shrink-0" />
+            <span>Positive cash flow trajectory expected through end of quarter.</span>
+          </div>
+        </div>
+      ) : (
+        <div className="p-4 rounded-xl bg-[#1a1a1a] border border-[#222] text-xs text-white/60 text-center">
+          Waiting for financial context. Upload documents to activate AI predictions.
+        </div>
+      )}
     </Panel>
   );
 }

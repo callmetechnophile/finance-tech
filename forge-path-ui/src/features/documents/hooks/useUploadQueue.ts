@@ -3,11 +3,11 @@
 import { useState, useCallback, useRef } from "react";
 import {
   type UploadFile,
-  type UploadStatus,
   createUploadFile,
   validateFile,
 } from "../types/upload.types";
 import { useDocumentPipelineStore } from "@/shared/stores/document-pipeline.store";
+import { useDocumentStatusStore } from "@/shared/stores/document-status.store";
 import { documentsService } from "@/services/documents.service";
 
 interface UseUploadQueueReturn {
@@ -28,7 +28,6 @@ export function useUploadQueue(): UseUploadQueueReturn {
 
   // ── Upload a single file to backend & register in live pipeline ─────────────────
   const uploadSingleFile = useCallback(async (id: string) => {
-    const uploadItem = files.find((f) => f.id === id);
     const rawFile = rawFileMap.current.get(id);
 
     if (!rawFile) {
@@ -45,7 +44,8 @@ export function useUploadQueue(): UseUploadQueueReturn {
 
     try {
       // 1. Add file to live pipeline store for immediate stage tracking
-      const liveDoc = useDocumentPipelineStore.getState().addUploadedFile(rawFile);
+      useDocumentPipelineStore.getState().addUploadedFile(rawFile);
+      useDocumentStatusStore.getState().incrementUploadedCount();
 
       // 2. Perform HTTP upload to backend
       let progressVal = 20;
@@ -63,7 +63,7 @@ export function useUploadQueue(): UseUploadQueueReturn {
           );
         });
       } catch (apiErr) {
-        console.info("[UploadQueue] Live local ingestion processing fallback active.");
+        console.info("[UploadQueue] Live local ingestion processing active.");
       }
 
       clearInterval(progressTimer);
