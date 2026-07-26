@@ -11,6 +11,7 @@ import NotificationProvider from "./NotificationProvider";
 import CommandPaletteProvider from "./CommandPaletteProvider";
 import useKeyboardNavigation from "@/shared/hooks/useKeyboardNavigation";
 import { useClerkSession } from "@/shared/hooks/useClerkSession";
+import { useClerkDevHider } from "@/shared/hooks/useClerkDevHider";
 
 interface RootProviderProps {
   children: ReactNode;
@@ -22,6 +23,9 @@ export default function RootProvider({ children }: RootProviderProps) {
 
   // Sync Clerk session to Zustand session store
   useClerkSession();
+
+  // Active external hider layer for Clerk development mode prefilled OTP & badges
+  useClerkDevHider();
 
   return (
     <QueryProvider>
