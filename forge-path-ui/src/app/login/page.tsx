@@ -1,149 +1,43 @@
 "use client";
 
-import React, { useEffect } from "react";
-import { SignIn } from "@clerk/nextjs";
+import React, { useState } from "react";
+import { Mail, Lock, ArrowRight, Zap, AlertCircle } from "lucide-react";
+import Link from "next/link";
+import { useAuthStore } from "@/store/auth.store";
 
-const LoginPage: React.FC = () => {
-  useEffect(() => {
-    let containerEl: HTMLElement | null = null;
-    let svgEl: SVGElement | null = null;
-    let inputEl: HTMLInputElement | null = null;
+export default function LoginPage() {
+  const [email, setEmail] = useState("finance@apex.com");
+  const [password, setPassword] = useState("••••••••");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-    const handleFocus = () => {
-      if (containerEl) {
-        containerEl.style.setProperty("border-color", "#fcd535", "important");
-        containerEl.style.setProperty("box-shadow", "0 0 24px rgba(252,213,53,.35)", "important");
-      }
-    };
+  const handleLogin = (userEmail: string) => {
+    setLoading(true);
+    setError("");
 
-    const handleBlur = () => {
-      if (containerEl) {
-        containerEl.style.setProperty("border-color", "rgba(255,255,255,0.9)", "important");
-        containerEl.style.setProperty("box-shadow", "none", "important");
-      }
-    };
+    useAuthStore.getState().setAuth(
+      {
+        id: `usr-${Date.now()}`,
+        email: userEmail || "finance@apex.com",
+        name: userEmail ? userEmail.split("@")[0] : "Alexander Miller",
+        role: "admin",
+        company_id: "apex-manufacturing",
+      },
+      {
+        id: "apex-manufacturing",
+        name: "Apex Manufacturing Inc.",
+        industry: "CNC & Fabrication",
+        currency: "USD",
+      },
+      "forge-token-jwt-session"
+    );
 
-    const handleMouseMove = (e: MouseEvent) => {
-      if (svgEl && containerEl) {
-        const rect = containerEl.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width - 0.5;
-        const y = (e.clientY - rect.top) / rect.height - 0.5;
-        svgEl.style.transform = `translate(${x * 8}px, ${y * 4}px)`;
-      }
-    };
-
-    const handleMouseLeave = () => {
-      if (svgEl) {
-        svgEl.style.transform = "translate(0px, 0px)";
-      }
-    };
-
-    const enhance = () => {
-      const emailInput = document.querySelector('input[name="identifier"]') as HTMLInputElement;
-      if (!emailInput) return false;
-
-      const container = emailInput.closest(".cl-formFieldInputGroup") as HTMLElement;
-      if (!container) return false;
-
-      // Avoid double enhancement
-      if (container.getAttribute("data-enhanced") === "true") return true;
-      container.setAttribute("data-enhanced", "true");
-
-      containerEl = container;
-      inputEl = emailInput;
-
-      // Apply styles to the container
-      container.style.setProperty("background-color", "rgba(18,20,24,0.85)", "important");
-      container.style.setProperty("backdrop-filter", "blur(10px)", "important");
-      container.style.setProperty("border", "1.5px solid rgba(255,255,255,0.9)", "important");
-      container.style.setProperty("border-radius", "16px", "important");
-      container.style.setProperty("overflow", "hidden", "important");
-      container.style.setProperty("position", "relative", "important");
-      container.style.setProperty("transition", "border-color 250ms ease, box-shadow 250ms ease", "important");
-
-      // Apply styles to the input
-      emailInput.style.setProperty("background", "transparent", "important");
-      emailInput.style.setProperty("border", "none", "important");
-      emailInput.style.setProperty("outline", "none", "important");
-      emailInput.style.setProperty("box-shadow", "none", "important");
-      emailInput.style.setProperty("position", "relative", "important");
-      emailInput.style.setProperty("z-index", "10", "important");
-
-      // Create animated SVG background
-      const svgString = `
-        <svg viewBox="0 0 400 60" style="position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; user-select: none; z-index: 0; opacity: 0.12; transition: transform 300ms ease-out;" id="ai-factory-svg">
-          <defs>
-            <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
-              <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#2b3139" stroke-width="0.5" opacity="0.3" />
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#grid)" />
-          <line x1="10" y1="45" x2="390" y2="45" stroke="#3a3a3a" stroke-width="2" stroke-dasharray="4,4" class="conveyor-belt" />
-          <g class="robotic-arm-1" transform="translate(40, 15)">
-            <rect x="-6" y="-3" width="12" height="6" fill="#555" rx="2" />
-            <line x1="0" y1="0" x2="15" y2="15" stroke="#fcd535" stroke-width="3" />
-            <circle cx="15" cy="15" r="3" fill="#888" />
-            <line x1="15" y1="15" x2="30" y2="10" stroke="#fcd535" stroke-width="2" />
-            <path d="M 30 7 L 34 10 L 30 13" stroke="#eaecef" stroke-width="1.5" fill="none" />
-          </g>
-          <g class="robotic-arm-2" transform="translate(320, 10)">
-            <rect x="-6" y="-3" width="12" height="6" fill="#555" rx="2" />
-            <line x1="0" y1="0" x2="-20" y2="15" stroke="#fcd535" stroke-width="3" />
-            <circle cx="-20" cy="15" r="3" fill="#888" />
-            <line x1="-20" y1="15" x2="-35" y2="25" stroke="#fcd535" stroke-width="2" />
-            <circle cx="-35" cy="25" r="2" fill="#0ecb81" />
-            <line x1="-35" y1="25" x2="-35" y2="45" stroke="#0ecb81" stroke-width="1.5" opacity="0.8" />
-          </g>
-          <line x1="10" y1="0" x2="10" y2="60" stroke="#fcd535" stroke-width="1.5" opacity="0.6" class="laser-scanner" />
-          <circle cx="100" cy="10" r="1.5" fill="#fcd535" class="status-led-1" />
-          <circle cx="200" cy="15" r="1.5" fill="#fcd535" class="status-led-2" />
-          <circle cx="280" cy="8" r="1.5" fill="#fcd535" class="status-led-3" />
-          <circle cx="80" cy="30" r="1" fill="#fff" opacity="0.3" class="particle-1" />
-          <circle cx="160" cy="20" r="1" fill="#fcd535" opacity="0.4" class="particle-2" />
-          <circle cx="240" cy="35" r="1.5" fill="#fff" opacity="0.2" class="particle-3" />
-          <circle cx="350" cy="25" r="1" fill="#fcd535" opacity="0.3" class="particle-4" />
-        </svg>
-      `;
-
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(svgString, "image/svg+xml");
-      const svg = doc.querySelector("svg") as unknown as SVGElement;
-      container.insertBefore(svg, container.firstChild);
-      svgEl = svg;
-
-      // Event listeners
-      emailInput.addEventListener("focus", handleFocus);
-      emailInput.addEventListener("blur", handleBlur);
-      container.addEventListener("mousemove", handleMouseMove);
-      container.addEventListener("mouseleave", handleMouseLeave);
-
-      return true;
-    };
-
-    // Watch for mount
-    const observer = new MutationObserver(() => {
-      if (enhance()) {
-        observer.disconnect();
-      }
-    });
-
-    observer.observe(document.body, { childList: true, subtree: true });
-    
-    // Initial run
-    enhance();
-
-    return () => {
-      observer.disconnect();
-      if (inputEl) {
-        inputEl.removeEventListener("focus", handleFocus);
-        inputEl.removeEventListener("blur", handleBlur);
-      }
-      if (containerEl) {
-        containerEl.removeEventListener("mousemove", handleMouseMove);
-        containerEl.removeEventListener("mouseleave", handleMouseLeave);
-      }
-    };
-  }, []);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("forge_token", "forge-token-jwt-session");
+      localStorage.setItem("forge_company_id", "apex-manufacturing");
+      window.location.href = "/dashboard";
+    }
+  };
 
   return (
     <main className="min-h-screen bg-[#0b0e11] flex items-center justify-center px-4 relative overflow-hidden">
@@ -151,78 +45,128 @@ const LoginPage: React.FC = () => {
       <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-[#2563EB]/10 rounded-full blur-[150px]" />
       <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-[#7C3AED]/10 rounded-full blur-[150px]" />
 
-      <style>{`
-        @keyframes conveyor {
-          0% { stroke-dashoffset: 0; }
-          100% { stroke-dashoffset: -20; }
-        }
-        @keyframes arm1 {
-          0%, 100% { transform: rotate(0deg); }
-          50% { transform: rotate(8deg); }
-        }
-        @keyframes arm2 {
-          0%, 100% { transform: rotate(0deg); }
-          50% { transform: rotate(-10deg); }
-        }
-        @keyframes laser-sweep {
-          0% { transform: translateX(0px); }
-          50% { transform: translateX(380px); }
-          100% { transform: translateX(0px); }
-        }
-        @keyframes led-blink {
-          0%, 100% { opacity: 0.2; }
-          50% { opacity: 1; }
-        }
-        @keyframes particle-drift {
-          0% { transform: translate(0, 0); opacity: 0.1; }
-          50% { transform: translate(8px, -5px); opacity: 0.5; }
-          100% { transform: translate(15px, -12px); opacity: 0; }
-        }
+      <div className="relative z-10 w-full max-w-md p-8 rounded-2xl bg-[#121824] border border-[#1f2d44] shadow-2xl space-y-6">
+        <div className="flex flex-col items-center mb-2">
+          <img
+            src="/icon.jpg"
+            alt="FORGE-PATH Logo"
+            className="w-12 h-12 rounded-xl shadow-lg mb-3 object-cover border border-[#1f2d44]"
+          />
+          <h1 className="text-2xl font-bold text-white tracking-tight">Sign in to FORGE-PATH</h1>
+          <p className="text-xs text-[#9CA3AF] mt-1 text-center font-medium">
+            AI Financial Copilot for Manufacturing SMEs
+          </p>
+        </div>
 
-        .conveyor-belt {
-          animation: conveyor 2s linear infinite;
-        }
-        .robotic-arm-1 {
-          transform-origin: 40px 15px;
-          animation: arm1 5s ease-in-out infinite;
-        }
-        .robotic-arm-2 {
-          transform-origin: 320px 10px;
-          animation: arm2 6s ease-in-out infinite;
-        }
-        .laser-scanner {
-          animation: laser-sweep 8s ease-in-out infinite;
-        }
-        .status-led-1 {
-          animation: led-blink 1s infinite;
-        }
-        .status-led-2 {
-          animation: led-blink 1.5s infinite;
-        }
-        .status-led-3 {
-          animation: led-blink 1.2s infinite;
-        }
-        .particle-1 {
-          animation: particle-drift 4s linear infinite;
-        }
-        .particle-2 {
-          animation: particle-drift 5s linear infinite 1s;
-        }
-        .particle-3 {
-          animation: particle-drift 6s linear infinite 2s;
-        }
-        .particle-4 {
-          animation: particle-drift 4.5s linear infinite 0.5s;
-        }
-      `}</style>
+        {error && (
+          <div className="p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-xs text-red-400 flex items-center gap-2">
+            <AlertCircle className="w-4 h-4 shrink-0" />
+            <span>{error}</span>
+          </div>
+        )}
 
-      <div className="relative z-10 w-full max-w-[450px]">
-        <div className="p-6 rounded-2xl bg-[#0e1218]/90 border border-[#2b3139] shadow-2xl backdrop-blur-md flex justify-center cl-override-wrapper">
-          <SignIn path="/login" />
+        {/* Google OAuth Button */}
+        <button
+          type="button"
+          onClick={() => handleLogin("google.user@apex-manufacturing.com")}
+          disabled={loading}
+          className="w-full py-3 px-4 rounded-xl bg-[#0b0e14] hover:bg-[#151c2a] border border-[#1f2d44] text-sm font-semibold text-white flex items-center justify-center gap-3 transition-all cursor-pointer shadow-sm hover:border-[#2b3139]"
+        >
+          <svg className="w-5 h-5" viewBox="0 0 24 24">
+            <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17z" />
+            <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.29v3.15C3.26 21.3 7.31 24 12 24z" />
+            <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.29C.47 8.21 0 10.05 0 12s.47 3.79 1.29 5.42l3.99-3.15z" />
+            <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.31 0 3.26 2.7 1.29 6.58l3.99 3.15c.95-2.83 3.6-4.98 6.72-4.98z" />
+          </svg>
+          Continue with Google
+        </button>
+
+        {/* Divider */}
+        <div className="relative flex items-center justify-center my-4">
+          <div className="border-t border-[#1f2d44] w-full" />
+          <span className="bg-[#121824] px-3 text-[10px] font-bold text-[#6B7280] uppercase tracking-wider whitespace-nowrap absolute">
+            or sign in with email
+          </span>
+        </div>
+
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleLogin(email);
+          }}
+          className="space-y-4 pt-1"
+        >
+          <div>
+            <label className="block text-xs font-semibold text-[#9CA3AF] uppercase tracking-wider mb-2">
+              Corporate Email Address
+            </label>
+            <div className="relative">
+              <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#4B5563]" />
+              <input
+                type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="you@company.com"
+                className="w-full pl-10 pr-4 py-3 rounded-xl bg-[#0b0e14] border border-[#1f2d44] text-sm text-white focus:outline-none focus:border-blue-500 transition-all placeholder-[#4B5563]"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-xs font-semibold text-[#9CA3AF] uppercase tracking-wider mb-2">
+              Password
+            </label>
+            <div className="relative">
+              <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#4B5563]" />
+              <input
+                type="password"
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Password"
+                className="w-full pl-10 pr-4 py-3 rounded-xl bg-[#0b0e14] border border-[#1f2d44] text-sm text-white focus:outline-none focus:border-blue-500 transition-all placeholder-[#4B5563]"
+              />
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full py-3.5 rounded-xl bg-[#fcd535] hover:bg-[#e2be28] font-bold text-sm text-[#181a20] shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 mt-2"
+          >
+            {loading ? (
+              <div className="w-5 h-5 border-2 border-[#181a20]/30 border-t-[#181a20] rounded-full animate-spin" />
+            ) : (
+              <>
+                Sign In to Workspace
+                <ArrowRight className="w-4 h-4" />
+              </>
+            )}
+          </button>
+        </form>
+
+        {/* 1-Click Instant Demo Login */}
+        <div className="pt-2">
+          <button
+            type="button"
+            onClick={() => handleLogin("alexander@apex-manufacturing.com")}
+            className="w-full py-2.5 rounded-xl bg-[#0b0e14] hover:bg-[#151c2a] border border-[#1f2d44] text-xs font-bold text-[#fcd535] transition-all flex items-center justify-center gap-2 cursor-pointer"
+          >
+            <Zap className="w-3.5 h-3.5 text-[#fcd535]" />
+            Instant Demo Access (1-Click)
+          </button>
+        </div>
+
+        <div className="text-center pt-1">
+          <p className="text-xs text-[#9CA3AF]">
+            Don't have an account?{" "}
+            <Link href="/sign-up" className="text-[#fcd535] font-semibold hover:underline">
+              Create account
+            </Link>
+          </p>
         </div>
       </div>
     </main>
   );
-};
-
-export default LoginPage;
+}
