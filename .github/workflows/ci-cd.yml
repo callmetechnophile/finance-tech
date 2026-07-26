@@ -22,11 +22,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
-          cache-dependency-path: ./forge-path-ui/package-lock.json
 
       - name: Install Frontend Dependencies
-        run: npm ci
+        run: npm install --legacy-peer-deps
 
       - name: Next.js Production Build
         env:
