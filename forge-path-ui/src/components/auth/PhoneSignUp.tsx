@@ -50,20 +50,18 @@ export default function PhoneSignUp() {
     try {
       let data: any = null;
 
-      // Primary: Try local Next.js Route Handler
+      // Primary: Call Next.js Route Handler
       try {
         const res = await fetch("/api/auth/otp/send", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ phone: activeNumber }),
         });
-        if (res.ok) {
-          data = await res.json();
-        }
+        data = await res.json();
       } catch (_) {}
 
-      // Fallback: Try Centralized FastAPI Backend Route
-      if (!data || !data.success) {
+      // Fallback: If local route failed, call FastAPI Backend
+      if (!data || (!data.success && !data.message)) {
         try {
           const res = await api.post("/api/v1/auth/otp/send", { phone: activeNumber });
           data = res.data;
@@ -116,20 +114,18 @@ export default function PhoneSignUp() {
 
       let data: any = null;
 
-      // Primary: Try local Next.js Route Handler
+      // Primary: Call Next.js Route Handler
       try {
         const res = await fetch("/api/auth/otp/verify", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ phone: activeNumber, code: activeCode }),
         });
-        if (res.ok) {
-          data = await res.json();
-        }
+        data = await res.json();
       } catch (_) {}
 
-      // Fallback: Try Centralized FastAPI Backend Route
-      if (!data || !data.success) {
+      // Fallback: If local route failed, call FastAPI Backend
+      if (!data || (!data.success && !data.error)) {
         try {
           const res = await api.post("/api/v1/auth/otp/verify", { phone: activeNumber, code: activeCode });
           data = res.data;
