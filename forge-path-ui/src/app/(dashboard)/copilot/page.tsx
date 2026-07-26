@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Bot, Sparkles, Download, Plus, Layers, Database } from "lucide-react";
+import { Bot, Download, Plus } from "lucide-react";
 import { PageContainer } from "@/shared/components/layout/PageContainer";
 import { WorkspaceHeader } from "@/shared/components/layout/WorkspaceHeader";
 import { SplitView } from "@/shared/components/layout/SplitView";
@@ -18,7 +18,7 @@ export default function CopilotPage() {
   const HeaderActions = (
     <div className="flex items-center gap-2">
       <button
-        onClick={() => alert("Started new Virtual CFO chat thread.")}
+        onClick={() => setSelectedPrompt(null)}
         className="px-3 py-1.5 rounded-lg bg-[#1a1a1a] hover:bg-[#222] border border-[#2a2a2a] text-xs font-semibold text-white transition-colors flex items-center gap-1.5 cursor-pointer"
       >
         <Plus className="w-3.5 h-3.5 text-[#faff69]" />
@@ -58,7 +58,7 @@ export default function CopilotPage() {
 
       {/* 4. Chat Workspace */}
       <div className="flex-1 min-h-0 overflow-hidden">
-        <ChatWorkspaceRegion key={selectedPrompt || "default"} />
+        <ChatWorkspaceRegion initialPrompt={selectedPrompt} />
       </div>
     </div>
   );

@@ -24,7 +24,7 @@ export function SuggestedPromptsRegion({ onSelectPrompt }: SuggestedPromptsRegio
         {prompts.map((p) => (
           <button
             key={p}
-            onClick={() => onSelectPrompt ? onSelectPrompt(p) : alert(`Selected Prompt: "${p}"`)}
+            onClick={() => onSelectPrompt?.(p)}
             className="p-2.5 rounded-xl bg-[#1a1a1a] hover:bg-[#222] border border-[#222] hover:border-[#faff69]/30 text-left text-xs text-white/70 hover:text-white transition-all flex items-center justify-between group cursor-pointer"
           >
             <span className="line-clamp-2 leading-relaxed text-[11px]">{p}</span>
