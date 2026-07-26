@@ -1,6 +1,6 @@
 "use client";
 
-import CustomSignUp from "@/components/auth/CustomSignUp";
+import { SignUp } from "@clerk/nextjs";
 
 export default function SignUpPage() {
   return (
@@ -10,7 +10,9 @@ export default function SignUpPage() {
       <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-[#7C3AED]/10 rounded-full blur-[150px]" />
 
       <div className="flex-1 flex items-center justify-center relative z-10">
-        <CustomSignUp />
+        <div className="w-full max-w-[450px] p-6 rounded-2xl bg-[#0e1218]/90 border border-[#2b3139] shadow-2xl backdrop-blur-md flex justify-center">
+          <SignUp path="/sign-up" />
+        </div>
       </div>
 
       {/* Footer Stack */}
