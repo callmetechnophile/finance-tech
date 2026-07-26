@@ -26,6 +26,8 @@ interface PipelineSummaryProps {
 }
 
 export function PipelineSummary({ stats }: PipelineSummaryProps) {
+  const pendingCount = stats.processing + stats.queueLength;
+
   const cards = [
     {
       label: "Total Documents",
@@ -37,21 +39,26 @@ export function PipelineSummary({ stats }: PipelineSummaryProps) {
     {
       label: "Processing",
       value: stats.processing,
-      icon: <Loader2 className="w-4 h-4 animate-spin" />,
+      icon: <Loader2 className={`w-4 h-4 ${stats.processing > 0 ? "animate-spin text-[#faff69]" : "text-white/30"}`} />,
       severity: "normal" as const,
-      trend: { value: "Active pipeline", direction: "flat" as const },
+      trend: stats.processing > 0
+        ? { value: "Active pipeline", direction: "flat" as const }
+        : { value: "Pipeline idle", direction: "flat" as const },
     },
     {
       label: "Successfully Processed",
       value: stats.completed,
-      icon: <CheckCircle2 className="w-4 h-4" />,
+      icon: <CheckCircle2 className="w-4 h-4 text-green-400" />,
       severity: "positive" as const,
-      trend: { value: `${Math.round((stats.completed / Math.max(stats.totalDocuments, 1)) * 100)}% success rate`, direction: "up" as const },
+      trend: {
+        value: `${Math.round((stats.completed / Math.max(stats.totalDocuments, 1)) * 100)}% success rate`,
+        direction: "up" as const,
+      },
     },
     {
       label: "Failed Documents",
       value: stats.failed,
-      icon: <XCircle className="w-4 h-4" />,
+      icon: <XCircle className={`w-4 h-4 ${stats.failed > 0 ? "text-red-400" : "text-white/30"}`} />,
       severity: stats.failed > 0 ? ("critical" as const) : ("normal" as const),
       trend: stats.failed > 0
         ? { value: "Requires attention", direction: "down" as const }
@@ -67,7 +74,7 @@ export function PipelineSummary({ stats }: PipelineSummaryProps) {
     {
       label: "Avg Confidence",
       value: `${stats.avgConfidence}%`,
-      icon: <Zap className="w-4 h-4" />,
+      icon: <Zap className="w-4 h-4 text-[#faff69]" />,
       severity: stats.avgConfidence >= 90 ? ("positive" as const) : ("warning" as const),
       trend: {
         value: stats.avgConfidence >= 90 ? "Excellent accuracy" : "Acceptable",
@@ -75,11 +82,14 @@ export function PipelineSummary({ stats }: PipelineSummaryProps) {
       },
     },
     {
-      label: "Queue Length",
-      value: stats.queueLength,
+      label: "Queue Items",
+      value: stats.totalDocuments,
       icon: <ListOrdered className="w-4 h-4" />,
       severity: "normal" as const,
-      trend: { value: "Awaiting processing", direction: "flat" as const },
+      trend: {
+        value: pendingCount > 0 ? `${pendingCount} pending` : "All items completed",
+        direction: "flat" as const,
+      },
     },
   ];
 
