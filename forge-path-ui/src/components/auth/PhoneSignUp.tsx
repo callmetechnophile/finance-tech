@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useAuthStore } from "@/store/auth.store";
-import { Phone, ShieldAlert, CheckCircle2, Lock, ArrowRight, RefreshCw, KeyRound } from "lucide-react";
+import { ShieldAlert, CheckCircle2, Lock, ArrowRight, RefreshCw, KeyRound } from "lucide-react";
 import { toast } from "sonner";
 
 export default function PhoneSignUp() {
@@ -10,6 +10,9 @@ export default function PhoneSignUp() {
   const [otpCode, setOtpCode] = useState("");
   const [step, setStep] = useState<"phone" | "otp">("phone");
   
+  const phoneInputRef = useRef<HTMLInputElement>(null);
+  const otpInputRef = useRef<HTMLInputElement>(null);
+
   // Loading states
   const [isSending, setIsSending] = useState(false);
   const [isVerifying, setIsVerifying] = useState(false);
@@ -28,19 +31,26 @@ export default function PhoneSignUp() {
     }
   }, [resendTimer]);
 
-  const handleSendOtp = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!phoneNumber || phoneNumber.length < 8) {
-      toast.error("Please enter a valid phone number.");
+  const handleSendOtp = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+
+    // Read from state or DOM element to catch browser autofill values
+    const domValue = phoneInputRef.current?.value || "";
+    const activeNumber = (phoneNumber || domValue).replace(/[^0-9]/g, "");
+
+    if (!activeNumber || activeNumber.length < 8) {
+      toast.error("Please enter a valid 10-digit phone number.");
       return;
     }
 
+    setPhoneNumber(activeNumber);
     setIsSending(true);
+
     try {
       const res = await fetch("/api/auth/otp/send", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ phone: phoneNumber }),
+        body: JSON.stringify({ phone: activeNumber }),
       });
 
       const data = await res.json();
@@ -65,9 +75,13 @@ export default function PhoneSignUp() {
     }
   };
 
-  const handleVerifyOtp = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (otpCode.length !== 6) {
+  const handleVerifyOtp = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+
+    const domOtp = otpInputRef.current?.value || "";
+    const activeCode = (otpCode || domOtp).replace(/[^0-9]/g, "");
+
+    if (activeCode.length !== 6) {
       toast.error("Please enter a 6-digit verification code.");
       return;
     }
@@ -79,10 +93,13 @@ export default function PhoneSignUp() {
 
     setIsVerifying(true);
     try {
+      const domValue = phoneInputRef.current?.value || "";
+      const activeNumber = (phoneNumber || domValue).replace(/[^0-9]/g, "");
+
       const res = await fetch("/api/auth/otp/verify", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ phone: phoneNumber, code: otpCode }),
+        body: JSON.stringify({ phone: activeNumber, code: activeCode }),
       });
 
       const data = await res.json();
@@ -142,8 +159,11 @@ export default function PhoneSignUp() {
                 +91
               </div>
               <input
+                ref={phoneInputRef}
                 type="tel"
                 required
+                autoComplete="off"
+                name="phone-otp-number"
                 value={phoneNumber}
                 onChange={(e) => setPhoneNumber(e.target.value.replace(/[^0-9]/g, ""))}
                 placeholder="XXX-XXX-XXXX"
@@ -153,7 +173,8 @@ export default function PhoneSignUp() {
           </div>
 
           <button
-            type="submit"
+            type="button"
+            onClick={() => handleSendOtp()}
             disabled={isSending}
             className="w-full py-3 rounded-xl bg-[#fcd535] hover:bg-[#e6bf2e] font-bold text-sm text-black shadow-lg shadow-[#fcd535]/10 hover:shadow-[#fcd535]/25 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           >
@@ -194,10 +215,13 @@ export default function PhoneSignUp() {
             </div>
             
             <input
+              ref={otpInputRef}
               type="text"
               required
               maxLength={6}
               disabled={isLocked}
+              autoComplete="off"
+              name="phone-otp-code"
               value={otpCode}
               onChange={(e) => setOtpCode(e.target.value.replace(/[^0-9]/g, ""))}
               placeholder="e.g. 123456"
@@ -247,7 +271,8 @@ export default function PhoneSignUp() {
           </div>
 
           <button
-            type="submit"
+            type="button"
+            onClick={() => handleVerifyOtp()}
             disabled={isVerifying || isLocked || otpCode.length !== 6}
             className="w-full py-3 rounded-xl bg-[#fcd535] hover:bg-[#e6bf2e] font-bold text-sm text-black shadow-lg shadow-[#fcd535]/10 hover:shadow-[#fcd535]/25 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           >
@@ -263,7 +288,7 @@ export default function PhoneSignUp() {
             <button
               type="button"
               disabled={resendTimer > 0}
-              onClick={handleSendOtp}
+              onClick={() => handleSendOtp()}
               className="inline-flex items-center gap-1 text-xs text-[#848e9c] hover:text-white disabled:text-[#4b5563] disabled:no-underline transition-colors font-bold disabled:cursor-not-allowed"
             >
               <RefreshCw className={`w-3.5 h-3.5 ${isSending ? "animate-spin" : ""}`} />
