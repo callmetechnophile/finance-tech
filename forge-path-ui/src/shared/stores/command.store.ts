@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-interface CommandItem {
+export interface CommandItem {
   id: string;
   label: string;
   shortcut?: string;

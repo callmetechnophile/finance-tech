@@ -8,11 +8,15 @@ interface MotionProviderProps {
 }
 
 export default function MotionProvider({ children }: MotionProviderProps) {
-  const [shouldReduceMotion, setShouldReduceMotion] = useState(false);
+  const [shouldReduceMotion, setShouldReduceMotion] = useState(() => {
+    if (typeof window !== "undefined") {
+      return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    }
+    return false;
+  });
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setShouldReduceMotion(mediaQuery.matches);
 
     const listener = (e: MediaQueryListEvent) => {
       setShouldReduceMotion(e.matches);

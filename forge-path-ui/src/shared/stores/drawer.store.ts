@@ -7,7 +7,7 @@ export interface DrawerInstance {
   activeTab: string;
   width: number;
   mode: "compact" | "normal" | "wide" | "fullscreen";
-  objectContext?: any;
+  objectContext?: Record<string, unknown>;
 }
 
 interface DrawerState {
@@ -24,7 +24,7 @@ export const useDrawerStore = create<DrawerState>((set) => ({
   stack: [],
   history: [],
   pushDrawer: (d) => set((s) => {
-    const defaultWidth = d.mode === "compact" ? 360 : d.mode === "wide" ? 640 : d.mode === "fullscreen" ? window.innerWidth : 480;
+    const defaultWidth = d.mode === "compact" ? 360 : d.mode === "wide" ? 640 : d.mode === "fullscreen" ? (typeof window !== "undefined" ? window.innerWidth : 1200) : 480;
     const newDrawer: DrawerInstance = {
       width: defaultWidth,
       activeTab: "overview",
