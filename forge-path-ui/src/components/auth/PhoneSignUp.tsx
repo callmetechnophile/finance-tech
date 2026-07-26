@@ -143,7 +143,7 @@ export default function PhoneSignUp() {
                 required
                 value={phoneNumber}
                 onChange={(e) => setPhoneNumber(e.target.value.replace(/[^0-9]/g, ""))}
-                placeholder="7892060478"
+                placeholder="XXX-XXX-XXXX"
                 className="w-full pl-3 pr-4 py-3 rounded-r-xl bg-[#0d1625] border border-[#1f2d44] text-sm text-white focus:outline-none focus:border-[#fcd535] focus:ring-1 focus:ring-[#fcd535]/30 transition-all placeholder-[#4B5563]"
               />
             </div>
