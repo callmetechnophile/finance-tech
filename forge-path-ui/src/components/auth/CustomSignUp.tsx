@@ -3,7 +3,7 @@
 import React, { useState, useRef } from "react";
 import { useSignUp } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
-import { Mail, Lock, ArrowRight, AlertCircle, KeyRound } from "lucide-react";
+import { Mail, Lock, ArrowRight, AlertCircle } from "lucide-react";
 import Link from "next/link";
 
 export default function CustomSignUp() {
@@ -92,13 +92,6 @@ export default function CustomSignUp() {
     }
   };
 
-  // Auto-fill test code 424242
-  const handleAutoFillTestCode = () => {
-    const testDigits = ["4", "2", "4", "2", "4", "2"];
-    setCode(testDigits);
-    setError("");
-  };
-
   // Handle Verification Submission
   const handleVerifySubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -131,8 +124,7 @@ export default function CustomSignUp() {
         setError("Verification status incomplete. Please check your code.");
       }
     } catch (err: any) {
-      // If error occurs, fallback to demo session
-      setError(err?.errors?.[0]?.longMessage || err?.message || "Invalid code. Please try code 424242.");
+      setError(err?.errors?.[0]?.longMessage || err?.message || "Invalid verification code. Please check your email.");
     } finally {
       setLoading(false);
     }
@@ -169,12 +161,6 @@ export default function CustomSignUp() {
             Enter the 6-digit verification code sent to <br />
             <span className="text-white font-semibold">{email}</span>
           </p>
-          <div className="pt-1">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#fcd535]/10 border border-[#fcd535]/20 text-[#fcd535] text-[11px] font-medium">
-              <KeyRound className="w-3 h-3" />
-              Dev Mode Test Code: <strong className="font-mono text-white">424242</strong>
-            </span>
-          </div>
         </div>
 
         {error && (
@@ -184,7 +170,7 @@ export default function CustomSignUp() {
           </div>
         )}
 
-        <form onSubmit={handleVerifySubmit} className="space-y-5">
+        <form onSubmit={handleVerifySubmit} className="space-y-6">
           {/* 6 Custom Blank Input Boxes */}
           <div className="flex justify-center gap-2.5">
             {code.map((digit, idx) => (
@@ -202,30 +188,20 @@ export default function CustomSignUp() {
             ))}
           </div>
 
-          <div className="flex flex-col gap-2">
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full py-3.5 rounded-xl bg-[#fcd535] hover:bg-[#e2be28] font-bold text-sm text-[#181a20] shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
-            >
-              {loading ? (
-                <div className="w-5 h-5 border-2 border-[#181a20]/30 border-t-[#181a20] rounded-full animate-spin" />
-              ) : (
-                <>
-                  Verify & Continue
-                  <ArrowRight className="w-4 h-4" />
-                </>
-              )}
-            </button>
-
-            <button
-              type="button"
-              onClick={handleAutoFillTestCode}
-              className="w-full py-2.5 rounded-xl bg-[#0b0e14] hover:bg-[#151c2a] border border-[#1f2d44] text-xs font-semibold text-[#fcd535] transition-all cursor-pointer"
-            >
-              ⚡ Fill Dev Test Code (424242)
-            </button>
-          </div>
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full py-3.5 rounded-xl bg-[#fcd535] hover:bg-[#e2be28] font-bold text-sm text-[#181a20] shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+          >
+            {loading ? (
+              <div className="w-5 h-5 border-2 border-[#181a20]/30 border-t-[#181a20] rounded-full animate-spin" />
+            ) : (
+              <>
+                Verify & Continue
+                <ArrowRight className="w-4 h-4" />
+              </>
+            )}
+          </button>
         </form>
 
         <div className="pt-2 text-xs text-[#6B7280]">
