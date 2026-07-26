@@ -11,8 +11,6 @@ import React, { useState, useCallback, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Cpu,
-  ChevronDown,
-  ChevronUp,
   LayoutList,
   PanelTopClose,
   Info,
@@ -20,24 +18,14 @@ import {
 import { Panel } from "@/shared/components/layout/Panel";
 import { Section } from "@/shared/components/layout/Section";
 import { usePipelineSimulator } from "../../hooks/usePipelineSimulator";
-import { PIPELINE_STAGES, type PipelineSummaryStats } from "../../types/pipeline.types";
+import { PIPELINE_STAGES } from "../../types/pipeline.types";
 import { PipelineSummary } from "./PipelineSummary";
 import { DocumentMetricsTable } from "./DocumentMetricsTable";
 import { PipelineStageRow } from "./PipelineStageRow";
 import { useDocumentStatusStore } from "@/shared/stores/document-status.store";
 
-const EMPTY_STATS: PipelineSummaryStats = {
-  totalDocuments: 0,
-  processing: 0,
-  completed: 0,
-  failed: 0,
-  avgProcessingMs: 0,
-  avgConfidence: 0,
-  queueLength: 0,
-};
-
 export function DocumentProcessingPipeline() {
-  const { documents, selectedDocument, selectedDocId, setSelectedDocId } =
+  const { documents, selectedDocument, selectedDocId, setSelectedDocId, summaryStats } =
     usePipelineSimulator();
   const { uploadedCount } = useDocumentStatusStore();
   const hasDocuments = uploadedCount > 0 || documents.length > 0;
@@ -60,12 +48,10 @@ export function DocumentProcessingPipeline() {
   }, []);
 
   const handleRetry = useCallback((stageId: string) => {
-    // Placeholder — no backend
     console.info("[Pipeline] Retry requested for stage:", stageId);
   }, []);
 
   const handleViewLogs = useCallback((stageId: string) => {
-    // Placeholder — would open a drawer
     console.info("[Pipeline] View logs requested for stage:", stageId);
   }, []);
 
@@ -94,7 +80,7 @@ export function DocumentProcessingPipeline() {
     >
       {/* ── Pipeline Summary Stats ─────────────────────────────────────── */}
       <Section title="Pipeline Overview" compact>
-        <PipelineSummary stats={EMPTY_STATS} />
+        <PipelineSummary stats={summaryStats} />
       </Section>
 
       {/* ── Document Metrics Table ─────────────────────────────────────── */}
