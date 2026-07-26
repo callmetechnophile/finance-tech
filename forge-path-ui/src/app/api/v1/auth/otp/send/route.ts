@@ -74,17 +74,14 @@ export async function POST(request: Request) {
     saveOTP(cleanPhone, otpCode);
     saveOTP(fullPhone, otpCode);
 
-    // Print to console for server logs
+    // Print to server console log
     console.log(`\n==================================================`);
-    console.log(`[FORGE-PATH OTP] Phone: ${fullPhone} | OTP Code: ${otpCode} | Twilio Sent: ${sentViaTwilio}`);
+    console.log(`[FORGE-PATH OTP] SMS Sent to Phone: ${fullPhone} | Twilio Active: ${sentViaTwilio}`);
     console.log(`==================================================\n`);
 
     return NextResponse.json({
       success: true,
-      message: sentViaTwilio
-        ? `Verification code sent to ${fullPhone}.`
-        : `Verification code sent! (Demo Code: ${otpCode})`,
-      demoCode: sentViaTwilio ? undefined : otpCode,
+      message: `Verification code sent via SMS to +91 ${cleanPhone.slice(-10)}.`,
       mock: !sentViaTwilio,
     });
   } catch (error: any) {

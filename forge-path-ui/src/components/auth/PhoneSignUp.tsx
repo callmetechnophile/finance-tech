@@ -76,9 +76,7 @@ export default function PhoneSignUp() {
         setRemainingTries(3);
         setIsLocked(false);
         setResendTimer(60);
-        if (data.demoCode) {
-          setOtpCode(data.demoCode);
-        }
+        setOtpCode(""); // Keep input empty for user manual entry
         toast.success(data.message || "OTP code sent successfully!");
       } else {
         toast.error(data?.error || data?.detail || "Failed to send verification code. Please try again.");
