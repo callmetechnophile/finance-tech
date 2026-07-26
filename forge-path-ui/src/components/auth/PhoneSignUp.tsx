@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useAuthStore } from "@/store/auth.store";
+import api from "@/lib/api-client";
 import { ShieldAlert, CheckCircle2, Lock, ArrowRight, RefreshCw, KeyRound } from "lucide-react";
 import { toast } from "sonner";
 
@@ -47,14 +48,31 @@ export default function PhoneSignUp() {
     setIsSending(true);
 
     try {
-      const res = await fetch("/api/auth/otp/send", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ phone: activeNumber }),
-      });
+      let data: any = null;
 
-      const data = await res.json();
-      if (data.success) {
+      // Primary: Try local Next.js Route Handler
+      try {
+        const res = await fetch("/api/auth/otp/send", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ phone: activeNumber }),
+        });
+        if (res.ok) {
+          data = await res.json();
+        }
+      } catch (_) {}
+
+      // Fallback: Try Centralized FastAPI Backend Route
+      if (!data || !data.success) {
+        try {
+          const res = await api.post("/api/v1/auth/otp/send", { phone: activeNumber });
+          data = res.data;
+        } catch (apiErr: any) {
+          data = apiErr.response?.data || null;
+        }
+      }
+
+      if (data && data.success) {
         setStep("otp");
         setAttempts(0);
         setRemainingTries(3);
@@ -65,7 +83,7 @@ export default function PhoneSignUp() {
         }
         toast.success(data.message || "OTP code sent successfully!");
       } else {
-        toast.error(data.error || "Failed to send code. Please try again.");
+        toast.error(data?.error || data?.detail || "Failed to send verification code. Please try again.");
       }
     } catch (err) {
       console.error(err);
@@ -96,14 +114,31 @@ export default function PhoneSignUp() {
       const domValue = phoneInputRef.current?.value || "";
       const activeNumber = (phoneNumber || domValue).replace(/[^0-9]/g, "");
 
-      const res = await fetch("/api/auth/otp/verify", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ phone: activeNumber, code: activeCode }),
-      });
+      let data: any = null;
 
-      const data = await res.json();
-      if (data.success) {
+      // Primary: Try local Next.js Route Handler
+      try {
+        const res = await fetch("/api/auth/otp/verify", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ phone: activeNumber, code: activeCode }),
+        });
+        if (res.ok) {
+          data = await res.json();
+        }
+      } catch (_) {}
+
+      // Fallback: Try Centralized FastAPI Backend Route
+      if (!data || !data.success) {
+        try {
+          const res = await api.post("/api/v1/auth/otp/verify", { phone: activeNumber, code: activeCode });
+          data = res.data;
+        } catch (apiErr: any) {
+          data = apiErr.response?.data || null;
+        }
+      }
+
+      if (data && data.success) {
         // Authenticate user in the store
         useAuthStore.getState().setAuth(data.user, data.company, data.token);
         toast.success("Phone registration successful! Welcome to FORGE-PATH.");
@@ -114,15 +149,15 @@ export default function PhoneSignUp() {
         }, 800);
       } else {
         // Handle failure attempts count
-        const newAttempts = (data.attempts || attempts + 1);
+        const newAttempts = (data?.attempts || attempts + 1);
         setAttempts(newAttempts);
         setRemainingTries(Math.max(0, 3 - newAttempts));
         
-        if (data.locked || newAttempts >= 3) {
+        if (data?.locked || newAttempts >= 3) {
           setIsLocked(true);
           toast.error("Security Lockout: OTP limit exceeded (3 attempts max).");
         } else {
-          toast.error(data.error || "Incorrect code. Please try again.");
+          toast.error(data?.error || data?.detail || "Incorrect code. Please try again.");
         }
       }
     } catch (err) {

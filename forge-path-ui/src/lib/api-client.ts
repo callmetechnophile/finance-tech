@@ -1,8 +1,20 @@
 import axios from "axios";
 import { toast } from "sonner";
 
+// Centralized API Client BaseURL Determination
+const getBaseURL = () => {
+  if (process.env.NEXT_PUBLIC_API_URL) {
+    return process.env.NEXT_PUBLIC_API_URL;
+  }
+  // In client browser builds without NEXT_PUBLIC_API_URL set, default to relative paths
+  if (typeof window !== "undefined") {
+    return "";
+  }
+  return "http://localhost:8000";
+};
+
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000",
+  baseURL: getBaseURL(),
   timeout: 15000,
   headers: {
     "Content-Type": "application/json",
@@ -31,7 +43,7 @@ api.interceptors.response.use(
   (error) => {
     if (axios.isAxiosError(error)) {
       const status = error.response?.status;
-      const message = error.response?.data?.error?.message || error.message;
+      const message = error.response?.data?.error?.message || error.response?.data?.error || error.message;
 
       if (status === 401) {
         if (typeof window !== "undefined") {
