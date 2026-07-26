@@ -25,7 +25,7 @@ import {
   type DocumentStatus,
   PIPELINE_STAGES,
 } from "../../types/pipeline.types";
-import { formatEta, formatDuration } from "../../data/pipeline.mock";
+import { formatEta } from "../../data/pipeline.mock";
 
 // ─── Helpers ───────────────────────────────────────────────────────────────
 
@@ -71,8 +71,14 @@ function MiniProgressBar({ value, status }: { value: number; status: DocumentSta
   );
 }
 
-function ConfidenceDisplay({ value }: { value: number }) {
-  if (value === 0) return <span className="text-white/25 text-[10px]">—</span>;
+function ConfidenceDisplay({ value, status }: { value: number; status: DocumentStatus }) {
+  if (value === 0 || status === "queued") {
+    return status === "processing" ? (
+      <span className="text-white/40 text-[9px] font-mono animate-pulse font-medium">Calculating...</span>
+    ) : (
+      <span className="text-white/25 text-[10px]">—</span>
+    );
+  }
   const color = value >= 90 ? "text-green-400" : value >= 75 ? "text-[#faff69]" : "text-amber-400";
   return <span className={cn("text-[10px] font-bold font-mono", color)}>{value}%</span>;
 }
@@ -164,7 +170,7 @@ export function DocumentMetricsTable({
                           <p className="text-[9px] text-white/30">{doc.fileSizeMB} MB · {doc.fileType}</p>
                         </div>
                         {doc.stages.some((s) => s.warningCount > 0) && (
-                          <AlertTriangle className="w-3 h-3 text-amber-400 shrink-0" aria-label="Has warnings" />
+                          <AlertTriangle className="w-3-h-3 text-amber-400 shrink-0" aria-label="Has warnings" />
                         )}
                       </div>
                     </td>
@@ -194,7 +200,7 @@ export function DocumentMetricsTable({
 
                     {/* Confidence */}
                     <td className="px-4 py-3 text-center">
-                      <ConfidenceDisplay value={doc.overallConfidence} />
+                      <ConfidenceDisplay value={doc.overallConfidence} status={doc.status} />
                     </td>
 
                     {/* ETA */}

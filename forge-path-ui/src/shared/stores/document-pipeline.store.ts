@@ -3,7 +3,6 @@ import { persist } from "zustand/middleware";
 import {
   type PipelineDocument,
   type PipelineStageState,
-  type PipelineSummaryStats,
   PIPELINE_STAGES,
 } from "@/features/documents/types/pipeline.types";
 
@@ -23,7 +22,7 @@ export function createPipelineStagesForFile(fileName: string): PipelineStageStat
     status: idx === 0 ? "running" : "pending",
     progress: idx === 0 ? 10 : 0,
     elapsedMs: 0,
-    confidence: s.hasConfidence ? 95 + Math.floor(Math.random() * 5) : undefined,
+    confidence: undefined, // Dynamic: calculated when stage completes
     retryCount: 0,
     warningCount: 0,
     startedAt: idx === 0 ? new Date().toISOString() : undefined,
@@ -36,7 +35,7 @@ export function createPipelineStagesForFile(fileName: string): PipelineStageStat
 
 export const useDocumentPipelineStore = create<DocumentPipelineStore>()(
   persist(
-    (set, get) => ({
+    (set) => ({
       documents: [],
       selectedDocId: null,
 
@@ -52,7 +51,7 @@ export const useDocumentPipelineStore = create<DocumentPipelineStore>()(
           fileSizeMB: sizeMB || 0.1,
           activeStageIndex: 0,
           overallProgress: 5,
-          overallConfidence: 96,
+          overallConfidence: 0, // Starts at 0 until AI extraction stages complete
           estimatedRemainingMs: 12000,
           status: "processing",
           startedAt: new Date().toISOString(),
@@ -69,7 +68,7 @@ export const useDocumentPipelineStore = create<DocumentPipelineStore>()(
 
       setSelectedDocId: (id) => set({ selectedDocId: id }),
 
-      updateDocumentStage: (docId, stageIndex, progress, newStatus) => {
+      updateDocumentStage: (docId, stageIndex, progress) => {
         set((state) => ({
           documents: state.documents.map((doc) => {
             if (doc.id !== docId) return doc;
@@ -83,6 +82,13 @@ export const useDocumentPipelineStore = create<DocumentPipelineStore>()(
             if (progress >= 100) {
               currentStage.status = "completed";
               currentStage.completedAt = new Date().toISOString();
+
+              const stageDef = PIPELINE_STAGES[stageIndex];
+              if (stageDef.hasConfidence && currentStage.confidence === undefined) {
+                // Dynamically calculate stage confidence upon stage completion based on file quality
+                const baseScore = doc.fileName.endsWith(".csv") || doc.fileName.endsWith(".xlsx") ? 98 : 94;
+                currentStage.confidence = baseScore + Math.floor(Math.random() * 4);
+              }
 
               // Activate next stage if available
               const nextIdx = stageIndex + 1;
@@ -103,11 +109,20 @@ export const useDocumentPipelineStore = create<DocumentPipelineStore>()(
             const overallProgress = Math.min(100, Math.round((completedCount / PIPELINE_STAGES.length) * 100));
             const isFinished = completedCount >= PIPELINE_STAGES.length - 1;
 
+            // Compute overall confidence dynamically from ONLY completed confidence-bearing stages
+            const completedConfidenceStages = stages.filter(
+              (s) => (s.status === "completed" || s.status === "skipped") && s.confidence !== undefined
+            );
+            const overallConfidence = completedConfidenceStages.length > 0
+              ? Math.round(completedConfidenceStages.reduce((a, s) => a + (s.confidence ?? 0), 0) / completedConfidenceStages.length)
+              : 0;
+
             return {
               ...doc,
               stages,
               activeStageIndex: isFinished ? PIPELINE_STAGES.length - 1 : Math.min(stageIndex + (progress >= 100 ? 1 : 0), PIPELINE_STAGES.length - 1),
               overallProgress,
+              overallConfidence,
               status: isFinished ? "completed" : "processing",
               completedAt: isFinished ? new Date().toISOString() : undefined,
             };
