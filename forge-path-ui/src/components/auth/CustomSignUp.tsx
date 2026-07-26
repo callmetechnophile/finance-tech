@@ -3,7 +3,7 @@
 import React, { useState, useRef } from "react";
 import { useSignUp } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
-import { Zap, Mail, Lock, ArrowRight, AlertCircle } from "lucide-react";
+import { Mail, Lock, ArrowRight, AlertCircle } from "lucide-react";
 import Link from "next/link";
 
 export default function CustomSignUp() {
@@ -149,9 +149,11 @@ export default function CustomSignUp() {
   if (verifying) {
     return (
       <div className="w-full max-w-md p-8 rounded-2xl bg-[#121824] border border-[#1f2d44] shadow-2xl space-y-6 text-center">
-        <div className="w-12 h-12 rounded-xl bg-[#fcd535]/10 border border-[#fcd535]/20 flex items-center justify-center mx-auto text-[#fcd535]">
-          <Mail className="w-6 h-6" />
-        </div>
+        <img
+          src="/icon.jpg"
+          alt="FORGE-PATH Logo"
+          className="w-12 h-12 rounded-xl shadow-lg mb-3 mx-auto object-cover border border-[#1f2d44]"
+        />
 
         <div className="space-y-2">
           <h2 className="text-2xl font-bold text-white tracking-tight">Verify your email</h2>
@@ -218,9 +220,11 @@ export default function CustomSignUp() {
   return (
     <div className="w-full max-w-md p-8 rounded-2xl bg-[#121824] border border-[#1f2d44] shadow-2xl space-y-6">
       <div className="flex flex-col items-center mb-2">
-        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-violet-600 flex items-center justify-center shadow-lg mb-3">
-          <Zap className="w-6 h-6 text-white" />
-        </div>
+        <img
+          src="/icon.jpg"
+          alt="FORGE-PATH Logo"
+          className="w-12 h-12 rounded-xl shadow-lg mb-3 object-cover border border-[#1f2d44]"
+        />
         <h1 className="text-2xl font-bold text-white tracking-tight">Create your account</h1>
         <p className="text-xs text-[#9CA3AF] mt-1 text-center font-medium">
           Welcome to FORGE-PATH AI Financial Operations
