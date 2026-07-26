@@ -46,15 +46,10 @@ class Settings(BaseSettings):
     # OCR Processing
     OCR_ENGINE: str = Field(default="paddle_ocr")
 
-    # Communication Providers (Brevo & Twilio)
+    # Communication Providers (Brevo Email Only)
     BREVO_API_KEY: Optional[str] = Field(default=None)
     BREVO_SENDER_EMAIL: str = Field(default="work.ayush2k6@gmail.com")
     BREVO_SENDER_NAME: str = Field(default="Apex Manufacturing Admin")
-
-    TWILIO_ACCOUNT_SID: Optional[str] = Field(default=None)
-    TWILIO_AUTH_TOKEN: Optional[str] = Field(default=None)
-    TWILIO_PHONE_NUMBER: Optional[str] = Field(default=None)
-    TWILIO_WHATSAPP_NUMBER: Optional[str] = Field(default=None)
 
     # Graph Database (Neo4j / AuraDB)
     NEO4J_URI: Optional[str] = Field(default=None)
