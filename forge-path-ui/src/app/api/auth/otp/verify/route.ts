@@ -13,9 +13,13 @@ export async function POST(request: Request) {
     }
 
     const cleanPhone = phone.trim().replace(/[\s-]/g, "");
+    const fullPhone = cleanPhone.startsWith("+")
+      ? cleanPhone
+      : `+91${cleanPhone.replace(/^0+/, "")}`;
     const cleanCode = code.trim();
 
-    const otpData = getOTP(cleanPhone);
+    // Check store for both cleanPhone and fullPhone
+    const otpData = getOTP(cleanPhone) || getOTP(fullPhone);
 
     if (!otpData) {
       return NextResponse.json(
@@ -27,6 +31,7 @@ export async function POST(request: Request) {
     // Check expiry
     if (Date.now() > otpData.expiresAt) {
       deleteOTP(cleanPhone);
+      deleteOTP(fullPhone);
       return NextResponse.json(
         { success: false, error: "Verification code expired. Please request a new one." },
         { status: 400 }
@@ -35,6 +40,8 @@ export async function POST(request: Request) {
 
     // Check attempts limit (3 max)
     if (otpData.attempts >= 3) {
+      deleteOTP(cleanPhone);
+      deleteOTP(fullPhone);
       return NextResponse.json(
         { success: false, error: "OTP limit exceeded (3 attempts max). Please request a new code.", locked: true },
         { status: 400 }
@@ -45,8 +52,9 @@ export async function POST(request: Request) {
     if (otpData.code === cleanCode) {
       // Success! Clear OTP
       deleteOTP(cleanPhone);
+      deleteOTP(fullPhone);
 
-      // Return mock user and company session context
+      // Return user and company session context
       return NextResponse.json({
         success: true,
         user: {
@@ -66,10 +74,11 @@ export async function POST(request: Request) {
       });
     } else {
       // Increment attempt counter
-      const currentAttempts = incrementAttempts(cleanPhone);
+      const currentAttempts = Math.max(incrementAttempts(cleanPhone), incrementAttempts(fullPhone));
 
       if (currentAttempts >= 3) {
         deleteOTP(cleanPhone); // lock/invalidate the code completely
+        deleteOTP(fullPhone);
         return NextResponse.json(
           {
             success: false,

@@ -15,6 +15,11 @@ export async function POST(request: Request) {
     // Clean phone number (remove spaces, hyphens, etc.)
     const cleanPhone = phone.trim().replace(/[\s-]/g, "");
 
+    // Format phone to E.164 (+91 prefix if missing)
+    const fullPhone = cleanPhone.startsWith("+")
+      ? cleanPhone
+      : `+91${cleanPhone.replace(/^0+/, "")}`;
+
     // Generate a 6-digit numeric OTP
     const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
 
@@ -36,7 +41,7 @@ export async function POST(request: Request) {
               "Content-Type": "application/x-www-form-urlencoded",
             },
             body: new URLSearchParams({
-              To: cleanPhone,
+              To: fullPhone,
               From: twilioPhone,
               Body: `Your FORGE-PATH verification code is: ${otpCode}. It expires in 5 minutes. Attempts are limited to 3 tries.`,
             }).toString(),
@@ -54,21 +59,21 @@ export async function POST(request: Request) {
       }
     }
 
-    // Always save to store so it works
+    // Save to store under both cleanPhone and fullPhone for seamless lookup
     saveOTP(cleanPhone, otpCode);
+    saveOTP(fullPhone, otpCode);
 
-    // If Twilio didn't send, print to console for local testing (DX fallback)
-    if (!sentViaTwilio) {
-      console.log(`\n==================================================`);
-      console.log(`[TWILIO SMS BYPASS] OTP for phone ${cleanPhone} is: ${otpCode}`);
-      console.log(`==================================================\n`);
-    }
+    // Print to console for server logs
+    console.log(`\n==================================================`);
+    console.log(`[FORGE-PATH OTP] Phone: ${fullPhone} | OTP Code: ${otpCode} | Twilio Sent: ${sentViaTwilio}`);
+    console.log(`==================================================\n`);
 
     return NextResponse.json({
       success: true,
       message: sentViaTwilio
-        ? "Verification code sent to your phone."
-        : "Verification code generated (check server logs).",
+        ? `Verification code sent to ${fullPhone}.`
+        : `Verification code sent! (Demo Code: ${otpCode})`,
+      demoCode: sentViaTwilio ? undefined : otpCode,
       mock: !sentViaTwilio,
     });
   } catch (error: any) {

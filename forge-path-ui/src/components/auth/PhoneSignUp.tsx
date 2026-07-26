@@ -50,6 +50,9 @@ export default function PhoneSignUp() {
         setRemainingTries(3);
         setIsLocked(false);
         setResendTimer(60);
+        if (data.demoCode) {
+          setOtpCode(data.demoCode);
+        }
         toast.success(data.message || "OTP code sent successfully!");
       } else {
         toast.error(data.error || "Failed to send code. Please try again.");
